@@ -45,16 +45,16 @@ CFILES =	ft_isalnum.c \
 		print_hex.c\
 		print_adress_hex.c\
 		ft_printf.c
-OFILES = $(CFILES:.c=.o)
+OFILES =  $(CFILES:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OFILES) libft.h
-	ar rc $(NAME) $(OFILES)
+	@ ar rc $(NAME) $(OFILES)
 %.o: %.c
-	gcc $(CFLAGS) -c $< -o $@
+	@ gcc $(CFLAGS) -c $< -o $@
 clean:
-	rm -f $(OFILES)
+	@ rm -f $(OFILES)
 fclean: clean
-	rm -f $(NAME)
+	@ rm -f $(NAME)
 re: fclean all
