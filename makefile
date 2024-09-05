@@ -12,7 +12,7 @@ all : $(NAME)
 $(NAME) : $(SRC)
 	@ make -C $(LIBFT_D)
 	@ test -e $(LIBFT_D)/$(LIBFT_N) || cp $(LIBFT_D)/$(LIBFT_N) $(LIBFT_D)
-	@ $(CC) $(CFLAGS) $(SRC) -L $(LIBFT_D) -l ft -o $(NAME)
+	@ $(CC) $(CFLAGS) $(SRC) -L $(LIBFT_D) -l ft -o $(NAME) -lreadline
 	@ echo "Make[OK]"
 clean:
 	@ make clean -C $(LIBFT_D)
