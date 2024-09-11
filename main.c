@@ -6,36 +6,31 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/09 13:22:42 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/11 10:27:07 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_and_fill_token(char *line, t_data **data)
+int	check_and_fill_token(char *line, t_data *data)
 {
 	int i;
-	int check_pipe;
-	char **split_line;
+	char **split_line = NULL;
 
 	i = 0;
-	check_pipe = 0;
+	(void)data;
 	while (line[i])
 	{
-		if (line[i] == '|')
-			check_pipe++;
+		split_line = ft_split(line,' ');
 		i++;
 	}
 	i = 0;
-	if (check_pipe > 0)
+	while (split_line[i])
 	{
-		split_line = ft_split(line,'|');
-		while (split_line[i])
-		{
-			*data->token->content = ft_strdup(split_line[i]);
-			*data->token->next
-		}
+		printf("%s\n",split_line[i]);
+		i++;
 	}
+	return 1;
 }
 
 int init_data(t_data *data, char *input)
@@ -44,7 +39,7 @@ int init_data(t_data *data, char *input)
 
 	i = 0;
 	char **line;
-	line = ft_split(input, ' ');
+	line = ft_split(input, '|');
 	while (line[i])
 	{
 		check_and_fill_token(line[i],data);
@@ -66,7 +61,6 @@ int main(int argc,char **argv)
 	while (1)
 	{
 		input = readline("minishell$: ");
- 		printf(" input = %s \n",input);
 		init_data(data,input);
 	}
     return (0);

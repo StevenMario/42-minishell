@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/09/09 10:12:57 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/11 10:31:29 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,18 @@ typedef struct s_token
 	struct s_token *next;
 }   t_token;
 
+typedef struct s_cmd
+{
+	char *cmd;
+	struct s_cmd *next;
+}   t_cmd;
+
 typedef struct s_data
 {
 	t_token *token;
 }   t_data;
+
+t_token	*ft_double_lstnew(char *content,int type);
+
 
 #endif

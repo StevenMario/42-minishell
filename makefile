@@ -2,8 +2,9 @@ NAME = minishell
 CC = cc
 LIBFT_N = libft.a
 CFLAGS = -Wall -Werror -Wextra
-SRC = 		main.c\
-
+SRC = 		utils.c\
+			main.c
+			
 LIBFT_D = ./libft
 OBJ = $(SRC:.c=.o)
 
