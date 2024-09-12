@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/12 20:56:32 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/12 22:06:23 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,29 @@
 int	check_and_fill_token(char **line, t_data *data)
 {
 	int i;
+	int j;
 	char **split_cmd;
 	
-	(void )data;
-	i = 0;
-	while (line[i])
+	i = -1;
+	data->token = NULL;
+	while (line[++i])
 	{
-		printf("line[i] = %s\n",line[i]);
 		split_cmd = ft_split(line[i],' ');
-		printf("split_cmd = %s\n",split_cmd[i]);
-		//ft_lstadd_back(&data->token,ft_double_lstnew(split_cmd[i]));
-		i++;
+		j = -1;
+		if (!data->token)
+		{
+			data->token = ft_double_lstnew(split_cmd[0]);
+			j = 0;
+		}
+		while (split_cmd[++j])
+			ft_lstadd_back(&data->token,ft_double_lstnew(split_cmd[j]));
+		free(split_cmd);
 	}
-	//printf("OK\n");
-	// while (data->token->content)
-	// {
-	// 	data->token = data->token->next;
-	// }
+	while (data->token)
+	{
+		printf("data->token->content = %s\n",data->token->content);
+		data->token = data->token->next;
+	}
 	return 1;
 }
 
