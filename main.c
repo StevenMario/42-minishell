@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/12 22:06:23 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:16:58 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	check_and_fill_token(char **line, t_data *data)
 		}
 		while (split_cmd[++j])
 			ft_lstadd_back(&data->token,ft_double_lstnew(split_cmd[j]));
+		if (line[i + 1])
+			ft_lstadd_back(&data->token,ft_double_lstnew("|"));
 		free(split_cmd);
 	}
 	while (data->token)
