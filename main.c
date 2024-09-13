@@ -6,13 +6,13 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/13 19:16:58 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:03:22 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_and_fill_token(char **line, t_data *data)
+void	check_and_fill_token(char **line, t_data *data)
 {
 	int i;
 	int j;
@@ -35,12 +35,31 @@ int	check_and_fill_token(char **line, t_data *data)
 			ft_lstadd_back(&data->token,ft_double_lstnew("|"));
 		free(split_cmd);
 	}
-	while (data->token)
+	// while (data->token)
+	// {
+	// 	printf("data->token->content = %s\n",data->token->content);
+	// 	data->token = data->token->next;
+	// }
+}
+
+void assigne_type_token(t_data *data)
+{
+	t_token *temp;
+
+	temp = data->token;
+	while (temp)
 	{
-		printf("data->token->content = %s\n",data->token->content);
-		data->token = data->token->next;
+		if (temp->content == '<')
+			temp->type = INPUT;
+		else if (temp->content == '<<')
+			temp->type = HEREDOC;
+		else if (temp->content == '>')
+			temp->type = TRUNC;
+		else if (temp->content == '>>')
+			temp->type = APPEND; 
+		else if (temp->content == '|')
+			temp->type = PIPE; 
 	}
-	return 1;
 }
 
 int	stock_cmd(t_data *data,char **line)
@@ -54,6 +73,7 @@ int	stock_cmd(t_data *data,char **line)
 	while (line[++i])
 		line[i] = ft_remove_front_and_back_space(line[i]);
 	check_and_fill_token(line, data);
+	assigne_type_token(data);
 	return (1);	
 }
 int init_data(t_data *data, char *input)
