@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/09/12 20:38:05 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/14 20:28:51 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_data
 }	t_data;
 
 t_token	*ft_lstnew_cmd(char *content);
+int ft_strcmp(char *s1, char *s2);
 char *ft_remove_front_and_back_space(char *str);
 t_token	*ft_double_lstnew(char *content);
 void	ft_lstadd_back(t_token **lst, t_token *new);

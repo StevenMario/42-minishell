@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/13 21:03:22 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/14 21:14:55 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,33 @@ void	check_and_fill_token(char **line, t_data *data)
 	// }
 }
 
+int is_not_arg_or_cmd(char *content)
+{
+	if (ft_strcmp(content,"<"))
+		return (INPUT);
+	else if (ft_strcmp(content,"<<"))
+		return (HEREDOC);
+	else if (ft_strcmp(content,">"))
+		return  (TRUNC);
+	else if (ft_strcmp(content,">>"))
+		return  (APPEND); 
+	else if (ft_strcmp(content,"|"))
+		return  (PIPE);
+	else
+		return (-1);
+}
+void	ft_is_arg_or_cmd(t_token *temp)
+{
+	if (is_not_arg_or_cmd(temp->content) == -1)
+	{
+		if (is_not_arg_or_cmd(temp->next->content) == -1
+			|| temp->prev == NULL)
+			temp->type = CMD;
+		else
+			temp->type = ARG;
+	}
+}
+
 void assigne_type_token(t_data *data)
 {
 	t_token *temp;
@@ -49,17 +76,21 @@ void assigne_type_token(t_data *data)
 	temp = data->token;
 	while (temp)
 	{
-		if (temp->content == '<')
+		if (is_not_arg_or_cmd(temp->content) == INPUT)
 			temp->type = INPUT;
-		else if (temp->content == '<<')
+		else if (is_not_arg_or_cmd(temp->content) == HEREDOC)
 			temp->type = HEREDOC;
-		else if (temp->content == '>')
+		else if (is_not_arg_or_cmd(temp->content) == TRUNC)
 			temp->type = TRUNC;
-		else if (temp->content == '>>')
+		else if (is_not_arg_or_cmd(temp->content) == APPEND)
 			temp->type = APPEND; 
-		else if (temp->content == '|')
-			temp->type = PIPE; 
+		else if (is_not_arg_or_cmd(temp->content) == PIPE)
+			temp->type = PIPE;
+		else
+			ft_is_arg_or_cmd(temp);
+		temp = temp->next;
 	}
+	
 }
 
 int	stock_cmd(t_data *data,char **line)
