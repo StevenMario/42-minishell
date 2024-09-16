@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/14 21:14:55 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:16:56 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,36 +35,45 @@ void	check_and_fill_token(char **line, t_data *data)
 			ft_lstadd_back(&data->token,ft_double_lstnew("|"));
 		free(split_cmd);
 	}
-	// while (data->token)
-	// {
-	// 	printf("data->token->content = %s\n",data->token->content);
-	// 	data->token = data->token->next;
-	// }
+	
 }
 
 int is_not_arg_or_cmd(char *content)
 {
-	if (ft_strcmp(content,"<"))
+	if (ft_strcmp(content,"<") == 0)
 		return (INPUT);
-	else if (ft_strcmp(content,"<<"))
+	else if (ft_strcmp(content,"<<") == 0)
 		return (HEREDOC);
-	else if (ft_strcmp(content,">"))
+	else if (ft_strcmp(content,">") == 0)
 		return  (TRUNC);
-	else if (ft_strcmp(content,">>"))
+	else if (ft_strcmp(content,">>") == 0)
 		return  (APPEND); 
-	else if (ft_strcmp(content,"|"))
+	else if (ft_strcmp(content,"|") == 0)
 		return  (PIPE);
 	else
 		return (-1);
 }
+
+
+int	is_cmd(t_token *temp)
+{
+	if (is_not_arg_or_cmd(temp->content) == -1)
+	{
+		if ((temp->next && is_not_arg_or_cmd(temp->next->content) == -1) ||
+			(temp->prev && ft_strcmp(temp->prev->content, "|") == 0) ||
+			!temp->prev)
+			return CMD;
+	}
+	return (-1);
+}
+
 void	ft_is_arg_or_cmd(t_token *temp)
 {
 	if (is_not_arg_or_cmd(temp->content) == -1)
 	{
-		if (is_not_arg_or_cmd(temp->next->content) == -1
-			|| temp->prev == NULL)
+		if (is_cmd(temp) == CMD)
 			temp->type = CMD;
-		else
+		else 
 			temp->type = ARG;
 	}
 }
@@ -89,6 +98,11 @@ void assigne_type_token(t_data *data)
 		else
 			ft_is_arg_or_cmd(temp);
 		temp = temp->next;
+	}
+	while (data->token)
+	{
+		printf("data->token->content = %s  type == %d\n",data->token->content,data->token->type);
+		data->token = data->token->next;
 	}
 	
 }
