@@ -3,6 +3,7 @@ CC = cc
 LIBFT_N = libft.a
 CFLAGS = -Wall -Werror -Wextra
 SRC = 		utils.c\
+			init_token.c\
 			main.c
 			
 LIBFT_D = ./libft
