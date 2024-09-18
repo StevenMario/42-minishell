@@ -6,15 +6,33 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/18 09:04:34 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/18 22:45:52 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void ceck_quote(char *input)
+{
+	int quote;
+	int i;
+	
+	i = 0;
+	quote == 0;
+	
+	while (input[i])
+	{
+		if (input[i] == '\'')
+			quote++;
+		i++;
+	}
+	return quote;
+}
+
 int init_data(t_data *data, char *input)
 {
 	char **line;
+	check_quote(input);
 	line = ft_split(input, '|');
 	init_token(data,line);
 	while (data->token)
