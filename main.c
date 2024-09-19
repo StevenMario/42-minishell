@@ -6,47 +6,48 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/18 22:45:52 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/19 22:09:16 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ceck_quote(char *input)
+int	init_token_with_quote(t_data *data,char *input)
 {
-	int quote;
+	char *line;
+	char **stock_line;
 	int i;
-	
+	(void)data;
+
 	i = 0;
-	quote == 0;
-	
-	while (input[i])
+	line = ft_remove_front_and_back_space(input);
+	while (line[i])
 	{
-		if (input[i] == '\'')
-			quote++;
-		i++;
+
 	}
-	return quote;
+	return 0;
 }
 
 int init_data(t_data *data, char *input)
 {
 	char **line;
-	check_quote(input);
-	line = ft_split(input, '|');
-	init_token(data,line);
-	while (data->token)
+	
+	if (!check_quote(input))
 	{
-		printf("data->token->content = %s  type == %d\n",data->token->content,data->token->type);
-		data->token = data->token->next;
+		line = ft_split(input, '|');
+		init_token(data,line);
 	}
+	else
+	{
+		init_token_with_quote(data,input);
+	}
+	// while (data->token)
+	// {
+	// 	printf("data->token->content = %s  type == %d\n",data->token->content,data->token->type);
+	// 	data->token = data->token->next;
+	// }
 	return 0;
 }
-
-// void check_error(char *input)
-// {
-	
-// }
 
 int main(int argc,char **argv)
 {
