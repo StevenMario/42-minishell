@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/09/19 21:37:21 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/20 09:30:10 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_token
 typedef struct s_cmd
 {
 	char	*cmd;
+	char *arg;
 	struct s_cmd	*next;
 }	t_cmd;
 
@@ -53,7 +54,6 @@ int		ft_strcmp(char *s1, char *s2);
 int		check_type(t_token *temp);
 int		is_not_arg_or_cmd(char *content);
 int		init_token(t_data *data,char **line);
-int		check_quote(char *input);
 char	*ft_remove_front_and_back_space(char *str);
 t_token	*ft_lstnew_cmd(char *content);
 t_token	*ft_double_lstnew(char *content);

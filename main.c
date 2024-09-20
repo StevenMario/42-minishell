@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/19 22:09:16 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/20 11:25:21 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,24 @@
 
 int	init_token_with_quote(t_data *data,char *input)
 {
-	char *line;
-	char **stock_line;
+	char *temp;
 	int i;
-	(void)data;
-
+	int j;
+	
 	i = 0;
-	line = ft_remove_front_and_back_space(input);
-	while (line[i])
-	{
-
-	}
+	j = 0;
+	input = ft_remove_front_and_back_space(input);
+	// while (line[i])
+	// {
+	// 	j = i;
+	// 	while (line[i] != ' ')
+	// 		i++;
+	// 	temp = malloc(sizeof(char) * (i - j + 1));
+	// 	while (j < i)
+	// 	{
+			
+	// 	}
+	// }
 	return 0;
 }
 
