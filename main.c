@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/20 11:25:21 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/20 21:36:45 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,58 @@ int	init_token_with_quote(t_data *data,char *input)
 	char *temp;
 	int i;
 	int j;
+	int k;
+	int x = 0;
 	
 	i = 0;
 	j = 0;
+	(void)data;
 	input = ft_remove_front_and_back_space(input);
-	// while (line[i])
-	// {
-	// 	j = i;
-	// 	while (line[i] != ' ')
-	// 		i++;
-	// 	temp = malloc(sizeof(char) * (i - j + 1));
-	// 	while (j < i)
-	// 	{
-			
-	// 	}
-	// }
+	while (input[i])
+	{
+		x = 0;
+		
+		while (input[i] == ' ' && input[i])
+			i++;
+		if (input[i] == '\'' || input[i] == '"')
+		{
+			j = i;
+			i++;;
+			while (input[i] && (input[i] != '\'' || input[i] != '"'))
+			{
+				if (input[i] == '\'' || input[i] == '"')
+					break;
+				i++;
+			}
+			temp = malloc(sizeof(char) * (i - j + 1));
+			while (j <= i)
+			{
+				temp[x] = input[j];
+				x++;
+				j++;
+			}
+			i++;
+			temp[x] = '\0';
+		}
+		else
+		{
+			j = i;
+			while (input[i] != ' ' && input[i])
+				i++;
+			k = i;
+			temp = malloc(sizeof(char) * (k - j + 1));
+			while (j < k)
+			{
+				temp[x] = input[j];
+				x++;
+				j++;
+			}
+			//printf("k'0' = %d\n",k);
+			temp[x] = '\0';
+		}
+		printf("temp = %s\n",temp);
+		free(temp);
+	}
 	return 0;
 }
 

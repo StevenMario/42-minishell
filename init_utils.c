@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/09/20 09:41:27 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/20 21:40:47 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int check_quote(char *input)
 			dquote++;
 		i++;
 	}
-	if (quote == 2 || dquote == 2)
+	if (quote % 2 == 0 || dquote % 2 == 0)
 		return (1);
 	return 0;
 }
