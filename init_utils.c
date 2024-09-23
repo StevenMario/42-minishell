@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/09/20 21:40:47 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:33:02 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,26 @@ int check_quote(char *input)
 	if (quote % 2 == 0 || dquote % 2 == 0)
 		return (1);
 	return 0;
+}
+char *fill_temp(int *i,int *j,char **temp,char *input)
+{
+	int x;
+
+	x = 0;
+	while (input[*i] && (input[*i] != '\'' || input[*i] != '"'))
+	{
+		if (input[*i] == '\'' || input[*i] == '"')
+			break;
+		(*i)++;
+	}
+	*temp = malloc(sizeof(char) * (*i - *j + 1));
+	while (*j <= *i)
+	{
+		(*temp)[x] = input[*j];
+		x++;
+		(*j)++;
+	}
+	(*i)++;
+	(*temp)[x] = '\0';
+	return (*temp);
 }

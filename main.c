@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/20 21:36:45 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:32:19 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,8 @@ int	init_token_with_quote(t_data *data,char *input)
 		if (input[i] == '\'' || input[i] == '"')
 		{
 			j = i;
-			i++;;
-			while (input[i] && (input[i] != '\'' || input[i] != '"'))
-			{
-				if (input[i] == '\'' || input[i] == '"')
-					break;
-				i++;
-			}
-			temp = malloc(sizeof(char) * (i - j + 1));
-			while (j <= i)
-			{
-				temp[x] = input[j];
-				x++;
-				j++;
-			}
 			i++;
-			temp[x] = '\0';
+			temp = fill_temp(&i,&j,&temp,input);;
 		}
 		else
 		{
@@ -63,7 +49,6 @@ int	init_token_with_quote(t_data *data,char *input)
 				x++;
 				j++;
 			}
-			//printf("k'0' = %d\n",k);
 			temp[x] = '\0';
 		}
 		printf("temp = %s\n",temp);
