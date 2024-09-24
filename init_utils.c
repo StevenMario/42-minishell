@@ -33,7 +33,8 @@ int check_quote(char *input)
 		return (1);
 	return 0;
 }
-char *fill_temp(int *i,int *j,char **temp,char *input)
+
+char *fill_temp_with_quote(int *i,int *j,char **temp,char *input)
 {
 	int x;
 
@@ -52,6 +53,28 @@ char *fill_temp(int *i,int *j,char **temp,char *input)
 		(*j)++;
 	}
 	(*i)++;
+	(*temp)[x] = '\0';
+	return (*temp);
+}
+
+char *fill_temp_without_quote(int *i,int *j,char **temp,char *input)
+{
+	int	k;
+	int x;
+
+	x = 0;
+	while (input[*i] != ' ' && input[*i])
+		(*i)++;
+	k = *i;
+	*temp = malloc(sizeof(char) * (k - *j + 1));
+	if (!*temp)
+		return (NULL);
+	while (*j < k)
+	{
+		(*temp)[x] = input[*j];
+		x++;
+		(*j)++;
+	}
 	(*temp)[x] = '\0';
 	return (*temp);
 }

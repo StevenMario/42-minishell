@@ -12,45 +12,36 @@
 
 #include "minishell.h"
 
+void fill_token(t_data *data, char *temp)
+{
+
+}
+
 int	init_token_with_quote(t_data *data,char *input)
 {
 	char *temp;
 	int i;
 	int j;
-	int k;
-	int x = 0;
 	
 	i = 0;
 	j = 0;
-	(void)data;
 	input = ft_remove_front_and_back_space(input);
 	while (input[i])
 	{
-		x = 0;
-		
 		while (input[i] == ' ' && input[i])
 			i++;
 		if (input[i] == '\'' || input[i] == '"')
 		{
 			j = i;
 			i++;
-			temp = fill_temp(&i,&j,&temp,input);;
+			temp = fill_temp_with_quote(&i,&j,&temp,input);
 		}
 		else
 		{
 			j = i;
-			while (input[i] != ' ' && input[i])
-				i++;
-			k = i;
-			temp = malloc(sizeof(char) * (k - j + 1));
-			while (j < k)
-			{
-				temp[x] = input[j];
-				x++;
-				j++;
-			}
-			temp[x] = '\0';
+			temp = fill_temp_without_quote(&i,&j,&temp,input);
 		}
+		fill_token(data,temp);
 		printf("temp = %s\n",temp);
 		free(temp);
 	}
