@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/23 10:32:19 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:46:33 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,16 @@
 
 void fill_token(t_data *data, char *temp)
 {
+	int len;
 
+	len = ft_strlen(temp);
+	if (data->token == NULL)
+	{
+		data->token = ft_double_lstnew(temp);
+	}
+	else
+		ft_lstadd_back(&data->token,ft_double_lstnew(temp));
+	free(temp);
 }
 
 int	init_token_with_quote(t_data *data,char *input)
@@ -41,9 +50,7 @@ int	init_token_with_quote(t_data *data,char *input)
 			j = i;
 			temp = fill_temp_without_quote(&i,&j,&temp,input);
 		}
-		fill_token(data,temp);
-		printf("temp = %s\n",temp);
-		free(temp);
+		fill_token(data,temp);	
 	}
 	return 0;
 }
@@ -51,21 +58,23 @@ int	init_token_with_quote(t_data *data,char *input)
 int init_data(t_data *data, char *input)
 {
 	char **line;
-	
-	if (!check_quote(input))
+
+	data->token = NULL;
+	if (check_quote(input) == 1)
+	{
+		init_token_with_quote(data,input);
+		assigne_type_token(data);
+	}
+	else
 	{
 		line = ft_split(input, '|');
 		init_token(data,line);
 	}
-	else
+	while (data->token)
 	{
-		init_token_with_quote(data,input);
+		printf("data->token->content = %s  type == %d\n",data->token->content,data->token->type);
+		data->token = data->token->next;
 	}
-	// while (data->token)
-	// {
-	// 	printf("data->token->content = %s  type == %d\n",data->token->content,data->token->type);
-	// 	data->token = data->token->next;
-	// }
 	return 0;
 }
 

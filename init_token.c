@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/09/16 20:12:01 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:39:25 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	check_and_fill_token(char **line, t_data *data)
 	char **split_cmd;
 	
 	i = -1;
-	data->token = NULL;
 	while (line[++i])
 	{
 		split_cmd = ft_split(line[i],' ');
@@ -109,11 +108,11 @@ void assigne_type_token(t_data *data)
 			ft_is_arg_or_cmd(temp);
 		temp = temp->next;
 	}
-	while (data->token)
-	{
-		printf("data->token->content = %s  type == %d\n",data->token->content,data->token->type);
-		data->token = data->token->next;
-	}
+	// while (data->token)
+	// {
+	// 	printf("data->token->content = %s  type == %d\n",data->token->content,data->token->type);
+	// 	data->token = data->token->next;
+	// }
 	
 }
 
