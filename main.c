@@ -6,21 +6,49 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/27 12:08:24 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/09/28 11:19:02 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void fill_data(char **split_temp, char *temp,t_data *data)
+{
+	int i;
+
+	if (temp[0] == '|' || split_temp)
+		{
+			if (temp[0] == '|')
+			{
+				ft_lstadd_back(&data->token,ft_double_lstnew("|"));
+				ft_lstadd_back(&data->token,ft_double_lstnew(temp + 1));
+			}
+			if (split_temp)
+			{
+				i = -1;
+				while (split_temp[++i])
+				{
+					ft_lstadd_back(&data->token,ft_double_lstnew(split_temp[i]));
+					if (split_temp[i + 1])
+						ft_lstadd_back(&data->token,ft_double_lstnew("|"));
+					if (!split_temp[i + 1] && i < 1)
+						ft_lstadd_back(&data->token,ft_double_lstnew("|"));
+				}
+			}
+		}
+		else
+			ft_lstadd_back(&data->token,ft_double_lstnew(temp));
+}
+
 void fill_token(t_data *data, char *temp)
 {
-	int len;
 	int i;
 	int check_pipe;
 	char **split_temp;
 	
 	i = -1;
-	len = ft_strlen(temp);
+	(void)data;
+	split_temp = NULL;
 	check_pipe = 0;
 	while (temp[++i])
 	{
@@ -30,28 +58,12 @@ void fill_token(t_data *data, char *temp)
 			check_pipe++;
 	}
 	if (check_pipe > 0 && temp[0] != '|')
-	{
 		split_temp = ft_split(temp,'|');
-		i = -1;
-		while (split_temp[++i])
-			printf("split_temp = %s\n",split_temp[i]);
-	}
 	if (data->token == NULL)
 		data->token = ft_double_lstnew(temp);
 	else
 	{
-		if (temp[0] == '|' || split_temp[i])
-		{
-			if (temp[0] == '|')
-			{
-				ft_lstadd_back(&data->token,ft_double_lstnew("|"));
-				ft_lstadd_back(&data->token,ft_double_lstnew(temp + 1));
-			}
-			i = 0;
-			if (split_temp[])
-		}
-		else
-			ft_lstadd_back(&data->token,ft_double_lstnew(temp));
+		fill_data(split_temp,temp,data);
 	}
 	free(temp);
 }
@@ -100,11 +112,11 @@ int init_data(t_data *data, char *input)
 		line = ft_split(input, '|');
 		init_token(data,line);
 	}
-	// while (data->token)
-	// {
-	// 	printf("data->token->content = %s  type == %d\n",data->token->content,data->token->type);
-	// 	data->token = data->token->next;
-	// }
+	while (data->token)
+	{
+		printf("data->token->content = %s  type == %d\n",data->token->content,data->token->type);
+		data->token = data->token->next;
+	}
 	return 0;
 }
 
