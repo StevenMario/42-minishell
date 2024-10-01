@@ -6,23 +6,50 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/09/28 11:19:02 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/01 09:12:37 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void fill_data(char **split_temp, char *temp,t_data *data)
+void add_content(char *temp,t_data *data)
 {
-	int i;
-
-	if (temp[0] == '|' || split_temp)
-		{
-			if (temp[0] == '|')
+			if ((temp[0] == '>' && temp[1] == '>'))
+			{
+				ft_lstadd_back(&data->token,ft_double_lstnew(">>"));
+				ft_lstadd_back(&data->token,ft_double_lstnew(temp + 2));
+			}
+			else if (temp[0] == '<' && temp[1] == '<')
+			{
+				ft_lstadd_back(&data->token,ft_double_lstnew("<<"));
+				ft_lstadd_back(&data->token,ft_double_lstnew(temp + 2));
+			}
+			else if (temp[0] == '>')
+			{
+				ft_lstadd_back(&data->token,ft_double_lstnew(">"));
+				ft_lstadd_back(&data->token,ft_double_lstnew(temp + 2));
+			}
+			else if (temp[0] == '<')
+			{
+				ft_lstadd_back(&data->token,ft_double_lstnew("<"));
+				ft_lstadd_back(&data->token,ft_double_lstnew(temp + 2));
+			}
+			else if (temp[0] == '|')
 			{
 				ft_lstadd_back(&data->token,ft_double_lstnew("|"));
 				ft_lstadd_back(&data->token,ft_double_lstnew(temp + 1));
 			}
+}
+
+void fill_data(char **split_temp, char *temp,t_data *data)
+{
+	int i;
+
+	if (temp[0] == '|' || split_temp || temp[0] == '>'
+	|| temp[0] == '<' || (temp[0] == '>' && temp[1] == '>') 
+	|| (temp[0] == '<' && temp[1] == '<'))
+		{
+			add_content(temp,data);
 			if (split_temp)
 			{
 				i = -1;
