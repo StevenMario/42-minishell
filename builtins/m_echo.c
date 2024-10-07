@@ -32,7 +32,7 @@ int iof_flag(char *echo)
   return (1);
 }
 
-void  ft_echo(t_cmd cmd)
+void  ft_echo(t_data *mish, t_cmd cmd)
 {
   int i;
   int flag;
