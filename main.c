@@ -6,42 +6,65 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/01 09:12:37 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/07 19:11:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void add_content(char *temp,t_data *data)
+void add_content(t_data *data, int check,char **split_temp,int *i)
 {
-			if ((temp[0] == '>' && temp[1] == '>'))
-			{
-				ft_lstadd_back(&data->token,ft_double_lstnew(">>"));
-				ft_lstadd_back(&data->token,ft_double_lstnew(temp + 2));
-			}
-			else if (temp[0] == '<' && temp[1] == '<')
-			{
-				ft_lstadd_back(&data->token,ft_double_lstnew("<<"));
-				ft_lstadd_back(&data->token,ft_double_lstnew(temp + 2));
-			}
-			else if (temp[0] == '>')
-			{
-				ft_lstadd_back(&data->token,ft_double_lstnew(">"));
-				ft_lstadd_back(&data->token,ft_double_lstnew(temp + 2));
-			}
-			else if (temp[0] == '<')
-			{
-				ft_lstadd_back(&data->token,ft_double_lstnew("<"));
-				ft_lstadd_back(&data->token,ft_double_lstnew(temp + 2));
-			}
-			else if (temp[0] == '|')
-			{
-				ft_lstadd_back(&data->token,ft_double_lstnew("|"));
-				ft_lstadd_back(&data->token,ft_double_lstnew(temp + 1));
-			}
+	if (!split_temp[*i + 1] && *i < 1 && check == PIPE)
+		ft_lstadd_back(&data->token,ft_double_lstnew("|"));
+	else if (!split_temp[*i + 1] && *i < 1 && check == TRUNC)
+		ft_lstadd_back(&data->token,ft_double_lstnew(">"));
+	else if (!split_temp[*i + 1] && *i < 1 && check == INPUT)
+		ft_lstadd_back(&data->token,ft_double_lstnew("<"));
+	else if (!split_temp[*i + 1] && *i < 1 && check == APPEND)
+		ft_lstadd_back(&data->token,ft_double_lstnew(">>"));
+	else if (!split_temp[*i + 1] && *i < 1 && check == HEREDOC)
+		ft_lstadd_back(&data->token,ft_double_lstnew("<<"));
 }
 
-void fill_data(char **split_temp, char *temp,t_data *data)
+
+int check_redire(char *temp)
+{
+	int check_simple;
+	int check_double;
+	int i;
+
+	i = -1;
+	check_simple = 0;
+	check_double = 0;
+	while (temp[++i])
+	{
+		if ((temp[i] == '>' && temp[i + 1] == '>'))
+			check_double++;
+		else if ((temp[i] == '>' || temp[i] == '<'))
+			check_simple++;
+	}
+	if (check_double)
+		return (1);
+	else if (check_simple)
+		return (2);
+	return (0);
+}
+void check_and_fill_redire(t_data *data, int check,char **split_temp,int *i)
+{
+	printf("check = %d\n",check);
+	if (split_temp[*i + 1] && check == PIPE)
+		ft_lstadd_back(&data->token,ft_double_lstnew("|"));
+	else if (split_temp[*i + 1] && check == INPUT)
+		ft_lstadd_back(&data->token,ft_double_lstnew("<"));
+	else if (split_temp[*i + 1] && check == TRUNC)
+		ft_lstadd_back(&data->token,ft_double_lstnew(">"));
+	else if (split_temp[*i + 1] && check == APPEND)
+		ft_lstadd_back(&data->token,ft_double_lstnew(">>"));
+	else if (split_temp[*i + 1] && check == HEREDOC)
+		ft_lstadd_back(&data->token,ft_double_lstnew("<<"));
+}
+
+void fill_data(char **split_temp, char *temp,t_data *data,int check)
 {
 	int i;
 
@@ -49,17 +72,15 @@ void fill_data(char **split_temp, char *temp,t_data *data)
 	|| temp[0] == '<' || (temp[0] == '>' && temp[1] == '>') 
 	|| (temp[0] == '<' && temp[1] == '<'))
 		{
-			add_content(temp,data);
 			if (split_temp)
 			{
 				i = -1;
 				while (split_temp[++i])
 				{
+					
+					add_content(data, check,split_temp, &i);
 					ft_lstadd_back(&data->token,ft_double_lstnew(split_temp[i]));
-					if (split_temp[i + 1])
-						ft_lstadd_back(&data->token,ft_double_lstnew("|"));
-					if (!split_temp[i + 1] && i < 1)
-						ft_lstadd_back(&data->token,ft_double_lstnew("|"));
+					check_and_fill_redire(data,check,split_temp,&i);
 				}
 			}
 		}
@@ -67,33 +88,65 @@ void fill_data(char **split_temp, char *temp,t_data *data)
 			ft_lstadd_back(&data->token,ft_double_lstnew(temp));
 }
 
+char **fill_split_temp(char *temp ,int check)
+{
+	char **split_temp;
+	
+	split_temp = NULL;
+	if (check == PIPE)
+		split_temp = ft_split(temp,'|');
+	else if (check == INPUT || check == HEREDOC)
+		split_temp = ft_split(temp,'<');
+	else if (check == TRUNC || check == APPEND)
+		split_temp = ft_split(temp,'>');
+	else 
+		return (NULL);
+	return split_temp;
+}
+
 void fill_token(t_data *data, char *temp)
 {
 	int i;
-	int check_pipe;
+	int check;
 	char **split_temp;
 	
 	i = -1;
-	(void)data;
 	split_temp = NULL;
-	check_pipe = 0;
+	check = 0;
 	while (temp[++i])
 	{
 		if (temp[i] == '"')
 			break ;
-		else if (temp[i] == '|' && i != 0)
-			check_pipe++;
+		else if ((temp[i] == '>' && temp[i + 1] == '>'))
+		{
+			check = APPEND;
+			break;
+		}	
+		else if ((temp[i] == '<' && temp[i + 1] == '<'))		
+		{
+			check = HEREDOC;
+			break;
+		}	
+		else if (temp[i] == '<')
+			check = INPUT;
+		else if (temp[i] == '>')
+			check = TRUNC;
+		else if (temp[i] == '|')
+			check = PIPE;
 	}
-	if (check_pipe > 0 && temp[0] != '|')
-		split_temp = ft_split(temp,'|');
+	if (check > -1)
+	{
+		split_temp = fill_split_temp(temp ,check);	
+		
+	}
 	if (data->token == NULL)
 		data->token = ft_double_lstnew(temp);
 	else
 	{
-		fill_data(split_temp,temp,data);
+		fill_data(split_temp,temp,data,check);
 	}
-	free(temp);
-}
+ 	free(temp);
+ }
 
 int	init_token_with_quote(t_data *data,char *input)
 {
@@ -164,7 +217,6 @@ int main(int argc,char **argv)
 	while (1)
 	{
 		input = readline("minishell$: ");
-		//check_error(input);
 		init_data(data,input);
 	}
     return (0);
