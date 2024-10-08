@@ -6,36 +6,11 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/09/25 11:39:25 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/08 12:01:08 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	check_and_fill_token(char **line, t_data *data)
-{
-	int i;
-	int j;
-	char **split_cmd;
-	
-	i = -1;
-	while (line[++i])
-	{
-		split_cmd = ft_split(line[i],' ');
-		j = -1;
-		if (!data->token)
-		{
-			data->token = ft_double_lstnew(split_cmd[0]);
-			j = 0;
-		}
-		while (split_cmd[++j])
-			ft_lstadd_back(&data->token,ft_double_lstnew(split_cmd[j]));
-		if (line[i + 1])
-			ft_lstadd_back(&data->token,ft_double_lstnew("|"));
-		free(split_cmd);
-	}
-	
-}
 
 int is_not_arg_or_cmd(char *content)
 {
@@ -108,22 +83,4 @@ void assigne_type_token(t_data *data)
 			ft_is_arg_or_cmd(temp);
 		temp = temp->next;
 	}
-	// while (data->token)
-	// {
-	// 	printf("data->token->content = %s  type == %d\n",data->token->content,data->token->type);
-	// 	data->token = data->token->next;
-	// }
-	
-}
-
-int	init_token(t_data *data,char **line)
-{
-	int i;
-
-	i = -1;
-	while (line[++i])
-		line[i] = ft_remove_front_and_back_space(line[i]);
-	check_and_fill_token(line, data);
-	assigne_type_token(data);
-	return (1);	
 }
