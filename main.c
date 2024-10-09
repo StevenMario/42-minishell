@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/08 11:20:06 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/09 23:29:54 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,6 @@ void add_content(t_data *data, int check,char **split_temp,int *i)
 		ft_lstadd_back(&data->token,ft_double_lstnew("<<"));
 }
 
-
-int check_redire(char *temp)
-{
-	int check_simple;
-	int check_double;
-	int i;
-
-	i = -1;
-	check_simple = 0;
-	check_double = 0;
-	while (temp[++i])
-	{
-		if ((temp[i] == '>' && temp[i + 1] == '>'))
-			check_double++;
-		else if ((temp[i] == '>' || temp[i] == '<'))
-			check_simple++;
-	}
-	if (check_double)
-		return (1);
-	else if (check_simple)
-		return (2);
-	return (0);
-}
 void check_and_fill_redire(t_data *data, int check,char **split_temp,int *i)
 {
 	if (split_temp[*i + 1] && check == PIPE)
@@ -66,18 +43,21 @@ void check_and_fill_redire(t_data *data, int check,char **split_temp,int *i)
 void fill_data(char **split_temp, char *temp,t_data *data,int check)
 {
 	int i;
-
-	if (split_temp)
+	int check_resplit;
+	char **resplit;
+	if (split_temp != NULL && *split_temp)
 	{
 		i = -1;
 		while (split_temp[++i])
 		{
+			
 			if (data->token == NULL)
 			{
 				data->token = ft_double_lstnew(split_temp[i]);
 				add_content(data, check,split_temp, &i);
 				i++;
 			}
+			printf("split_temp[i] == %s\n",split_temp[i]);
 			if (!split_temp[i + 1])
 				add_content(data, check,split_temp, &i);
 			ft_lstadd_back(&data->token,ft_double_lstnew(split_temp[i]));
@@ -94,56 +74,15 @@ void fill_data(char **split_temp, char *temp,t_data *data,int check)
 				
 }
 
-char **fill_split_temp(char *temp ,int check)
-{
-	char **split_temp;
-	
-	split_temp = NULL;
-	if (check == PIPE)
-		split_temp = ft_split(temp,'|');
-	else if (check == INPUT || check == HEREDOC)
-		split_temp = ft_split(temp,'<');
-	else if (check == TRUNC || check == APPEND)
-		split_temp = ft_split(temp,'>');
-	else 
-		return (NULL);
-	return split_temp;
-}
+
 
 void fill_token(t_data *data, char *temp)
 {
-	int i;
 	int check;
 	char **split_temp;
 	
-	i = -1;
 	split_temp = NULL;
-	check = 0;
-	while (temp[++i])
-	{
-		if (temp[i] == '"')
-			break ;
-		else if (temp[i] == '|')
-		{
-			check = PIPE;
-			break;	
-		}
-		else if ((temp[i] == '>' && temp[i + 1] == '>'))
-		{
-			check = APPEND;
-			break;
-		}
-		else if ((temp[i] == '<' && temp[i + 1] == '<'))		
-		{
-			check = HEREDOC;
-			break;
-		}
-		else if (temp[i] == '<')
-			check = INPUT;
-		else if (temp[i] == '>')
-			check = TRUNC;
-		
-	}
+	check = check_redire(temp);
 	if (check > -1)
 		split_temp = fill_split_temp(temp ,check);
 	fill_data(split_temp,temp,data,check);
@@ -174,26 +113,17 @@ int	init_token_with_quote(t_data *data,char *input)
 			j = i;
 			temp = fill_temp_without_quote(&i,&j,&temp,input);
 		}
+	
 		fill_token(data,temp);	
 	}
 	return 0;
 }
 
 int init_data(t_data *data, char *input)
-{
-	//char **line;
-
+{	
 	data->token = NULL;
-	// if (check_quote(input) == 1)
-	// {
-		init_token_with_quote(data,input);
-		assigne_type_token(data);
-	// }
-	// else
-	// {
-	// 	line = ft_split(input, '|');
-	// 	init_token(data,line);
-	// }
+	init_token_with_quote(data,input);
+	assigne_type_token(data);
 	while (data->token)
 	{
 		printf("data->token->content = %s  type == %d\n",data->token->content,data->token->type);

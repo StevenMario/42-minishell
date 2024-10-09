@@ -6,33 +6,34 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/08 10:11:25 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/09 22:53:55 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int check_quote(char *input)
-// {
-// 	int quote;
-// 	int dquote;
-// 	int i;
+int check_redire(char *temp)
+{
+	int i;
 	
-// 	i = 0;
-// 	quote = 0;
-// 	dquote = 0;
-// 	while (input[i])
-// 	{
-// 		if (input[i] == '\'')
-// 			quote++;
-// 		if (input[i] == '"')
-// 			dquote++;
-// 		i++;
-// 	}
-// 	if ((quote && (quote % 2 == 0)) || (dquote && (dquote % 2 == 0)))
-// 		return (1);
-// 	return 0;
-// }
+	i = -1;
+	while (temp[++i])
+	{
+		if (temp[i] == '"')
+			break ;
+		else if (temp[i] == '|')
+			return (PIPE);
+		else if ((temp[i] == '>' && temp[i + 1] == '>'))
+			return (APPEND);
+		else if ((temp[i] == '<' && temp[i + 1] == '<'))		
+			return  (HEREDOC);
+		else if (temp[i] == '<')
+			return (INPUT);
+		else if (temp[i] == '>')
+			return (TRUNC);
+	}
+	return (-1);
+}
 
 char *fill_temp_with_quote(int *i,int *j,char **temp,char *input)
 {

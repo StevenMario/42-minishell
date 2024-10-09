@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/08 12:01:08 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/09 22:36:59 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,18 @@ void assigne_type_token(t_data *data)
 			ft_is_arg_or_cmd(temp);
 		temp = temp->next;
 	}
+}
+
+char **fill_split_temp(char *temp ,int check)
+{
+	char **split_temp;
+	
+	split_temp = NULL;
+	if (check == PIPE)
+		split_temp = ft_split(temp,'|');
+	else if (check == INPUT || check == HEREDOC)
+		split_temp = ft_split(temp,'<');
+	else if (check == TRUNC || check == APPEND)
+		split_temp = ft_split(temp,'>');
+	return split_temp;
 }
