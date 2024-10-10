@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/09 22:57:20 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/10 22:09:18 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_data
 int		ft_strcmp(char *s1, char *s2);
 int		check_redire(char *temp);
 int		is_not_arg_or_cmd(char *content);
+void if_split_temp_exist(char **split_temp,t_data *data,int check,int *i);
 char **fill_split_temp(char *temp ,int check);
 char	*ft_remove_front_and_back_space(char *str);
 char	*fill_temp_with_quote(int *i,int *j,char **temp,char *input);

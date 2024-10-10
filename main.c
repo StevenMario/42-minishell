@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/09 23:29:54 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/10 22:11:28 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,24 @@ void check_and_fill_redire(t_data *data, int check,char **split_temp,int *i)
 		ft_lstadd_back(&data->token,ft_double_lstnew("<<"));
 }
 
+
+
 void fill_data(char **split_temp, char *temp,t_data *data,int check)
 {
 	int i;
-	int check_resplit;
-	char **resplit;
+	
 	if (split_temp != NULL && *split_temp)
 	{
 		i = -1;
 		while (split_temp[++i])
 		{
-			
 			if (data->token == NULL)
 			{
 				data->token = ft_double_lstnew(split_temp[i]);
 				add_content(data, check,split_temp, &i);
 				i++;
 			}
-			printf("split_temp[i] == %s\n",split_temp[i]);
-			if (!split_temp[i + 1])
-				add_content(data, check,split_temp, &i);
-			ft_lstadd_back(&data->token,ft_double_lstnew(split_temp[i]));
-			check_and_fill_redire(data,check,split_temp,&i);
+			if_split_temp_exist(split_temp,data,check,&i);
 		}
 	}
 	else
@@ -72,6 +68,29 @@ void fill_data(char **split_temp, char *temp,t_data *data,int check)
 			ft_lstadd_back(&data->token,ft_double_lstnew(temp));
 	}
 				
+}
+
+void if_split_temp_exist(char **split_temp,t_data *data,int check,int *i)
+{
+	char **resplit;
+	int check_resplit;
+ 
+	resplit = NULL;
+	check_resplit = check_redire(split_temp[*i]);
+	if (check_resplit > -1)
+	{
+		resplit = fill_split_temp(split_temp[*i] ,check_resplit);
+		fill_data(resplit,split_temp[*i],data,check_resplit);
+		ft_free_str(resplit);
+	}
+	else
+	{
+		if (!split_temp[*i + 1])
+			add_content(data, check,split_temp, i);
+		ft_lstadd_back(&data->token,ft_double_lstnew(split_temp[*i]));
+		check_and_fill_redire(data,check,split_temp, i);
+	}
+	
 }
 
 
@@ -113,7 +132,6 @@ int	init_token_with_quote(t_data *data,char *input)
 			j = i;
 			temp = fill_temp_without_quote(&i,&j,&temp,input);
 		}
-	
 		fill_token(data,temp);	
 	}
 	return 0;
