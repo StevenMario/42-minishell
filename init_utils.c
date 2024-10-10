@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/09 22:53:55 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/10 22:24:04 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,18 @@ char *fill_temp_without_quote(int *i,int *j,char **temp,char *input)
 	}
 	(*temp)[x] = '\0';
 	return (*temp);
+}
+
+void add_content(t_data *data, int check,char **split_temp,int *i)
+{
+	if (split_temp[*i] && *i < 1 && check == PIPE)
+		ft_lstadd_back(&data->token,ft_double_lstnew("|"));
+	else if (split_temp[*i] && *i < 1 && check == TRUNC)
+		ft_lstadd_back(&data->token,ft_double_lstnew(">"));
+	else if (split_temp[*i] && *i < 1 && check == INPUT)
+		ft_lstadd_back(&data->token,ft_double_lstnew("<"));
+	else if (split_temp[*i] && *i < 1 && check == APPEND)
+		ft_lstadd_back(&data->token,ft_double_lstnew(">>"));
+	else if (split_temp[*i] && *i < 1 && check == HEREDOC)
+		ft_lstadd_back(&data->token,ft_double_lstnew("<<"));
 }
