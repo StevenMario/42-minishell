@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/10 22:11:28 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/10 22:23:01 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void check_and_fill_redire(t_data *data, int check,char **split_temp,int *i)
 	else if (split_temp[*i + 1] && check == HEREDOC)
 		ft_lstadd_back(&data->token,ft_double_lstnew("<<"));
 }
-
-
 
 void fill_data(char **split_temp, char *temp,t_data *data,int check)
 {
