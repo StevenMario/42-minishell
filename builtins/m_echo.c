@@ -14,43 +14,44 @@
 #include "minishell.h"
 //#include <cstddef>
 
-int iof_flag(char *echo)
+static int	iof_flag(char *echo)
 {
-  int i;
+	int	i;
 
-  if (!echo)
-    return (0);
-  if (echo[0] != '-' || echo[1] != 'n')
-    return (0);
-  i = 1;
-  while (echo[i] != '\0')
-  {
-    if (echo[i] != 'n')
-      return (0);
-    i++;
-  }
-  return (1);
+	i = 0;
+	if (echo[0] != '-')
+		return (0);
+	i++;
+	while (echo[i])
+	{
+		if (echo[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-void  ft_echo(t_data *mish, t_cmd cmd)
+void  ft_echo(char **echo)
 {
-  int i;
-  int flag;
+	int	i;
+ 	int	option;
 
-  i = 1;
-  flag = 0;
+ 	i = 1;
+	option = 0;
 
-  while (cmd.all_cmd[i] != NULL)
-  {
-    if (iof_flag(cmd.all_cmd[i]) == 1 || flag == 1)
-    {
-      flag = 1;
-      ft_printf("%s", cmd.all_cmd[i]);
-      if (cmd.all_cmd[i + 1] != NULL)
-        ft_printf(" ");
-    }
-    i++;
-  }
-  if (iof_flag(cmd.all_cmd[1]) == 1)
-    ft_printf("\n");
+	while (echo[i] != NULL && iof_flag(echo[i]) == 1)
+	{
+		option = 1;
+		i++;
+	}
+	while (echo[i])
+	{
+		printf("%s", echo[i]);
+		if (echo[i + 1])
+			printf(" ");
+		i++;
+	}
+	if (option == 0)
+		printf("\n");
+	return (0);
 }

@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_cd.c                                             :+:      :+:    :+:   */
+/*   m_pwd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irabesan <irabesan@student.42antanana      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 09:03:50 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/10 09:03:51 by irabesan         ###   ########.fr       */
+/*   Created: 2024/10/08 13:54:36 by irabesan          #+#    #+#             */
+/*   Updated: 2024/10/08 13:55:39 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_get_curr_path(void)
+int	ft_pwd(void)
 {
 	char *env_cwd;
 
-	env_cwd = getcwd(NULL, 0);
-	if (!cwd)
-		return (1);
-	return ();
+	env_cwd = NULL;
+	env_cwd = getcwd(env_cwd, sizeof(env_cwd));
+	if (env_cwd == NULL)
+		return (NULL);
+	printf ("%s\n", env_cwd);
+	return (0);
 }
