@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_get_curr_path(void)
+int	ft_get_path(void)
 {
 	char *env_cwd;
 
