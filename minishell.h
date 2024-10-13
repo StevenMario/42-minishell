@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/10 22:24:41 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/13 20:41:47 by iarantsoa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,22 @@ typedef struct s_token
 typedef struct s_cmd
 {
 	char	*cmd;
-	char *arg;
-  char  **all_cmd;
+	char **arg;
 	struct s_cmd	*next;
 }	t_cmd;
+
+typedef struct s_env
+{
+	char	*key;
+	char    *value;
+	struct s_env    *next;
+}		t_env;
 
 typedef struct s_data
 {
 	t_token	*token;
 	t_cmd	*cmd;
+	t_env	e_lst;
 }	t_data;
 
 int		ft_strcmp(char *s1, char *s2);
