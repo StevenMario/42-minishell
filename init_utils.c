@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/10 22:24:04 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/14 10:18:07 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int check_redire(char *temp)
 	{
 		if (temp[i] == '"')
 			break ;
-		else if (temp[i] == '|')
-			return (PIPE);
 		else if ((temp[i] == '>' && temp[i + 1] == '>'))
 			return (APPEND);
 		else if ((temp[i] == '<' && temp[i + 1] == '<'))		
@@ -31,6 +29,8 @@ int check_redire(char *temp)
 			return (INPUT);
 		else if (temp[i] == '>')
 			return (TRUNC);
+		else if (temp[i] == '|')
+			return (PIPE);
 	}
 	return (-1);
 }
