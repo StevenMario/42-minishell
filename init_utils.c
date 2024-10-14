@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/14 10:18:07 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/14 21:14:49 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,21 @@ char *fill_temp_without_quote(int *i,int *j,char **temp,char *input)
 	int x;
 
 	x = 0;
-	while (input[*i] != ' ' && input[*i])
+	while ((input[*i] != ' ') && input[*i])
+	{
+		if (input[*i] == '|' || input[*i] == '>' || input[*i] == '<')
+			break;
 		(*i)++;
+	}	
+	if ((input[*i] == '|' || input[*i] == '>' || input[*i] == '<')
+		&& *i != 0)
+		i--;
+	if (input[*i] == '|' || input[*i] == '>' || input[*i] == '<')
+	{
+		*temp = ft_strdup("|");
+		(*i)++;
+		return (*temp);
+	}
 	k = *i;
 	*temp = malloc(sizeof(char) * (k - *j + 1));
 	if (!*temp)
@@ -77,6 +90,8 @@ char *fill_temp_without_quote(int *i,int *j,char **temp,char *input)
 		(*j)++;
 	}
 	(*temp)[x] = '\0';
+	// if (input[*i] == '|' || input[*i] == '>' || input[*i] == '<')
+	// 	(*i)++;
 	return (*temp);
 }
 

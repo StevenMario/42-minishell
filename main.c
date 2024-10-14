@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/14 10:34:32 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:58:02 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	init_token_with_quote(t_data *data,char *input)
 	
 	i = 0;
 	j = 0;
+	(void)data;
 	input = ft_remove_front_and_back_space(input);
 	while (input[i])
 	{
@@ -126,7 +127,8 @@ int	init_token_with_quote(t_data *data,char *input)
 			j = i;
 			temp = fill_temp_without_quote(&i,&j,&temp,input);
 		}
-		fill_token(data,temp);
+		printf("temp = %s\n",temp);
+		//fill_token(data,temp);
 	}
 	return 0;
 }
