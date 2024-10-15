@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/14 08:20:44 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/15 09:56:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ typedef struct s_data
 }	t_data;
 
 int		ft_strcmp(char *s1, char *s2);
-int		check_redire(char *temp);
+int		check_redire(char *temp,int *i);
 int		is_not_arg_or_cmd(char *content);
+char	*fill_temp_with_redire(char *temp,int check,int *i);
+char	*fill_temp(char *input,int *i,int *j);
 char	**fill_split_temp(char *temp ,int check);
 char	*ft_remove_front_and_back_space(char *str);
 char	*fill_temp_with_quote(int *i,int *j,char **temp,char *input);
@@ -62,7 +64,5 @@ t_token	*ft_double_lstnew(char *content);
 void	ft_lstadd_back(t_token **lst, t_token *new);
 void	ft_is_arg_or_cmd(t_token *temp);
 void	assigne_type_token(t_data *data);
-void	add_content(t_data *data, int check,char **split_temp,int *i);
-void	if_split_temp_exist(char **split_temp,t_data *data,int check,int *i);
 
 #endif

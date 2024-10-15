@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/09 22:36:59 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/15 10:15:53 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,20 @@ int	check_type(t_token *temp)
 {
 	if (is_not_arg_or_cmd(temp->content) == -1)
 	{
-		if ((temp->next && is_not_arg_or_cmd(temp->next->content) == -1) 
-            || (temp->prev && ft_strcmp(temp->prev->content, "|") == 0)
-            || !temp->prev)
-			return CMD;
-        if (temp->prev && (ft_strcmp(temp->prev->content, "<") == 0 
-            || ft_strcmp(temp->prev->content, ">>") == 0 
-            || ft_strcmp(temp->prev->content, ">") == 0 ))
-            return FILE;
-        if (temp->prev && (ft_strcmp(temp->prev->content, "<<") == 0))
-            return DELIMITER;
-    }
+		if ((temp->prev && temp->prev->type == CMD)
+			&& (temp->next && is_not_arg_or_cmd(temp->next->content) == -1))
+			return (ARG);
+		if (((temp->next && is_not_arg_or_cmd(temp->next->content) == -1)) 
+ 			|| (temp->prev && ft_strcmp(temp->prev->content, "|") == 0)
+			|| !temp->prev )
+		return CMD;
+		if (temp->prev && (ft_strcmp(temp->prev->content, "<") == 0 
+			|| ft_strcmp(temp->prev->content, ">>") == 0 
+			|| ft_strcmp(temp->prev->content, ">") == 0 ))
+			return FILE;
+		if (temp->prev && (ft_strcmp(temp->prev->content, "<<") == 0))
+			return DELIMITER;
+	}
 	return (-1);
 }
 

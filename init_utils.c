@@ -6,32 +6,26 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/14 21:14:49 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/15 09:55:10 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int check_redire(char *temp)
+int check_redire(char *temp,int *i)
 {
-	int i;
-	
-	i = -1;
-	while (temp[++i])
-	{
-		if (temp[i] == '"')
-			break ;
-		else if ((temp[i] == '>' && temp[i + 1] == '>'))
-			return (APPEND);
-		else if ((temp[i] == '<' && temp[i + 1] == '<'))		
-			return  (HEREDOC);
-		else if (temp[i] == '<')
-			return (INPUT);
-		else if (temp[i] == '>')
-			return (TRUNC);
-		else if (temp[i] == '|')
-			return (PIPE);
-	}
+	if (temp[*i] == '"')
+		return (-1);
+	else if ((temp[*i] == '>' && temp[*i + 1] == '>'))
+		return (APPEND);
+	else if ((temp[*i] == '<' && temp[*i + 1] == '<'))		
+		return  (HEREDOC);
+	else if (temp[*i] == '<')
+		return (INPUT);
+	else if (temp[*i] == '>')
+		return (TRUNC);
+	else if (temp[*i] == '|')
+		return (PIPE);
 	return (-1);
 }
 
@@ -64,21 +58,9 @@ char *fill_temp_without_quote(int *i,int *j,char **temp,char *input)
 	int x;
 
 	x = 0;
-	while ((input[*i] != ' ') && input[*i])
-	{
-		if (input[*i] == '|' || input[*i] == '>' || input[*i] == '<')
-			break;
+	while ((input[*i] != ' ' && input[*i] != '|'
+		&& input[*i] != '>' && input[*i] != '<')&& input[*i])
 		(*i)++;
-	}	
-	if ((input[*i] == '|' || input[*i] == '>' || input[*i] == '<')
-		&& *i != 0)
-		i--;
-	if (input[*i] == '|' || input[*i] == '>' || input[*i] == '<')
-	{
-		*temp = ft_strdup("|");
-		(*i)++;
-		return (*temp);
-	}
 	k = *i;
 	*temp = malloc(sizeof(char) * (k - *j + 1));
 	if (!*temp)
@@ -90,21 +72,51 @@ char *fill_temp_without_quote(int *i,int *j,char **temp,char *input)
 		(*j)++;
 	}
 	(*temp)[x] = '\0';
-	// if (input[*i] == '|' || input[*i] == '>' || input[*i] == '<')
-	// 	(*i)++;
 	return (*temp);
 }
-
-void add_content(t_data *data, int check,char **split_temp,int *i)
+char *fill_temp_with_redire(char *temp,int check,int *i)
 {
-	if (split_temp[*i] && *i < 1 && check == PIPE)
-		ft_lstadd_back(&data->token,ft_double_lstnew("|"));
-	else if (split_temp[*i] && *i < 1 && check == TRUNC)
-		ft_lstadd_back(&data->token,ft_double_lstnew(">"));
-	else if (split_temp[*i] && *i < 1 && check == INPUT)
-		ft_lstadd_back(&data->token,ft_double_lstnew("<"));
-	else if (split_temp[*i] && *i < 1 && check == APPEND)
-		ft_lstadd_back(&data->token,ft_double_lstnew(">>"));
-	else if (split_temp[*i] && *i < 1 && check == HEREDOC)
-		ft_lstadd_back(&data->token,ft_double_lstnew("<<"));
+	if (check == PIPE)
+		temp = ft_strdup("|");
+	if (check == APPEND)
+	{
+		temp = ft_strdup(">>");
+		(*i)++;
+	}
+	if (check == HEREDOC)
+	{
+		temp = ft_strdup("<<");
+		(*i)++;
+	}
+	if (check == INPUT)
+		temp = ft_strdup("<");
+	if (check == TRUNC)
+		temp = ft_strdup(">");
+	return (temp);
+}
+char *fill_temp(char *input,int *i,int *j)
+{
+	char *temp;
+	int check;
+
+	temp = NULL;
+	check = check_redire(input, i);
+	if (input[*i] == '\'' || input[*i] == '"')
+	{
+		*j = *i;
+		(*i)++;
+		temp = fill_temp_with_quote(i,j,&temp,input);
+	}
+	else if (check == PIPE || check == APPEND
+		|| check == INPUT || check == TRUNC || check == HEREDOC)
+	{
+		temp = fill_temp_with_redire(temp, check,i);
+		(*i)++;
+	}
+	else
+	{
+		*j = *i;
+		temp = fill_temp_without_quote(i,j,&temp,input);
+	}
+	return (temp);
 }
