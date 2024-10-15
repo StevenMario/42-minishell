@@ -6,16 +6,16 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/15 10:32:10 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:49:51 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void init_cmd(t_data *data)
-{
+// void init_cmd(t_data *data)
+// {
 	
-}
+// }
 
 int init_data(t_data *data, char *input)
 {	
@@ -25,7 +25,7 @@ int init_data(t_data *data, char *input)
 	data->token = NULL;
 	init_token(data,input);
 	assigne_type_token(data);
-	init_cmd(data);
+	// init_cmd(data);
 	while (data->token)
 	{
 		printf("data->token->content = %s  type == %d\n",data->token->content,data->token->type);
