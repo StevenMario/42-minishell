@@ -6,98 +6,62 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/15 10:15:53 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/15 10:30:04 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int is_not_arg_or_cmd(char *content)
+void fill_data(t_data *data, char *temp)
 {
-	if (ft_strcmp(content,"<") == 0)
-		return (INPUT);
-	else if (ft_strcmp(content,"<<") == 0)
-		return (HEREDOC);
-	else if (ft_strcmp(content,">") == 0)
-		return  (TRUNC);
-	else if (ft_strcmp(content,">>") == 0)
-		return  (APPEND); 
-	else if (ft_strcmp(content,"|") == 0)
-		return  (PIPE);
-	else
-		return (-1);
-}
-
-
-int	check_type(t_token *temp)
-{
-	if (is_not_arg_or_cmd(temp->content) == -1)
-	{
-		if ((temp->prev && temp->prev->type == CMD)
-			&& (temp->next && is_not_arg_or_cmd(temp->next->content) == -1))
-			return (ARG);
-		if (((temp->next && is_not_arg_or_cmd(temp->next->content) == -1)) 
- 			|| (temp->prev && ft_strcmp(temp->prev->content, "|") == 0)
-			|| !temp->prev )
-		return CMD;
-		if (temp->prev && (ft_strcmp(temp->prev->content, "<") == 0 
-			|| ft_strcmp(temp->prev->content, ">>") == 0 
-			|| ft_strcmp(temp->prev->content, ">") == 0 ))
-			return FILE;
-		if (temp->prev && (ft_strcmp(temp->prev->content, "<<") == 0))
-			return DELIMITER;
-	}
-	return (-1);
-}
-
-void	ft_is_arg_or_cmd(t_token *temp)
-{
-	if (is_not_arg_or_cmd(temp->content) == -1)
-	{
-		if (check_type(temp) == CMD)
-			temp->type = CMD;
-		else if (check_type(temp) == FILE)
-            temp->type = FILE;
-        else if (check_type(temp) == DELIMITER)
-            temp->type = DELIMITER;
-        else
-			temp->type = ARG;
-	}
-}
-
-void assigne_type_token(t_data *data)
-{
-	t_token *temp;
-
-	temp = data->token;
-	while (temp)
-	{
-		if (is_not_arg_or_cmd(temp->content) == INPUT)
-			temp->type = INPUT;
-		else if (is_not_arg_or_cmd(temp->content) == HEREDOC)
-			temp->type = HEREDOC;
-		else if (is_not_arg_or_cmd(temp->content) == TRUNC)
-			temp->type = TRUNC;
-		else if (is_not_arg_or_cmd(temp->content) == APPEND)
-			temp->type = APPEND; 
-		else if (is_not_arg_or_cmd(temp->content) == PIPE)
-			temp->type = PIPE;
+	temp = ft_remove_front_and_back_space(temp);
+	if (data->token == NULL)
+				data->token = ft_double_lstnew(temp);
 		else
-			ft_is_arg_or_cmd(temp);
-		temp = temp->next;
+			ft_lstadd_back(&data->token,ft_double_lstnew(temp));
+ 	free(temp);
+ }
+char *fill_temp(char *input,int *i,int *j)
+{
+	char *temp;
+	int check;
+
+	temp = NULL;
+	check = check_redire(input, i);
+	if (input[*i] == '\'' || input[*i] == '"')
+	{
+		*j = *i;
+		(*i)++;
+		temp = fill_temp_with_quote(i,j,&temp,input);
 	}
+	else if (check == PIPE || check == APPEND
+		|| check == INPUT || check == TRUNC || check == HEREDOC)
+	{
+		temp = fill_temp_with_redire(temp, check,i);
+		(*i)++;
+	}
+	else
+	{
+		*j = *i;
+		temp = fill_temp_without_quote(i,j,&temp,input);
+	}
+	return (temp);
 }
 
-char **fill_split_temp(char *temp ,int check)
+void	init_token(t_data *data,char *input)
 {
-	char **split_temp;
+	char *temp;
+	int i;
+	int j;
 	
-	split_temp = NULL;
-	if (check == PIPE)
-		split_temp = ft_split(temp,'|');
-	else if (check == INPUT || check == HEREDOC)
-		split_temp = ft_split(temp,'<');
-	else if (check == TRUNC || check == APPEND)
-		split_temp = ft_split(temp,'>');
-	return split_temp;
+	i = 0;
+	j = 0;
+	input = ft_remove_front_and_back_space(input);
+	while (input[i])
+	{
+		while (input[i] == ' ' && input[i])
+			i++;
+		temp = fill_temp(input,&i,&j);
+		fill_data(data,temp);
+	}
 }
