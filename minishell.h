@@ -44,6 +44,13 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+typedef struct s_lst
+{
+	char	*s;
+	struct s_lst	*next;
+	struct	s_lst	*prev;
+}	t_lst;
+
 typedef struct s_env
 {
 	char	*key;
@@ -55,7 +62,7 @@ typedef struct s_data
 {
 	t_token	*token;
 	t_cmd	*cmd;
-	t_env	e_lst;
+	t_env	*e_lst;
 }	t_data;
 
 int		ft_strcmp(char *s1, char *s2);

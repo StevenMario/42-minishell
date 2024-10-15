@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ÉERVGÇ/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   m_cd.c                                             :+:      :+:    :+:   */
@@ -12,12 +12,37 @@
 
 #include "minishell.h"
 
-int	ft_get_path(void)
+static int 	count_av(char **av)
 {
-	char *env_cwd;
+	int	i;
 
-	env_cwd = getcwd(NULL, 0);
-	if (!cwd)
-		return (1);
-	return ();
+	i = 0;
+	while (av[i])
+		i++;
+	return (i);
 }
+
+static void update_owd(t_data *mish)
+{
+	t_lst	*temp;
+	char	*env_elem;
+	int	len;
+
+	temp = mish->e_lst;
+	env_elem = NULL;
+	len = len_list(tmp);
+	while (len--)
+	{
+		if (ft_strncmp(temp->str, "PWD=", 3) == 0)
+			env_elem = temp->s;
+		temp = temp->next;
+	}
+	
+	
+}
+
+
+
+
+
+
