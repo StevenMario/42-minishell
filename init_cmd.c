@@ -6,13 +6,13 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/15 12:32:59 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:34:42 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void new_cmd(t_token *token)
+void new_cmd(t_token *token,t_cmd *cmd)
 {
 	t_cmd	*new_cmd;
 	t_token *temp;
@@ -20,6 +20,7 @@ void new_cmd(t_token *token)
 
 	i = 0;
 	temp = token;
+	new_cmd = cmd;
 	while (temp)
 	{
 		new_cmd = malloc(sizeof(t_cmd));
