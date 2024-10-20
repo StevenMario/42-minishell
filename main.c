@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/16 09:11:00 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/20 19:00:09 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 void init_cmd(t_data *data)
 {
-	new_cmd(data->token,data->cmd);
+	data->cmd = malloc(sizeof(t_cmd));
+	if (!data->cmd)
+		return ;	
+	new_cmd(data->token,&data->cmd);
 }
 
 int init_data(t_data *data, char *input)
