@@ -1,17 +1,20 @@
-ÉERVGÇ/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   m_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42antanana      +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 09:03:50 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/10 09:03:51 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/16 15:16:41 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+// 1- make export
+// 2- gestion d'erreur (verifier si le PATH est un dir )
+// 3 - make chdir
+// 4 - update oldpwd and pwd de env
 static int 	count_av(char **av)
 {
 	int	i;
@@ -37,12 +40,28 @@ static void update_owd(t_data *mish)
 			env_elem = temp->s;
 		temp = temp->next;
 	}
-	
-	
+	if (!env_elem)
+	{
+		export("OLDPWD", &mish->e_lst);
+	}
 }
 
 
+int	ft_cd(t_data *mish, char **prm)
+{
+	int	result;
 
 
+	if (count_av(prm) == 2)
+	{
+		res = chdir(prm[1]);
+		if (res == 0)
+			update_pwd(mish, prm[1]);
+		if (res == 1)
+			perror(params[1]);
+		return (res);
+	}
+	return (1);
+}
 
 
