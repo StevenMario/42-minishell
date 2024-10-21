@@ -1,5 +1,5 @@
 NAME = minishell
-CC = cc
+CC = cc -g
 LIBFT_N = libft.a
 CFLAGS = -Wall -Werror -Wextra
 SRC = 		utils.c\
