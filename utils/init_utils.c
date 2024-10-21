@@ -6,32 +6,26 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/10 22:24:04 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/15 10:29:50 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int check_redire(char *temp)
+int check_redire(char *temp,int *i)
 {
-	int i;
-	
-	i = -1;
-	while (temp[++i])
-	{
-		if (temp[i] == '"')
-			break ;
-		else if (temp[i] == '|')
-			return (PIPE);
-		else if ((temp[i] == '>' && temp[i + 1] == '>'))
-			return (APPEND);
-		else if ((temp[i] == '<' && temp[i + 1] == '<'))		
-			return  (HEREDOC);
-		else if (temp[i] == '<')
-			return (INPUT);
-		else if (temp[i] == '>')
-			return (TRUNC);
-	}
+	if (temp[*i] == '"')
+		return (-1);
+	else if ((temp[*i] == '>' && temp[*i + 1] == '>'))
+		return (APPEND);
+	else if ((temp[*i] == '<' && temp[*i + 1] == '<'))		
+		return  (HEREDOC);
+	else if (temp[*i] == '<')
+		return (INPUT);
+	else if (temp[*i] == '>')
+		return (TRUNC);
+	else if (temp[*i] == '|')
+		return (PIPE);
 	return (-1);
 }
 
@@ -64,7 +58,8 @@ char *fill_temp_without_quote(int *i,int *j,char **temp,char *input)
 	int x;
 
 	x = 0;
-	while (input[*i] != ' ' && input[*i])
+	while ((input[*i] != ' ' && input[*i] != '|'
+		&& input[*i] != '>' && input[*i] != '<')&& input[*i])
 		(*i)++;
 	k = *i;
 	*temp = malloc(sizeof(char) * (k - *j + 1));
@@ -79,17 +74,24 @@ char *fill_temp_without_quote(int *i,int *j,char **temp,char *input)
 	(*temp)[x] = '\0';
 	return (*temp);
 }
-
-void add_content(t_data *data, int check,char **split_temp,int *i)
+char *fill_temp_with_redire(char *temp,int check,int *i)
 {
-	if (split_temp[*i] && *i < 1 && check == PIPE)
-		ft_lstadd_back(&data->token,ft_double_lstnew("|"));
-	else if (split_temp[*i] && *i < 1 && check == TRUNC)
-		ft_lstadd_back(&data->token,ft_double_lstnew(">"));
-	else if (split_temp[*i] && *i < 1 && check == INPUT)
-		ft_lstadd_back(&data->token,ft_double_lstnew("<"));
-	else if (split_temp[*i] && *i < 1 && check == APPEND)
-		ft_lstadd_back(&data->token,ft_double_lstnew(">>"));
-	else if (split_temp[*i] && *i < 1 && check == HEREDOC)
-		ft_lstadd_back(&data->token,ft_double_lstnew("<<"));
+	if (check == PIPE)
+		temp = ft_strdup("|");
+	if (check == APPEND)
+	{
+		temp = ft_strdup(">>");
+		(*i)++;
+	}
+	if (check == HEREDOC)
+	{
+		temp = ft_strdup("<<");
+		(*i)++;
+	}
+	if (check == INPUT)
+		temp = ft_strdup("<");
+	if (check == TRUNC)
+		temp = ft_strdup(">");
+	return (temp);
 }
+

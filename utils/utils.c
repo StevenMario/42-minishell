@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:34:45 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/09/25 12:41:59 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/15 10:00:33 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,14 @@ char *ft_remove_front_and_back_space(char *str)
 	j = ft_strlen(str);
 	while (str[i])
 	{
-		if (str[i] == ' ')
+		if (str[i] == ' ' || str[i] == '\n')
 			i++;
 		else
 			break ;
 	}
 	while (j > i)
 	{
-		if (str[j] == ' ')
+		if (str[j] == ' ' || str[j] == '\n')
 			j--;
 		else 
 			break;
