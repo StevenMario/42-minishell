@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/21 10:51:59 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:33:32 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ int init_data(t_data *data, char *input)
 	data->token = NULL;
 	init_token(data,input);
 	assigne_type_token(data);
-	while (data->token)
-	{
-		printf("data->token->content == %s  {}  data->token->type == %d   \n",data->token->content,data->token->type);
-		data->token = data->token->next;
-	}
-	//init_cmd(data);
+	init_cmd(data);
+	// while (data->token)
+	// {
+	// 	printf("data->token->content == %s  {}  data->token->type == %d   \n",data->token->content,data->token->type);
+	// 	data->token = data->token->next;
+	// }
 	return 1;
 }
 

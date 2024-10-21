@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/21 10:49:09 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/21 12:26:37 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ int get_nb_arg(t_token *token)
 	int nb_token;
 
 	nb_token = 0;
-	while(token->type == ARG || token->type == FILE || token->type == DELIMITER)
+	while(token &&
+		(token->type == ARG || token->type == FILE || token->type == DELIMITER))
 	{
-		token = token->next;
 		nb_token++;
+		token = token->next;
 	}
 	return (nb_token);
 }
@@ -34,16 +35,19 @@ void	get_cmd(t_token *token, t_cmd *cmd)
 	{
 		if (token->type == ARG || token->type == FILE || token->type == DELIMITER)
 		{
-			printf("token	: [%s]\n", token->content);
-			printf("nb_arg = %d\n",get_nb_arg(token));
-			cmd->arg = (char **)malloc(sizeof(char *) * get_nb_arg(token) + 1);
 			if (!cmd->arg)
-				return ;
+			{
+				printf("token	: [%s]\n", token->content);
+				printf("nb_arg = %d\n",get_nb_arg(token));
+				cmd->arg = (char **)malloc(sizeof(char *) * get_nb_arg(token) + 1);
+				if (!cmd->arg)
+					return ;
+			}
 			cmd->arg[i++] = ft_strdup(token->content);
 		}
 		else
 		{
-			printf("token add	: [%s]\n", token->content);
+			// printf("token add	: [%s]\n", token->content);
 			cmd->cmd = ft_strdup(token->content);
 		}
 	}
@@ -84,16 +88,16 @@ void new_cmd(t_token *token,t_cmd **cmd)
 		new_cmd = ft_initcmd();
 		if (!new_cmd)
 			return ;
-		printf("OK\n");
 		get_cmd(token, new_cmd);
-		ft_add_back_cmd(cmd, new_cmd);
+		if(token->type == PIPE)
+			ft_add_back_cmd(cmd, new_cmd);
 		token = token->next;
 	}
 	// if ((*cmd) && (*cmd)->cmd)
 	// 	printf("cmd->cmd = %s\n",(*cmd)->cmd);
 	// else
 	// 	printf("Tsis zavatra\n");
-	// int i = 0;
+	// int i;
 	// while ((*cmd))
 	// {
 	// 	i = -1;
