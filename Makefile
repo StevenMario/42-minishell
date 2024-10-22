@@ -10,6 +10,7 @@ SRC = 		./src/utils.c\
 			./init_cmd/init_cmd_utils.c\
 			./init_cmd/init_cmd.c\
 			./init_cmd/init_rfile.c\
+			./init_cmd/init_rfile_utils.c\
 			./src/main.c
 			
 LIBFT_D = ./libft

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 22:32:56 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:47:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ void new_cmd(t_token *token,t_cmd **cmd)
 		token = token->next;
 	}
 	ft_print_cmd((*cmd));
+	ft_lstclear_cmd(cmd);
 	// free_cmd();
 }

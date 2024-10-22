@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:18:13 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 22:31:36 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:52:31 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,31 @@ t_cmd	*ft_initcmd(void)
 	return (new_cmd);
 }
 
+void	ft_lstclear_cmd(t_cmd **lst)
+{
+	t_cmd	*temp;
+	t_cmd	*next;
+
+	temp = (*lst);
+	if (temp == NULL)
+		return ;
+	else
+	{
+		while (temp != NULL)
+		{
+			next = (temp)->next;
+			ft_free_str(temp->arg);
+			if (temp->infile)
+				ft_lstclear_file(&temp->infile);
+			if (temp->outfile)
+				ft_lstclear_file(&temp->outfile);
+			free(temp);
+			temp = next;
+		}
+		*lst = NULL;
+	}
+}
+
 void ft_print_cmd(t_cmd *cmd)
 {
 	int i;
@@ -61,16 +86,15 @@ void ft_print_cmd(t_cmd *cmd)
 		while (cmd->arg && cmd->arg[++i])
 		{
 			printf("arg = %s\n",cmd->arg[i]);
-			printf("i = %d\n",i);	
 		}
-		// if (cmd->infile)
-		// 	printf_infile(cmd->infile);
-		// else
-		// 	printf("[infile NONE]\n");
-		// if (cmd->outfile)
-		// 	printf_infile(cmd->outfile);
-		// else
-		// 	printf("[outfile NONE]\n");
+		if (cmd->infile)
+			printf_infile(cmd->infile);
+		else
+			printf("[infile NONE]\n");
+		if (cmd->outfile)
+			printf_infile(cmd->outfile);
+		else
+			printf("[outfile NONE]\n");
 		cmd = cmd->next;
 	}
 }
