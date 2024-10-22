@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/21 22:13:30 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 09:45:09 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	get_cmd(t_token *token, t_cmd *cmd)
 					return ;
 				cmd->arg[get_nb_arg(token)] = NULL;
 			}
-			cmd->arg[i] = ft_strdup(token->content);
-			i++;
+			cmd->arg[i++] = ft_strdup(token->content);
+			// i++;
 		}
 		else
 		{
@@ -89,19 +89,15 @@ void new_cmd(t_token *token,t_cmd **cmd)
 	{
 		get_cmd(token, new_cmd);
 		if(token->type == PIPE 
-			|| !token->next )
+			|| !token->next 
+			|| (token->next && (token->next->type == INPUT || token->next->type == HEREDOC
+			|| token->next->type == TRUNC || token->next->type == APPEND)))
 		{
 			ft_add_back_cmd(cmd, new_cmd);
 			new_cmd = ft_initcmd();
 			if (!new_cmd)
 				return ;
 		}
-		// if (token->type == HEREDOC)
-		// {
-		// 	new_cmd = ft_initcmd();
-		// 	if (!new_cmd)
-		// 		return ;
-		// }
 		token = token->next;
 	}
 	int i;
@@ -111,7 +107,7 @@ void new_cmd(t_token *token,t_cmd **cmd)
 		printf("------------------------\n");
 		if ((*cmd) && (*cmd)->cmd)
 			printf("cmd->cmd = %s\n",(*cmd)->cmd);
-		while ((*cmd)->arg[++i])
+		while ((*cmd)->arg && (*cmd)->arg[++i])
 			printf("arg = %s\n",(*cmd)->arg[i]);
 		(*cmd) = (*cmd)->next;
 	}
