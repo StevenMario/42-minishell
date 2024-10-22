@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:48:21 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/22 14:51:54 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:16:03 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	ft_print_dx(t_env *env)
 {
-	int	i;
+	t_env	*sorted_env;
 
-	i = 0;
-	while (env != NULL)
+	sorted_env = bubble_sort_env(env);
+	while (sorted_env != NULL)
 	{
 		printf("declare -x ");
-		printf("%s=", env->key);
-		printf(""%s"\n", env->value);
-		env = env->next;
+		printf("%s=", sorted_env->key);
+		printf("/"%s/"\n", sorted_env->value);
+		sorted_env = sorted_env->next;
 	}
 
 }
@@ -40,7 +40,7 @@ static void	swap(t_env **a)
 
 
 }
-void ft_sort_env(t_env **sorted_env)
+static void ft_sort_env(t_env **sorted_env)
 {
 	t_env	*tmp;
 	t_env	*sort;
@@ -60,10 +60,11 @@ void ft_sort_env(t_env **sorted_env)
 
 	}
 }
-t_env	*bubble_sort_env(t_env *env)
+static t_env	*bubble_sort_env(t_env *env)
 {
 	t_env	*sorted_env;
 
 	sorted_env = env;
 	ft_sort_env(&sorted_env);
+	return (sorted_env);
 }

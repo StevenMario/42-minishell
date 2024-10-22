@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/10/22 12:38:02 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:10:48 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static int	check_valid_var(char *arg)
 {
 	int	i;
 
-	if (cmd->arg[i] != NULL)
+	if (arg[i] != NULL)
 	{
 		i = 0;
-		while (cmd->arg[i] && cmd->arg[i] != '=')
+		while (arg[i] && arg[i] != '=')
 		{
-			if (ft_var_is_val(cmd->arg[i]) == 0)
+			if (ft_var_is_val(arg[i]) == 0)
 				return (0);
 			i++;
 
@@ -44,7 +44,7 @@ static int	check_valid_var(char *arg)
 		return (0);
 }
 
-int ft_if_var_exist(t_env *env,char *key)
+int ft_if_var_exist(t_env *env, char *key)
 {
 	while (env)
 	{
@@ -67,7 +67,7 @@ void    ft_export(t_cmd *cmd, t_env *env)
 	char	*val;
 	char	*k
 
-	l = 0;
+	l = 1;
 	while (cmd->arg[l])
 	{
 		if (check_valid_var(cmd->arg[l]) == 1)
@@ -83,4 +83,6 @@ void    ft_export(t_cmd *cmd, t_env *env)
 		}
 		l++;
 	}
+	else
+		ft_print_dx(env);
 }
