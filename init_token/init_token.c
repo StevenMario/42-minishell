@@ -6,19 +6,19 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/15 10:30:04 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:30:41 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "token.h"
 
 void fill_data(t_data *data, char *temp)
 {
 	temp = ft_remove_front_and_back_space(temp);
 	if (data->token == NULL)
-				data->token = ft_double_lstnew(temp);
+				data->token = ft_double_lstnew_token(temp);
 		else
-			ft_lstadd_back(&data->token,ft_double_lstnew(temp));
+			ft_lstadd_back_token(&data->token,ft_double_lstnew_token(temp));
  	free(temp);
  }
 char *fill_temp(char *input,int *i,int *j)

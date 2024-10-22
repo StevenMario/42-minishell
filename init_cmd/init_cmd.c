@@ -6,11 +6,11 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 09:45:09 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 12:52:34 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "cmd.h"
 
 int get_nb_arg(t_token *token)
 {
@@ -18,7 +18,7 @@ int get_nb_arg(t_token *token)
 
 	nb_token = 0;
 	while(token &&
-		(token->type == ARG || token->type == FILE || token->type == DELIMITER))
+		(token->type == ARG || token->type == FILES || token->type == DELIMITER))
 	{
 		nb_token++;
 		token = token->next;
@@ -32,7 +32,7 @@ void	get_cmd(t_token *token, t_cmd *cmd)
 
 	if (token && token->type != PIPE)
 	{
-		if (token->type == ARG || token->type == FILE || token->type == DELIMITER)
+		if (token->type == ARG || token->type == FILES || token->type == DELIMITER)
 		{
 			if (!cmd->arg)
 			{
@@ -75,6 +75,8 @@ t_cmd	*ft_initcmd(void)
 	new_cmd->cmd = NULL;
 	new_cmd->env = NULL;
 	new_cmd->next = NULL;
+	new_cmd->infile = malloc(sizeof(t_file));
+	new_cmd->outfile = malloc(sizeof(t_file));
 	return (new_cmd);
 }
 
@@ -82,34 +84,31 @@ void new_cmd(t_token *token,t_cmd **cmd)
 {
 	t_cmd	*new_cmd;
 
-	new_cmd = ft_initcmd();
-	if (!new_cmd)
-		return ;
 	while (token)
 	{
+		new_cmd = ft_initcmd();
+		if (!new_cmd)
+			return ;
 		get_cmd(token, new_cmd);
-		if(token->type == PIPE 
-			|| !token->next 
-			|| (token->next && (token->next->type == INPUT || token->next->type == HEREDOC
-			|| token->next->type == TRUNC || token->next->type == APPEND)))
+		ft_add_back_cmd(cmd, new_cmd);
+		if(token->type == PIPE || !token->next)
 		{
-			ft_add_back_cmd(cmd, new_cmd);
 			new_cmd = ft_initcmd();
 			if (!new_cmd)
 				return ;
 		}
 		token = token->next;
 	}
-	int i;
-	while ((*cmd))
-	{
-		i = -1;
-		printf("------------------------\n");
-		if ((*cmd) && (*cmd)->cmd)
-			printf("cmd->cmd = %s\n",(*cmd)->cmd);
-		while ((*cmd)->arg && (*cmd)->arg[++i])
-			printf("arg = %s\n",(*cmd)->arg[i]);
-		(*cmd) = (*cmd)->next;
-	}
+	// int i;
+	// while ((*cmd))
+	// {
+	// 	i = -1;
+	// 	printf("------------------------\n");
+	// 	if ((*cmd) && (*cmd)->cmd)
+	// 		printf("cmd->cmd = %s\n",(*cmd)->cmd);
+	// 	while ((*cmd)->arg && (*cmd)->arg[++i])
+	// 		printf("arg = %s\n",(*cmd)->arg[i]);
+	// 	(*cmd) = (*cmd)->next;
+	// }
 
 }
