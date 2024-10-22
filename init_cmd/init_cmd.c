@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 14:29:53 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:34:57 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int get_nb_arg(t_token *token)
 
 void init_file(t_token *token,t_cmd *cmd)
 {
+	(void)cmd;
 	printf("token->content = %s\n",token->content);
 }
 
@@ -48,9 +49,12 @@ void	get_cmd(t_token *token, t_cmd *cmd)
 			}
 			cmd->arg[i++] = ft_strdup(token->content);
 		}
+		else 
+		{
+			printf("Tonga ato\n");
+			init_file(token,cmd);
+		}
 	}
-	else if (token && token->type != PIPE && token->type != ARG || token->type != CMD)
-		init_file(token,cmd);
 	else if (token->type == PIPE)
 		i = 0;
 }
@@ -109,15 +113,15 @@ void new_cmd(t_token *token,t_cmd **cmd)
 		}
 		token = token->next;
 	}
-	int i;
-	while ((*cmd))
-	{
+	// int i;
+	// while ((*cmd))
+	// {
 		
-		i = -1;
-		printf("------------------------\n");
-		while ((*cmd)->arg && (*cmd)->arg[++i])
-			printf("arg = %s\n",(*cmd)->arg[i]);
-		// printf("Misi zavatra\n");
-		(*cmd) = (*cmd)->next;
-	}
+	// 	i = -1;
+	// 	printf("------------------------\n");
+	// 	while ((*cmd)->arg && (*cmd)->arg[++i])
+	// 		printf("arg = %s\n",(*cmd)->arg[i]);
+	// 	// printf("Misi zavatra\n");
+	// 	(*cmd) = (*cmd)->next;
+	// }
 }
