@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/21 08:21:55 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:01:11 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <limits.h>
 # include "libft/libft.h"
 
 # define CMD 0
@@ -40,8 +41,7 @@ typedef struct s_token
 
 typedef struct s_cmd
 {
-	char	*cmd;
-	char *arg;
+	char	**arg;
 	struct s_cmd	*next;
 }	t_cmd;
 
@@ -67,7 +67,7 @@ typedef struct s_data
 	t_env	*e_lst;
 }	t_data;
 
-int		ft_strcmp(char *s1, char *s2);
+int		ft_sctrcmp(char *s1, char *s2);
 int		check_redire(char *temp,int *i);
 int		is_not_arg_or_cmd(char *content);
 char	*fill_temp(char *input,int *i,int *j);
