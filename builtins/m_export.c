@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/10/22 15:10:48 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:03:36 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,22 @@ void    ft_export(t_cmd *cmd, t_env *env)
 	char	*k
 
 	l = 1;
-	while (cmd->arg[l])
+	if (cmd->arg[l])
 	{
-		if (check_valid_var(cmd->arg[l]) == 1)
+		while (cmd->arg[l])
 		{
-			
-			i = 0;
-			while (cmd->arg[l][i] && cmd->arg[l][i] != '=')
-				i++;
-			k  = ft_substr(cmd->arg[l], 0, i);
-			val = ft_strdup(cmd->(arg[l] + (++i)));
-			if (!ft_if_var_exist(env, k))
-				ft_lstadd_back_env(&env, ft_double_lstnew_env(k, val));
+			if (check_valid_var(cmd->arg[l]) == 1)
+			{
+				i = 0;
+				while (cmd->arg[l][i] && cmd->arg[l][i] != '=')
+					i++;
+				k  = ft_substr(cmd->arg[l], 0, i);
+				val = ft_strdup(cmd->(arg[l] + (++i)));
+				if (!ft_if_var_exist(env, k))
+					ft_lstadd_back_env(&env, ft_double_lstnew_env(k, val));
+			}
+			l++;
 		}
-		l++;
 	}
 	else
 		ft_print_dx(env);
