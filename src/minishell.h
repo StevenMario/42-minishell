@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 12:25:37 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:26:07 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../libft/libft.h"
 # include "./structure.h"
 # include "../init_token/token.h"
+# include "../init_cmd/cmd.h"
 
 int		ft_strcmp(char *s1, char *s2);
 void	ft_print_token(t_token *token);

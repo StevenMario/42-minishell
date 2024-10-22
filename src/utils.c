@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:34:45 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 11:09:15 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 22:35:58 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,45 @@ char *ft_remove_front_and_back_space(char *str)
 	dest[k] = '\0';
 	free(str);
 	return (dest);
+}
+void	ft_lstclear_file(t_file **lst)
+{
+	t_file	*temp;
+	t_file	*next;
+
+	temp = (*lst);
+	if (temp == NULL)
+		return ;
+	else
+	{
+		while (temp != NULL)
+		{
+			next = (temp)->next;
+			free(temp);
+			temp = next;
+		}
+		*lst = NULL;
+	}
+}
+
+void	ft_lstclear_cmd(t_cmd **lst)
+{
+	t_cmd	*temp;
+	t_cmd	*next;
+
+	temp = (*lst);
+	if (temp == NULL)
+		return ;
+	else
+	{
+		while (temp != NULL)
+		{
+			next = (temp)->next;
+			free(temp);
+			temp = next;
+		}
+		*lst = NULL;
+	}
 }
 
 

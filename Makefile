@@ -7,7 +7,9 @@ SRC = 		./src/utils.c\
 			./init_token/token_utils.c\
 			./init_token/assigne_type_token.c\
 			./init_token/init_utils.c\
+			./init_cmd/init_cmd_utils.c\
 			./init_cmd/init_cmd.c\
+			./init_cmd/init_rfile.c\
 			./src/main.c
 			
 LIBFT_D = ./libft
