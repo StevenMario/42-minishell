@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 13:33:16 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:02:48 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_cmd
 	char	**arg;
 	t_file	*infile;
 	t_file	*outfile;
-	char	*env;
 	struct s_cmd	*next;
 }	t_cmd;
 
