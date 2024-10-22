@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 15:10:44 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:32:27 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int init_file(t_token *token,t_cmd *cmd)
 			cmd->outfile->type = HEREDOC;
 		return (1);
 	}
+
 	return (0);
 }
 
@@ -78,6 +79,19 @@ void	get_cmd(t_token *token, t_cmd *cmd)
 	}
 	else if (token->type == PIPE)
 		i = 0;
+}
+
+void	ft_add_back_cmd(t_cmd **cmd, t_cmd *new)
+{
+	t_cmd	*temp;
+
+	temp = *cmd;
+	while (temp && temp->next)
+		temp = temp->next;
+	if (!temp)
+		*cmd = new;
+	else
+		temp->next = new;
 }
 
 void	ft_add_back_cmd(t_cmd **cmd, t_cmd *new)
@@ -141,6 +155,7 @@ void new_cmd(t_token *token,t_cmd **cmd)
 		printf("------------------------\n");
 		while ((*cmd)->arg && (*cmd)->arg[++i])
 			printf("arg = %s\n",(*cmd)->arg[i]);
+		if ((cmd))
 		// printf("Misi zavatra\n");
 		(*cmd) = (*cmd)->next;
 	}
