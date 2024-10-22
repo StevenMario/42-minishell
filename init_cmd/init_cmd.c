@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 12:52:34 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:29:53 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,18 @@ int get_nb_arg(t_token *token)
 	int nb_token;
 
 	nb_token = 0;
-	while(token &&
-		(token->type == ARG || token->type == FILES || token->type == DELIMITER))
+	while(token && token->type != PIPE)
 	{
-		nb_token++;
+		if (token->type == ARG || token->type == CMD)
+			nb_token++;
 		token = token->next;
 	}
 	return (nb_token);
+}
+
+void init_file(t_token *token,t_cmd *cmd)
+{
+	printf("token->content = %s\n",token->content);
 }
 
 void	get_cmd(t_token *token, t_cmd *cmd)
@@ -32,7 +37,7 @@ void	get_cmd(t_token *token, t_cmd *cmd)
 
 	if (token && token->type != PIPE)
 	{
-		if (token->type == ARG || token->type == FILES || token->type == DELIMITER)
+		if (token->type == ARG || token->type == CMD)
 		{
 			if (!cmd->arg)
 			{
@@ -42,14 +47,12 @@ void	get_cmd(t_token *token, t_cmd *cmd)
 				cmd->arg[get_nb_arg(token)] = NULL;
 			}
 			cmd->arg[i++] = ft_strdup(token->content);
-			// i++;
-		}
-		else
-		{
-			cmd->cmd = ft_strdup(token->content);
-			i = 0;
 		}
 	}
+	else if (token && token->type != PIPE && token->type != ARG || token->type != CMD)
+		init_file(token,cmd);
+	else if (token->type == PIPE)
+		i = 0;
 }
 
 void	ft_add_back_cmd(t_cmd **cmd, t_cmd *new)
@@ -65,6 +68,16 @@ void	ft_add_back_cmd(t_cmd **cmd, t_cmd *new)
 		temp->next = new;
 }
 
+t_file *ft_init_file(void)
+{
+	t_file *rfile;
+
+	rfile = malloc(sizeof(t_file));
+	rfile->next = NULL;
+	rfile->content = NULL;
+	return (rfile);
+}
+
 t_cmd	*ft_initcmd(void)
 {
 	t_cmd	*new_cmd;
@@ -72,11 +85,8 @@ t_cmd	*ft_initcmd(void)
 
 	new_cmd = malloc(sizeof(t_cmd));
 	new_cmd->arg = NULL;
-	new_cmd->cmd = NULL;
 	new_cmd->env = NULL;
 	new_cmd->next = NULL;
-	new_cmd->infile = malloc(sizeof(t_file));
-	new_cmd->outfile = malloc(sizeof(t_file));
 	return (new_cmd);
 }
 
@@ -84,31 +94,30 @@ void new_cmd(t_token *token,t_cmd **cmd)
 {
 	t_cmd	*new_cmd;
 
+	new_cmd = ft_initcmd();
+	if (!new_cmd)
+		return ;
 	while (token)
 	{
-		new_cmd = ft_initcmd();
-		if (!new_cmd)
-			return ;
 		get_cmd(token, new_cmd);
-		ft_add_back_cmd(cmd, new_cmd);
 		if(token->type == PIPE || !token->next)
 		{
+			ft_add_back_cmd(cmd, new_cmd);
 			new_cmd = ft_initcmd();
 			if (!new_cmd)
 				return ;
 		}
 		token = token->next;
 	}
-	// int i;
-	// while ((*cmd))
-	// {
-	// 	i = -1;
-	// 	printf("------------------------\n");
-	// 	if ((*cmd) && (*cmd)->cmd)
-	// 		printf("cmd->cmd = %s\n",(*cmd)->cmd);
-	// 	while ((*cmd)->arg && (*cmd)->arg[++i])
-	// 		printf("arg = %s\n",(*cmd)->arg[i]);
-	// 	(*cmd) = (*cmd)->next;
-	// }
-
+	int i;
+	while ((*cmd))
+	{
+		
+		i = -1;
+		printf("------------------------\n");
+		while ((*cmd)->arg && (*cmd)->arg[++i])
+			printf("arg = %s\n",(*cmd)->arg[i]);
+		// printf("Misi zavatra\n");
+		(*cmd) = (*cmd)->next;
+	}
 }

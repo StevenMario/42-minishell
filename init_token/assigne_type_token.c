@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:26:05 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 13:04:48 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:30:30 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ int	check_type(t_token *temp)
 			|| ft_strcmp(temp->prev->content, ">>") == 0 
 			|| ft_strcmp(temp->prev->content, ">") == 0 ))
 			return FILES;
+		if (temp->prev && (ft_strcmp(temp->prev->content, "<<") == 0))
+			return DELIMITER;
 		if ((temp->prev && (temp->prev->type == CMD || temp->prev->type != PIPE))
 			&& (temp->next && is_not_arg_or_cmd(temp->next->content) == -1))
 			return (ARG);
-		if (temp->prev && (ft_strcmp(temp->prev->content, "<<") == 0))
-			return DELIMITER;
 		if (((temp->next && is_not_arg_or_cmd(temp->next->content) == -1)) 
  			|| (temp->prev && (ft_strcmp(temp->prev->content, "|") == 0))
 			|| !temp->prev )

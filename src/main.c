@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/22 12:35:49 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:33:10 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int init_data(t_data *data, char *input)
 	data->token = NULL;
 	init_token(data,input);
 	assigne_type_token(data);
-	ft_print_token(data->token);
 	init_cmd(data);
+	// ft_print_token(data->token);
 	
 	return 1;
 }
