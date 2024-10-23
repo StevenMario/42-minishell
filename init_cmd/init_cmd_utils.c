@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:18:13 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/23 12:18:19 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:52:57 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,21 @@ void ft_print_cmd(t_cmd *cmd)
 		}
 		else
 			printf("Tsisi arg\n");
-		if (cmd->infile && cmd->infile->content && cmd->infile->type)
-			printf("[%d]  [content = %s]\n",cmd->infile->type,cmd->infile->content);
+		if (cmd->infile )
+		{
+			printf("===================\n");
+			printf("[INFILE]\n");
+			printf_infile(cmd->infile);
+			printf("===================\n");
+		}
 		else
 			printf("[infile NONE]\n");
 		if (cmd->outfile)
 		{
-			if (cmd->outfile->content && cmd->outfile->type)
-				printf("[%d]  [content = %s]\n",cmd->outfile->type,cmd->outfile->content);
+			printf("===================\n");
+			printf("[OUTFILE]\n");
+			printf_infile(cmd->outfile);
+			printf("===================\n");
 		}
 		else
 			printf("[outfile NONE]\n");
