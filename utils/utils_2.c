@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:48:21 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/22 15:16:03 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/23 11:20:20 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,31 @@ void	ft_print_dx(t_env *env)
 	{
 		printf("declare -x ");
 		printf("%s=", sorted_env->key);
-		printf("/"%s/"\n", sorted_env->value);
+		printf("\"%s\"\n", sorted_env->value);
 		sorted_env = sorted_env->next;
 	}
 
 }
-static void	swap(t_env **a)
-{
-	t_env	*tmp;
 
-	if (*a == NULL || (*a)->next == NULL)
-		return ;
-	tmp = (*a)->next;
-	(*a)->next = tmp->next;
-	(*a)->prev = tmp;
-	(*a)->next->prev = (*a);
-	(*a) = tmp;
-
-
-}
 static void ft_sort_env(t_env **sorted_env)
 {
-	t_env	*tmp;
+	char	*tmp_k;
+	char	*tmp_v;
 	t_env	*sort;
 
-	if (*sort_env == NULL || (*a)->next == NULL)
+	if (*sorted_env == NULL || (*sorted_env)->next == NULL)
 		return ;
 	sort = *sorted_env;
 	while (sort)
 	{
 		if (ft_strcmp(sort->key, sort->next->key) > 0)
 		{
-			swap(&sort);
+			tmp_k = sort->next->key;
+			tmp_v = sort->next->value;
+			sort->next->key = sort->key;
+			sort->next->value = sort->value;
+			sort->key = tmp_k;
+			sort->value = tmp_v;
 			sort = *sorted_env;
 		}
 		else

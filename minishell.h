@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 15:03:36 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:08:02 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,10 @@ typedef struct s_data
 	t_token	*token;
 	t_cmd	*cmd;
 	t_env	*e_lst;
+	t_env	*sorted_env;
 }	t_data;
 
-int		ft_sctrcmp(char *s1, char *s2);
+int		ft_strcmp(char *s1, char *s2);
 int		check_redire(char *temp,int *i);
 int		is_not_arg_or_cmd(char *content);
 char	*fill_temp(char *input,int *i,int *j);

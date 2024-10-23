@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/10/22 16:03:36 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:06:10 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	check_valid_var(char *arg)
 		return (0);
 }
 
-int ft_if_var_exist(t_env *env, char *key)
+int ft_if_var_exist(t_env *env, char *k, char *val)
 {
 	while (env)
 	{
@@ -60,12 +60,12 @@ int ft_if_var_exist(t_env *env, char *key)
 	return (0);
 }
 
-void    ft_export(t_cmd *cmd, t_env *env)
+void    ft_export(t_cmd *cmd, t_env *env, t_env *sorted_env)
 {
 	int	i;
 	int	l;
 	char	*val;
-	char	*k
+	char	*k;
 
 	l = 1;
 	if (cmd->arg[l])
@@ -78,8 +78,8 @@ void    ft_export(t_cmd *cmd, t_env *env)
 				while (cmd->arg[l][i] && cmd->arg[l][i] != '=')
 					i++;
 				k  = ft_substr(cmd->arg[l], 0, i);
-				val = ft_strdup(cmd->(arg[l] + (++i)));
-				if (!ft_if_var_exist(env, k))
+				val = ft_strdup(cmd->arg[l] + (i + 1));
+				if (!ft_if_var_exist(env, k, val))
 					ft_lstadd_back_env(&env, ft_double_lstnew_env(k, val));
 			}
 			l++;

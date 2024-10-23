@@ -6,13 +6,12 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:29:31 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/21 06:55:16 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/23 12:38:30 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "minishell.h"
-//#include <cstddef>
 
 static int	iof_flag(char *echo)
 {

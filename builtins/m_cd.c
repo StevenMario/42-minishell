@@ -6,14 +6,21 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 09:03:50 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/22 16:02:55 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/23 12:38:20 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-// 2- gestion d'erreur (verifier si le PATH est un dir )
-// 3 - make chdir
-// 4 - update oldpwd and pwd de env
+
+static int 	count_av(char **av)
+{
+	int	i;
+
+	i = 0;
+	while (av[i])
+		i++;
+	return (i);
+}
 char	*my_getenv(char *var_name, t_env *env)
 {
 	int	j;
@@ -36,27 +43,40 @@ char	*my_getenv(char *var_name, t_env *env)
 static char	*get_path(t_cmd *cmd, t_env *env, int *verif)
 {
 	char *path;
-	*verif = 1;
-	if (cmd->arg[1] == NULL)
+
+	*verif = 0;
+	if (count_av(cmd->arg) > 2)
+	{
+		printf("bash: cd: to many arguments\n");
+		return (NULL);
+	}
+	else if (cmd->arg[1] == NULL || cmd->arg[1] == "~")
 		path = my_getenv("HOME", env);
-}
-static int 	count_av(char **av)
-{
-	int	i;
-
-	i = 0;
-	while (av[i])
-		i++;
-	return (i);
+	else if (cmd->arg[1] == "-")
+		path = my_getenv("OLDPWD", env);
+	else
+		path = cmd->arg[1];
+	*verif = 1;
+	return (path);
 }
 
-int	ft_cd(t_data *mish, char **prm)
+void	ft_cd(t_cmd *cmd, t_env *env)
 {
 	char	*path;
 	char	cwd[PATH_MAX];
-	int		well_done;
+	int	verif;
 
-	well_done = 0;
+	path = get_path(cmd, env, &verif);
+	if (verif == 0)
+		return ;
+	if (!path || !chdir(path))
+		print_e_cd();
+	else if (getcwd(cwd, PATH_MAX) != NULL)
+	{
+		update_env("OLDPWD", my_getenv("PWD", env), env);
+		update_env("PWD", cwd, env);
+	}
+
 }
 
 

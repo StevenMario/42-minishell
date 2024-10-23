@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_env.c                                            :+:      :+:    :+:   */
+/*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 20:29:22 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/10/23 12:29:24 by irabesan         ###   ########.fr       */
+/*   Created: 2024/10/23 10:33:58 by irabesan          #+#    #+#             */
+/*   Updated: 2024/10/23 14:14:27 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_env(t_cmd *cmd, t_env *env)
+int	update_env(char *var_name, char *new_val, t_env *env)
 {
-    t_env *tmp;
+	int	j;
 
-    if (cmd->arg[1] == NULL)
-    {
-        tmp = env;
-        while (tmp)
-        {
-            printf("%s", tmp->key);
-            printf("=");
-            printf("%s\n", tmp->value);
-        }
-        
-    }
-    else
-    {
-        printf("Too many arguments.\n");
-        return (0);
-    }
-    return (1);
+	if (var_name == NULL || new_val == NULL)
+		return ;
+	j = ft_strlen(var_name);
+	while(env)
+	{
+		if (strncmp(var_name, env->key, j) == 0)
+		{
+			free(env->value);
+			env->value = new_val;
+			return (1);
+		}
+		env = env->next;
+
+	}
+	return (0);
 }
