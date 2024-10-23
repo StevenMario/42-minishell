@@ -45,13 +45,6 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-typedef struct s_lst
-{
-	char	*s;
-	struct s_lst	*next;
-	struct	s_lst	*prev;
-}	t_lst;
-
 typedef struct s_env
 {
 	char	*key;

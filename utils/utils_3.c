@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 10:33:58 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/23 14:14:27 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/23 14:52:27 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,26 @@ int	update_env(char *var_name, char *new_val, t_env *env)
 
 	}
 	return (0);
+}
+
+t_env	*search_env_elem(char *var_name, t_env *env)
+{
+	t_env	*ptr_elem;
+	t_env	*tmp;
+	int	n;
+
+	if (!env)
+		return (NULL);
+	tmp = env;
+	n = ft_strlen(var_name);
+	while (tmp)
+	{
+		if (ft_strncmp(var_name, tmp->key, n) == 0)
+		{
+			ptr_elem = tmp;
+			return (ptr_elem);
+		}
+		tmp = tmp->next;
+	}
+	return (NULL);
 }
