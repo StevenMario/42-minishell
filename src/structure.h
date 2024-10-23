@@ -6,12 +6,12 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 15:02:48 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:41:09 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_H
-#define STRUCTURE_H
+# define STRUCTURE_H
 
 # define CMD 0
 # define ARG 1

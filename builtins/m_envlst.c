@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   m_envlst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 20:12:32 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/10/13 20:12:32 by iarantsoa        ###   ########.fr       */
+/*   Updated: 2024/10/23 18:57:47 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+// #include "minishell.h"
 
-int ft_eee(char *key, t_data *mish)
-{
-    t_env	*env;
+// int ft_eee(char *key, t_data *mish)
+// {
+//     t_env	*env;
 
-    env = mish->e_list; 
-}
+//     env = mish->e_list; 
+// }

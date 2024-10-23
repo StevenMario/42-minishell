@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   m_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/10/23 14:06:10 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:58:10 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 static int	ft_var_is_val(int c)
 {

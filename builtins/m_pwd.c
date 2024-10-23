@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   m_pwd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42antanana      +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:54:36 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/08 13:55:39 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:58:20 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "builtins.h"
 
 int	ft_pwd(void)
 {

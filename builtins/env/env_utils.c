@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_1.c                                          :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 08:04:31 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/22 14:03:27 by irabesan         ###   ########.fr       */
+/*   Created: 2024/10/23 18:49:38 by mrambelo          #+#    #+#             */
+/*   Updated: 2024/10/23 18:53:23 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell"
+# include "../builtins.h"
+
 char	**split_for_env(char *str)
 {
 	int	i;
@@ -31,11 +32,12 @@ char	**split_for_env(char *str)
 		i++;
 	arr[j++] = ft_substr(str, 0, i);
 	k = i + 1;
-	str += (str + k);
+	str = (str + k);
 	arr[j] = ft_strdup(str);
 	arr[3] = NULL;
 	return (arr);
 }
+
 t_env	*stock_third_param(char **envp)
 {
 	int i;
@@ -51,6 +53,7 @@ t_env	*stock_third_param(char **envp)
 	}
 	return (root);
 }
+
 void	ft_lstadd_back_env(t_env **f_elem, t_env *n_elem)
 {
 	t_env	*temp;

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   m_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:29:31 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/23 12:38:30 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:55:53 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "minishell.h"
+#include "builtins.h"
 
 static int	iof_flag(char *echo)
 {

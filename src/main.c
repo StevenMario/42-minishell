@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/23 13:55:33 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:38:39 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,12 @@ int main(int argc,char **argv)
 	while (1)
 	{
 		input = readline("minishell$: ");
-		if (!init_data(data,input))
-			return (1);
+		if (input)
+		{
+			 add_history(input);
+			if (!init_data(data,input))
+				return (1);
+		}
 	}
     return (0);
 }

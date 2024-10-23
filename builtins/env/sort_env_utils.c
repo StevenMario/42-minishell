@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_2.c                                          :+:      :+:    :+:   */
+/*   sort_env_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 12:48:21 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/23 11:20:20 by irabesan         ###   ########.fr       */
+/*   Created: 2024/10/23 18:52:00 by mrambelo          #+#    #+#             */
+/*   Updated: 2024/10/23 18:54:08 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+# include "../builtins.h"
 
 void	ft_print_dx(t_env *env)
 {
@@ -53,6 +53,28 @@ static void ft_sort_env(t_env **sorted_env)
 
 	}
 }
+
+int	update_env(char *var_name, char *new_val, t_env *env)
+{
+	int	j;
+
+	if (var_name == NULL || new_val == NULL)
+		return ;
+	j = ft_strlen(var_name);
+	while(env)
+	{
+		if (strncmp(var_name, env->key, j) == 0)
+		{
+			free(env->value);
+			env->value = new_val;
+			return (1);
+		}
+		env = env->next;
+
+	}
+	return (0);
+}
+
 static t_env	*bubble_sort_env(t_env *env)
 {
 	t_env	*sorted_env;
