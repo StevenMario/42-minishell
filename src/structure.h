@@ -46,10 +46,21 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_env
+{
+	char	*key;
+	char    *value;
+	struct s_env	*prev;
+	struct s_env    *next;
+}		t_env;
+
 typedef struct s_data
 {
 	t_token	*token;
 	t_cmd	*cmd;
+	t_env	*e_lst;
+	t_env	*sorted_env;
 }	t_data;
+
 
 #endif
