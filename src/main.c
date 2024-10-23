@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/23 13:55:33 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:59:10 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void clear_data(t_data *data)
 {
 	ft_lstclear_cmd(&data->cmd);
 	ft_lstclear_token(&data->token);
-	free(data);
 }
 int init_data(t_data *data, char *input)
 {	
@@ -32,9 +31,9 @@ int init_data(t_data *data, char *input)
 	init_token(data,input);
 	assigne_type_token(data);
 	init_cmd(data);
-	// ft_print_token(data->token);
 	ft_print_cmd(data->cmd);
-	clear_data(data);
+	// ft_print_token(data->token);
+	// clear_data(data);
 	// free(data);
 	// ft_print_cmd(data->cmd);
 	// <file1 echo>>app test"test" >out.txt<<doc|cat -e "test'hello'" <<heredoc
