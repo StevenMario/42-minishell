@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 09:03:50 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/23 12:38:20 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/23 15:43:50 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,4 @@ void	ft_cd(t_cmd *cmd, t_env *env)
 		update_env("OLDPWD", my_getenv("PWD", env), env);
 		update_env("PWD", cwd, env);
 	}
-
 }
-
-
