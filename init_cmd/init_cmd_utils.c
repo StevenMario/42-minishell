@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:18:13 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 22:52:31 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/23 12:18:19 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ t_cmd	*ft_initcmd(void)
 	
 	new_cmd = malloc(sizeof(t_cmd));
 	new_cmd->arg = NULL;
+	new_cmd->infile = NULL;
+	new_cmd->outfile = NULL;
 	new_cmd->next = NULL;
 	return (new_cmd);
 }
@@ -62,7 +64,8 @@ void	ft_lstclear_cmd(t_cmd **lst)
 		while (temp != NULL)
 		{
 			next = (temp)->next;
-			ft_free_str(temp->arg);
+			if (temp->arg)
+				ft_free_str(temp->arg);
 			if (temp->infile)
 				ft_lstclear_file(&temp->infile);
 			if (temp->outfile)
@@ -80,19 +83,24 @@ void ft_print_cmd(t_cmd *cmd)
 	
 	while (cmd)
 	{
-		
-		i = -1;
 		printf("------------------------\n");
-		while (cmd->arg && cmd->arg[++i])
+		if (cmd->arg)
 		{
-			printf("arg = %s\n",cmd->arg[i]);
+			i = -1;
+			while (cmd->arg && cmd->arg[++i])
+				printf("arg = %s\n",cmd->arg[i]);
 		}
-		if (cmd->infile)
-			printf_infile(cmd->infile);
+		else
+			printf("Tsisi arg\n");
+		if (cmd->infile && cmd->infile->content && cmd->infile->type)
+			printf("[%d]  [content = %s]\n",cmd->infile->type,cmd->infile->content);
 		else
 			printf("[infile NONE]\n");
 		if (cmd->outfile)
-			printf_infile(cmd->outfile);
+		{
+			if (cmd->outfile->content && cmd->outfile->type)
+				printf("[%d]  [content = %s]\n",cmd->outfile->type,cmd->outfile->content);
+		}
 		else
 			printf("[outfile NONE]\n");
 		cmd = cmd->next;

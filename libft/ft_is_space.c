@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_rfile_utils.c                                 :+:      :+:    :+:   */
+/*   ft_is_space.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 22:38:33 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/23 10:10:59 by mrambelo         ###   ########.fr       */
+/*   Created: 2024/10/23 13:07:59 by mrambelo          #+#    #+#             */
+/*   Updated: 2024/10/23 13:13:12 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cmd.h"
+#include "libft.h"
 
-void	ft_lstclear_file(t_file **lst)
+int	ft_is_space(char *str)
 {
-	t_file	*temp;
-	t_file	*next;
+	int i;
 
-	temp = (*lst);
-	if (temp == NULL)
-		return ;
-	else
+	i = -1;
+	while (str[++i])
 	{
-		while (temp != NULL)
-		{
-			next = (temp)->next;
-			if (temp->content)
-				free(temp->content);
-            free(temp);
-			temp = next;
-		}
-		*lst = NULL;
+		if (str[i] != ' ' || str[i] != '\t' || str[i] != '\n')
+			return (0);
+		i++;
 	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:19:49 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 22:22:09 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/23 12:18:03 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_file *ft_init_file(void)
 	t_file *rfile;
 
 	rfile = malloc(sizeof(t_file));
+	if (!rfile)
+		return (NULL);
 	rfile->next = NULL;
 	rfile->content = NULL;
 	return (rfile);
@@ -35,14 +37,17 @@ void	ft_add_back_infile(t_file **rfile, t_file *new_file)
 		temp->next = new_file;
 }
 
-void printf_infile(t_file *rfile)
-{
-	while(rfile)
-	{
-		printf("[%d]  [content = %s]\n",rfile->type,rfile->content);
-		rfile = rfile->next;
-	}
-}
+// void printf_infile(t_file *rfile)
+// {
+// 	while(rfile)
+// 	{
+// 		if (rfile->type && rfile->content)
+// 			printf("[%d]  [content = %s]\n",rfile->type,rfile->content);
+// 		else
+// 			printf("Tsisi rfile\n");
+// 		rfile = rfile->next;
+// 	}
+// }
 
 int init_file(t_token *token,t_cmd *cmd)
 {

@@ -6,6 +6,7 @@ CFILES =	ft_isalnum.c \
 		ft_isascii.c \
 		ft_isdigit.c \
 		ft_isprint.c \
+		ft_is_space.c\
 		ft_strlen.c \
 		ft_atoi.c \
 		ft_toupper.c \

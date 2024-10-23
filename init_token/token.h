@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:55:08 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 12:31:22 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/23 08:24:56 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ char	*fill_temp_with_redire(char *temp,int check,int *i);
 void	ft_lstadd_back_token(t_token **lst, t_token *new);
 t_token	*ft_double_lstnew_token(char *content);
 void	ft_print_token(t_token *token);
+void	ft_lstclear_token(t_token **lst);
 
 #endif
