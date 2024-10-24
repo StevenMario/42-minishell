@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/23 12:23:51 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/24 05:13:33 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	get_cmd(t_token *token, t_cmd *cmd)
 				cmd->arg[get_nb_arg(token)] = NULL;
 			}
 			cmd->arg[i] = ft_strdup(token->content);
-			// printf("i = %d   cmd->arg[i] = %s\n",i,cmd->arg[i]);
 			i++;
 		}
 		else 
@@ -47,19 +46,18 @@ void new_cmd(t_token *token,t_cmd **cmd)
 	new_cmd = ft_initcmd();
 	if (!new_cmd)
 		return ;
-	// ft_print_token(token);
 	while (token)
 	{
+		if (token->next && (token->type == FILES || token->type == DELIMITER))
+			token = token->next;
 		get_cmd(token, new_cmd);
 		if(token->type == PIPE || !token->next)
 		{
 			ft_add_back_cmd(cmd, new_cmd);
-			// printf("CMD afa manomoka eto\n");
 			new_cmd = ft_initcmd();
 			if (!new_cmd)
 				return ;
 		}
 		token = token->next;
 	}
-	// ft_print_cmd((*cmd));
 }
