@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/24 11:49:36 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:33:39 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_cmd
 	t_file	*infile;
 	t_file	*outfile;
 	char	*env;
+	int		exit_code;
 	struct s_cmd	*next;
 }	t_cmd;
 

@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/10/24 11:43:23 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:53:03 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static int	check_valid_var(char *arg)
 {
 	int	i;
 
+	if (arg[0] && (ft_isdigit(arg[0]) == 1))
+		return (0);
 	if (arg[i] != NULL)
 	{
 		i = 0;
