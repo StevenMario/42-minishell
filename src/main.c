@@ -6,16 +6,19 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/24 05:16:52 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/24 06:55:38 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+
 void init_cmd(t_data *data)
 {
 	data->cmd = NULL;
 	new_cmd(data->token,&data->cmd);
+	// cmd_treatment(data);
 }
 void clear_data(t_data *data)
 {
@@ -23,21 +26,21 @@ void clear_data(t_data *data)
 	ft_lstclear_token(&data->token);
 	free(data);
 }
-int init_data(t_data *data, char *input)
+int init_data(t_data *data, char *input,char **env)
 {	
 	data->token = malloc(sizeof(t_token));
 	if (!data->token)
 		return (0);
 	data->token = NULL;
+	data->env = env;
+	data->e_lst = init_t_env();
+	data->e_lst = fill_env_in_t_env(env);
 	init_token(data,input);
 	assigne_type_token(data);
 	init_cmd(data);
-
-	// ft_print_token(data->token);
-	ft_print_cmd(data->cmd);
-	clear_data(data);
-	// free(data);
+	printf_t_env(data->e_lst);
 	// ft_print_cmd(data->cmd);
+	// clear_data(data);
 	// <file1 echo>>app test"test" >out.txt<<doc|cat -e "test'hello'" <<heredoc
 	return 1;
 }
@@ -59,7 +62,7 @@ int main(int argc,char **argv,char **env)
 		if (input)
 		{
 			 add_history(input);
-			if (!init_data(data,input))
+			if (!init_data(data,input,env))
 				return (1);
 		}
 	}

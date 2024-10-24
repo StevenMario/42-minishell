@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_env.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 20:29:22 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/10/23 12:29:24 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/24 05:35:58 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int ft_env(t_cmd *cmd, t_env *env)
             printf("=");
             printf("%s\n", tmp->value);
         }
-        
     }
     else
     {

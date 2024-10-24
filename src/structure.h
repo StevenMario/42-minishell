@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/23 18:41:09 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/24 06:13:08 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_env
 
 typedef struct s_data
 {
+	char **env;
 	t_token	*token;
 	t_cmd	*cmd;
 	t_env	*e_lst;
