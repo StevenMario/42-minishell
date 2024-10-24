@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 09:03:50 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/23 15:43:50 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:46:29 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,21 @@ static char	*get_path(t_cmd *cmd, t_env *env, int *verif)
 	return (path);
 }
 
-void	ft_cd(t_cmd *cmd, t_env *env)
+int	ft_cd(t_cmd *cmd, t_env *env)
 {
 	char	*path;
-	char	cwd[PATH_MAX];
+	char	cwd[1024];
 	int	verif;
 
 	path = get_path(cmd, env, &verif);
 	if (verif == 0)
-		return ;
+		return (1);
 	if (!path || !chdir(path))
 		print_e_cd();
-	else if (getcwd(cwd, PATH_MAX) != NULL)
+	else if (getcwd(cwd, 1024) != NULL)
 	{
 		update_env("OLDPWD", my_getenv("PWD", env), env);
 		update_env("PWD", cwd, env);
+		return (0);
 	}
 }

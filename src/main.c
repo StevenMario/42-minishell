@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/20 19:00:09 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:33:10 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void init_cmd(t_data *data)
 {
-	data->cmd = malloc(sizeof(t_cmd));
-	if (!data->cmd)
-		return ;	
+	data->cmd = NULL;
 	new_cmd(data->token,&data->cmd);
 }
 
@@ -29,6 +27,8 @@ int init_data(t_data *data, char *input)
 	init_token(data,input);
 	assigne_type_token(data);
 	init_cmd(data);
+	// ft_print_token(data->token);
+	
 	return 1;
 }
 

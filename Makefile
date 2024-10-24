@@ -1,13 +1,14 @@
 NAME = minishell
-CC = cc
+CC = cc -g
 LIBFT_N = libft.a
 CFLAGS = -Wall -Werror -Wextra
-SRC = 		utils.c\
-			init_token.c\
-			assigne_type_token.c\
-			init_utils.c\
-			init_cmd.c\
-			main.c
+SRC = 		./src/utils.c\
+			./init_token/init_token.c\
+			./init_token/token_utils.c\
+			./init_token/assigne_type_token.c\
+			./init_token/init_utils.c\
+			./init_cmd/init_cmd.c\
+			./src/main.c
 			
 LIBFT_D = ./libft
 OBJ = $(SRC:.c=.o)

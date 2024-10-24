@@ -1,10 +1,11 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD:minishell.h
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
 /*   Updated: 2024/10/23 14:08:02 by irabesan         ###   ########.fr       */
 /*                                                                            */
@@ -20,25 +21,23 @@
 # include <readline/history.h>
 # include <limits.h>
 # include "libft/libft.h"
+=======
+/*   Created: 2024/10/22 10:55:08 by mrambelo          #+#    #+#             */
+/*   Updated: 2024/10/22 12:31:22 by mrambelo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# define CMD 0
-# define ARG 1
-# define PIPE 2
-# define INPUT 3
-# define HEREDOC 4
-# define TRUNC 5
-# define APPEND 6
-# define FILE 7
-# define DELIMITER 8
 
-typedef struct s_token
-{
-	char	*content;
-	int		type;
-	struct s_token	*prev;
-	struct s_token	*next;
-}	t_token;
+#ifndef TOKEN_H
+# define TOKEN_H
+>>>>>>> main:init_token/token.h
 
+#include "../src/minishell.h"
+// # include "../src/structure.h"
+// # include "../libft/libft.h"
+
+
+<<<<<<< HEAD:minishell.h
 typedef struct s_cmd
 {
 	char	**arg;
@@ -63,19 +62,22 @@ typedef struct s_data
 
 int		ft_strcmp(char *s1, char *s2);
 int		check_redire(char *temp,int *i);
+=======
+
+>>>>>>> main:init_token/token.h
 int		is_not_arg_or_cmd(char *content);
-char	*fill_temp(char *input,int *i,int *j);
-char	*ft_remove_front_and_back_space(char *str);
-char	*fill_temp_with_redire(char *temp,int check,int *i);
-char	*fill_temp_with_quote(int *i,int *j,char **temp,char *input);
-char	*fill_temp_without_quote(int *i,int *j,char **temp,char *input);
+int		check_type(t_token *temp);
 void	ft_is_arg_or_cmd(t_token *temp);
-void	 new_cmd(t_token *token,t_cmd **cmd);
 void	assigne_type_token(t_data *data);
+char	*fill_temp(char *input,int *i,int *j);
 void	fill_data(t_data *data, char *temp);
 void	init_token(t_data *data,char *input);
-void	ft_lstadd_back(t_token **lst, t_token *new);
-t_token	*ft_lstnew_cmd(char *content);
-t_token	*ft_double_lstnew(char *content);
+int		check_redire(char *temp,int *i);
+char	*fill_temp_with_quote(int *i,int *j,char **temp,char *input);
+char	*fill_temp_without_quote(int *i,int *j,char **temp,char *input);
+char	*fill_temp_with_redire(char *temp,int check,int *i);
+void	ft_lstadd_back_token(t_token **lst, t_token *new);
+t_token	*ft_double_lstnew_token(char *content);
+void	ft_print_token(t_token *token);
 
 #endif

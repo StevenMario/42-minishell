@@ -6,13 +6,10 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:34:45 by mrambelo          #+#    #+#             */
-<<<<<<<< HEAD:utils/utils.c
-/*   Updated: 2024/10/22 10:05:11 by irabesan         ###   ########.fr       */
-========
-/*   Updated: 2024/10/22 11:09:15 by mrambelo         ###   ########.fr       */
->>>>>>>> main:src/utils.c
+/*   Updated: 2024/10/24 07:50:01 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 

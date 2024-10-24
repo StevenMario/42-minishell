@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_envlst.c                                         :+:      :+:    :+:   */
+/*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 20:12:32 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/10/13 20:12:32 by iarantsoa        ###   ########.fr       */
+/*   Created: 2024/10/22 11:10:14 by mrambelo          #+#    #+#             */
+/*   Updated: 2024/10/22 13:04:54 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 
-int ft_eee(char *key, t_data *mish)
-{
-    t_env	*env;
+#ifndef CMD_H
+#define CMD_H
 
-    env = mish->e_list; 
-}
+#include "../src/minishell.h"
+# include "../init_token/token.h"
+
+int		get_nb_arg(t_token *token);
+void	get_cmd(t_token *token, t_cmd *cmd);
+void	ft_add_back_cmd(t_cmd **cmd, t_cmd *new);
+
+#endif

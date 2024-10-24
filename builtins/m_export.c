@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/10/23 14:06:10 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:43:23 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int ft_if_var_exist(t_env *env, char *k, char *val)
 	return (0);
 }
 
-void    ft_export(t_cmd *cmd, t_env *env, t_env *sorted_env)
+void	ft_export(t_cmd *cmd, t_env *env)
 {
 	int	i;
 	int	l;

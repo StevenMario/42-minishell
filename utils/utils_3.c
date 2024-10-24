@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 10:33:58 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/23 14:52:27 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:08:13 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,22 @@ int	update_env(char *var_name, char *new_val, t_env *env)
 	return (0);
 }
 
-t_env	*search_env_elem(char *var_name, t_env *env)
+void	ft_rm_for_unset(t_env **env, char *var_name)
 {
-	t_env	*ptr_elem;
 	t_env	*tmp;
-	int	n;
 
-	if (!env)
-		return (NULL);
-	tmp = env;
-	n = ft_strlen(var_name);
-	while (tmp)
+	if (*env == NULL || var_name == NULL)
+		return ;
+	tmp = *env;
+	if (ft_strcmp(var_name, tmp->key) == 0)
 	{
-		if (ft_strncmp(var_name, tmp->key, n) == 0)
-		{
-			ptr_elem = tmp;
-			return (ptr_elem);
-		}
-		tmp = tmp->next;
+		*env = tmp->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
 	}
-	return (NULL);
+	else
+	{
+		ft_remove_lst(&tmp->next, var_name);
+	}
 }
