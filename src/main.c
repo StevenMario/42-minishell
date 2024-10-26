@@ -6,20 +6,23 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/26 22:25:22 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/26 22:28:30 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
+void change_var_in_env_var(t_cmd *cmd)
+{
+	
+}
 
 void init_cmd(t_data *data)
 {
 	data->cmd = NULL;
 	new_cmd(data->token,&data->cmd);
+	change_var_in_env_var(data->cmd);
 	cmd_processing(data);
-	// cmd_treatment(data);
 }
 void clear_data(t_data *data)
 {
