@@ -6,15 +6,41 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/26 22:28:30 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/26 22:43:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void change_var_in_env_var(t_cmd *cmd)
+void	check_var(char *str,t_env *e_list)
 {
-	
+	int i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '$')
+		{
+			
+		}
+	}
+}
+
+void change_var_in_env_var(t_data *data)
+{
+	int i;
+	t_cmd *cmd;
+
+	cmd = data->cmd;
+	while (cmd)
+	{
+		i = 0;
+		while (cmd->arg[i])
+		{
+			check_var(cmd->arg[i],data->e_lst);
+		}
+		cmd = cmd->next;	
+	}
 }
 
 void init_cmd(t_data *data)
