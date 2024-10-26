@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/24 06:55:38 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/26 22:25:22 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void init_cmd(t_data *data)
 {
 	data->cmd = NULL;
 	new_cmd(data->token,&data->cmd);
+	cmd_processing(data);
 	// cmd_treatment(data);
 }
 void clear_data(t_data *data)
@@ -33,13 +34,12 @@ int init_data(t_data *data, char *input,char **env)
 		return (0);
 	data->token = NULL;
 	data->env = env;
-	data->e_lst = init_t_env();
 	data->e_lst = fill_env_in_t_env(env);
 	init_token(data,input);
 	assigne_type_token(data);
 	init_cmd(data);
-	printf_t_env(data->e_lst);
-	// ft_print_cmd(data->cmd);
+	ft_print_cmd(data->cmd);
+	// printf_t_env(data->e_lst);
 	// clear_data(data);
 	// <file1 echo>>app test"test" >out.txt<<doc|cat -e "test'hello'" <<heredoc
 	return 1;

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:34:45 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/22 22:38:53 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/26 21:55:31 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,29 @@ int ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-// t_token	*ft_lstnew_cmd(char *content)
-// {
-// 	t_token	*new_token;
-
-// 	new_token = malloc(sizeof(t_token));
-// 	if (!new_token)
-// 		return (NULL);
-// 	new_token->prev = NULL;
-// 	new_token->content = ft_strdup(content);
-// 	new_token->next = NULL;
-// 	return (new_token);
-// }
+char *remove_quotes(char *str)
+{
+	size_t len ;
+	char *result;
+	char *dst;
+	const char *src;
+	
+	len = ft_strlen(str);
+	result = ft_calloc(len + 1, sizeof(char));
+	if (!result)
+		return NULL;
+	src = str;
+	dst = result;
+	while (*src)
+	{
+		if (*src != '"' && *src != '\'')
+			*dst++ = *src;
+		src++;
+	}
+	*dst = '\0';
+	free(str);
+	return result;
+}
 
 char *ft_remove_front_and_back_space(char *str)
 {
@@ -66,6 +77,19 @@ char *ft_remove_front_and_back_space(char *str)
 	dest[k] = '\0';
 	free(str);
 	return (dest);
+}
+
+int check_quote(char *str)
+{
+	int i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '\'' || str[i] == '"')
+			return (1);
+	}
+	return (0);
 }
 
 
