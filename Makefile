@@ -13,6 +13,7 @@ SRC = 		./src/utils.c\
 			./init_cmd/init_rfile_utils.c\
 			./builtins/env/env_utils.c\
 			./init_cmd/cmd_processing.c\
+			./init_cmd/cmd_processing_utils.c\
 			./src/main.c
 			
 LIBFT_D = ./libft

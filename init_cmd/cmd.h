@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:10:14 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/26 22:25:37 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/27 21:15:09 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	ft_lstclear_cmd(t_cmd **lst);
 t_cmd	*ft_initcmd(void);
 void	ft_lstclear_file(t_file **lst);
 int     cmd_processing(t_data *data);
+char	*my_getenv(char *var_name, t_env *env);
 
 #endif
