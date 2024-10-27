@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/27 22:28:50 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/27 22:34:34 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void change_var_in_env_var(t_data *data)
 		i = 0;
 		while (cmd->arg[i])
 		{
-			check_var(cmd->arg[i],data->e_lst);
+			if (check_dollar(cmd->arg[i]))
+				check_var(cmd->arg[i],data->e_lst);
 			i++;
 		}
 		cmd = cmd->next;	
