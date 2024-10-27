@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/27 21:48:51 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/27 22:28:50 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ void	check_var(char *str,t_env *e_list)
 	char *res;
 	char *val;
 	int var_len;
-
 	i = -1;
 	var_len = 0;
-	(void)e_list;
 	while (str[++i])
 	{
 		if (str[i] == '$')
@@ -49,6 +47,7 @@ void	check_var(char *str,t_env *e_list)
 			i--;
 			// printf("i = %d  j = %d\n",i,j);
 			res = fill_res(var_len,i,j,str);
+			printf("res = %s\n",res);
 			val = my_getenv(res, e_list);
 			printf("val = %s\n",val);
 		}

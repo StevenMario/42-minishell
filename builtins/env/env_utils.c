@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:49:38 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/26 18:24:47 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/27 22:25:13 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_env	*fill_env_in_t_env(char **envp)
 
 	i = -1;
 	root = NULL;
-	root = init_t_env();
+	// root = init_t_env();
 	while (envp[++i])
 	{
 		split_env = split_for_env(envp[i]);
