@@ -6,11 +6,12 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 08:04:31 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/24 06:53:56 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:01:08 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell"
+#include "minishell.h"
+
 char	**split_for_env(char *str)
 {
 	int	i;
@@ -31,7 +32,7 @@ char	**split_for_env(char *str)
 		i++;
 	arr[j++] = ft_substr(str, 0, i);
 	k = i + 1;
-	str += (str + k);
+	str = str + k;
 	arr[j] = ft_strdup(str);
 	arr[3] = NULL;
 	return (arr);

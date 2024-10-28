@@ -6,13 +6,13 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 09:03:50 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/24 11:46:29 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/28 09:46:47 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int 	count_av(char **av)
+int 	count_av(char **av)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ char	*my_getenv(char *var_name, t_env *env)
 	tmp = env;
 	while (tmp)
 	{
-		if (strncmp(var_name, tmp->key, j) == 0)
+		if (ft_strncmp(var_name, tmp->key, j) == 0)
 			return (tmp->value);
 		tmp = tmp->next;
 	}
