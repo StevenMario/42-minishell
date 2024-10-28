@@ -6,78 +6,19 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/27 22:34:34 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/28 11:36:19 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *fill_res(int len,int i,int j,char *str)
-{
-	char *res;
 
-	res = (char *)malloc(sizeof(char) *len + 1);
-	if (!res)
-		return (NULL);
-	res = ft_substr(str,j,i);
-	return (res);
-}
-
-void	check_var(char *str,t_env *e_list)
-{
-	int i;
-	int	j;
-	char *res;
-	char *val;
-	int var_len;
-	i = -1;
-	var_len = 0;
-	while (str[++i])
-	{
-		if (str[i] == '$')
-		{
-			i++;
-			j = i;
-			while (str[i] && (str[i] != ' ' && str[i] != '.'
-				&& str[i] != '$'))
-			{
-				var_len++;
-				i++;
-			}
-			i--;
-			// printf("i = %d  j = %d\n",i,j);
-			res = fill_res(var_len,i,j,str);
-			printf("res = %s\n",res);
-			val = my_getenv(res, e_list);
-			printf("val = %s\n",val);
-		}
-	}
-}
-
-void change_var_in_env_var(t_data *data)
-{
-	int i;
-	t_cmd *cmd;
-
-	cmd = data->cmd;
-	while (cmd)
-	{
-		i = 0;
-		while (cmd->arg[i])
-		{
-			if (check_dollar(cmd->arg[i]))
-				check_var(cmd->arg[i],data->e_lst);
-			i++;
-		}
-		cmd = cmd->next;	
-	}
-}
 
 void init_cmd(t_data *data)
 {
 	data->cmd = NULL;
 	new_cmd(data->token,&data->cmd);
-	change_var_in_env_var(data);
+	cmd_expand(data);
 	cmd_processing(data);
 }
 void clear_data(t_data *data)
@@ -120,7 +61,7 @@ int main(int argc,char **argv,char **env)
 		input = readline("minishell$: ");
 		if (input)
 		{
-			 add_history(input);
+			add_history(input);
 			if (!init_data(data,input,env))
 				return (1);
 		}

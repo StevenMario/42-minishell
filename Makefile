@@ -14,6 +14,7 @@ SRC = 		./src/utils.c\
 			./builtins/env/env_utils.c\
 			./init_cmd/cmd_processing.c\
 			./init_cmd/cmd_processing_utils.c\
+			./init_cmd/cmd_expand.c\
 			./src/main.c
 			
 LIBFT_D = ./libft
