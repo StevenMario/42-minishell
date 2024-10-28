@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/28 11:43:31 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:13:01 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ char	*get_var_sufix(char *str)
 {
 	int i;
 	int j;
-	int len_sufix;
 	char *dest;
 
 	i = 0;
@@ -71,10 +70,13 @@ void	check_var(char *str,t_env *e_list)
 	int	j;
 	char *pref;
 	char *res;
+	char *suf;
 	char *val;
 	int var_len;
 	i = -1;
 	var_len = 0;
+	suf = get_var_sufix(str);
+	printf("sufix = %s\n",suf);
 	while (str[++i])
 	{
 		if (str[i] == '$')
@@ -90,15 +92,13 @@ void	check_var(char *str,t_env *e_list)
 			}
 			i--;
 			pref = get_var_prefix(str);
-			if (pref)
-				printf("pref = %s\n",pref);
 			res = fill_res(var_len,j,str);
-			printf("res = %s\n",res);
 			val = my_getenv(res, e_list);
-			printf("val = %s\n",val);
 		}
-
 	}
+	// if (pref)
+	// 	str = ft_strjoin(pref,val);
+	
 }
 
 void cmd_expand(t_data *data)
