@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_pwd.c                                            :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 13:54:36 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/29 11:18:23 by irabesan         ###   ########.fr       */
+/*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
+/*   Updated: 2024/10/29 13:30:39 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_pwd(t_env *env)
+int	ft_exec(t_cmd *cmd, t_env *env)
 {
-	char *env_cwd;
+	pid_t	pid;
+	int	status;
+	int	cmd_process;
 
-	env_cwd = NULL;
-	env_cwd = my_getenv("PWD", env);
-	if (env_cwd == NULL)
-		return (1);
-	printf ("%s\n", env_cwd);
-	return (0);
+	pid = fork();
+	cmd_process = check_cmd_process(cmd);
+	if (pid == 0 && cmd_process == 1)
+		exit (0);
+	if (pid == 0)
+		exec_extern_cmd(env, cmd);
 }

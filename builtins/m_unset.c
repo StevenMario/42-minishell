@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 13:12:44 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/24 11:40:21 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/10/29 08:30:33 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int	ft_unset(t_cmd *cmd, t_env *env)
 		return (0);
 	}
 	else
-		return (1);
+		return (0);
 
 }
