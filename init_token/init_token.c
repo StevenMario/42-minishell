@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/29 11:10:20 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/29 22:45:28 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char *fill_temp(char *input,int *i)
 	int		len;
 	int		j;
 	char	quote;
+	int 	check;
 
 	temp = NULL;
 	len = 0;
@@ -41,8 +42,9 @@ char *fill_temp(char *input,int *i)
 		if (quote)
 		{
 			len += ft_strchr(input + (*i) + 1, quote) - input + (*i);
+			printf("str[len] = %c\n",input[len]);
+			//  - input + (*i)
 			*i += len;
-
 		}
 		else
 		{
@@ -51,9 +53,14 @@ char *fill_temp(char *input,int *i)
 		}
 		// (*i)++;
 		// len++;
-		printf("len = %d\n",len);
+		// printf("len = %d\n",len);
 	}
-	temp = ft_substr(input,j,len + 1);
+	len--;
+	check = check_redire(input,*i);
+	if (check > -1)
+		temp = fill_temp_with_redire(temp,check,i);
+	else
+		temp = ft_substr(input,j,len + 1);
 	printf("temp = %s\n",temp);
 	return NULL;
 
@@ -84,17 +91,17 @@ char *fill_temp(char *input,int *i)
 
 void	init_token(t_data *data,char *input)
 {
-	char *temp;
+	// char *temp;
 	int i;
 	
 	i = 0;
 	(void)data;
 	input = ft_strtrim(input, " ");
-	while (input[i])
+	while (input && input[i])
 	{
 		while (input[i] == ' ' && input[i])
 			i++;
-		temp = fill_temp(input, &i);
+		fill_temp(input, &i);
 		// if (temp && ft_is_space(temp))
 		// {
 		// 	free(temp);

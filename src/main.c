@@ -6,12 +6,11 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/29 10:07:33 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:18:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 
 void init_cmd(t_data *data)
@@ -49,8 +48,11 @@ int main(int argc,char **argv,char **env)
 {
 	char *input;
 	t_data *data;
-
+	int check_quote;
+	int check_dquote;
+	
 	(void)argv;
+	check_quote = 0;
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (1);
@@ -59,11 +61,18 @@ int main(int argc,char **argv,char **env)
 	while (1)
 	{
 		input = readline("minishell$: ");
-		if (input)
+		check_quote = ft_count_char(input,'\'') % 2;
+		check_dquote = ft_count_char(input,'"') % 2;
+		if (check_quote != 0 || check_dquote != 0)
+			printf("A quote or double quote is not closed.\n");
+		else 
 		{
-			add_history(input);
-			if (!init_data(data,input,env))
-				return (1);
+			if (input)
+			{
+				add_history(input);
+				if (!init_data(data,input,env))
+					return (1);
+			}
 		}
 	}
     return (0);

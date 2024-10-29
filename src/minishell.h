@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/29 10:19:19 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/29 20:14:39 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void	 new_cmd(t_token *token,t_cmd **cmd);
 char    *remove_quotes(char *str);
 int	check_quote(char *str);
 char is_quote(char str);
+int	ft_count_char(char *str, char c);
 
 #endif
