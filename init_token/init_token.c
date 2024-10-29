@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/23 13:17:39 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:10:20 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,53 +24,84 @@ void fill_data(t_data *data, char *temp)
  		free(temp);
 	}
  }
-char *fill_temp(char *input,int *i,int *j)
+char *fill_temp(char *input,int *i)
 {
 	char *temp;
-	int check;
+	int		len;
+	int		j;
+	char	quote;
 
 	temp = NULL;
-	check = check_redire(input, i);
-	if (input[*i] == '\'' || input[*i] == '"')
+	len = 0;
+	quote = 0;
+	j = *i;
+	while (input && input[*i] && (check_redire(input,*i) == -1))
 	{
-		*j = *i;
-		(*i)++;
-		temp = fill_temp_with_quote(i,j,&temp,input);
+		quote = is_quote(input[*i]);
+		if (quote)
+		{
+			len += ft_strchr(input + (*i) + 1, quote) - input + (*i);
+			*i += len;
+
+		}
+		else
+		{
+			(*i)++;
+			len++;
+		}
+		// (*i)++;
+		// len++;
+		printf("len = %d\n",len);
 	}
-	else if (check == PIPE || check == APPEND
-		|| check == INPUT || check == TRUNC || check == HEREDOC)
-	{
-		temp = fill_temp_with_redire(temp, check,i);
-		(*i)++;
-	}
-	else
-	{
-		*j = *i;
-		temp = fill_temp_without_quote(i,j,&temp,input);
-	}
-	return (temp);
+	temp = ft_substr(input,j,len + 1);
+	printf("temp = %s\n",temp);
+	return NULL;
+
+
+
+
+
+	// check = check_redire(input, i);
+	// if (input[*i] == '\'' || input[*i] == '"')
+	// {
+	// 	*j = *i;
+	// 	(*i)++;
+	// 	temp = fill_temp_with_quote(i,j,&temp,input);
+	// }
+	// else if (check == PIPE || check == APPEND
+	// 	|| check == INPUT || check == TRUNC || check == HEREDOC)
+	// {
+	// 	temp = fill_temp_with_redire(temp, check,i);
+	// 	(*i)++;
+	// }
+	// else
+	// {
+	// 	*j = *i;
+	// 	temp = fill_temp_without_quote(i,j,&temp,input);
+	// }
+	// return (temp);
 }
 
 void	init_token(t_data *data,char *input)
 {
 	char *temp;
 	int i;
-	int j;
 	
 	i = 0;
-	j = 0;
-	input = ft_remove_front_and_back_space(input);
+	(void)data;
+	input = ft_strtrim(input, " ");
 	while (input[i])
 	{
 		while (input[i] == ' ' && input[i])
 			i++;
-		temp = fill_temp(input,&i,&j);
-		if (ft_is_space(temp))
-		{
-			free(temp);
-			break;
-		}
-		fill_data(data,temp);
+		temp = fill_temp(input, &i);
+		// if (temp && ft_is_space(temp))
+		// {
+		// 	free(temp);
+		// 	break;
+		// }
+		// fill_data(data,temp);
+		i++;
 	}
 	free(input);
 }

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/28 11:36:19 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/29 10:07:33 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int init_data(t_data *data, char *input,char **env)
 	data->env = env;
 	data->e_lst = fill_env_in_t_env(env);
 	init_token(data,input);
-	assigne_type_token(data);
-	init_cmd(data);
+	// assigne_type_token(data);
+	// init_cmd(data);
 	// ft_print_cmd(datla->cmd);
 	// printf_t_env(data->e_lst);
 	// clear_data(data);

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:34:45 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/26 21:55:31 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/29 10:45:10 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char *ft_remove_front_and_back_space(char *str)
 	i = 0;
 	k = 0;
 	j = ft_strlen(str);
-	while (str[i])
+	while (str && str[i])
 	{
 		if (str[i] == ' ' || str[i] == '\n')
 			i++;
@@ -79,10 +79,16 @@ char *ft_remove_front_and_back_space(char *str)
 	return (dest);
 }
 
+char is_quote(char str)
+{
+	if (str == '\'' || str == '"')
+		return (str);
+	return (0);
+}
+
 int check_quote(char *str)
 {
 	int i;
-
 	i = -1;
 	while (str[++i])
 	{
