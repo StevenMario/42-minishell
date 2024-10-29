@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_processing_utils.c                             :+:      :+:    :+:   */
+/*   cmd_expand_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/27 21:14:37 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/28 21:57:25 by mrambelo         ###   ########.fr       */
+/*   Created: 2024/10/28 21:56:39 by mrambelo          #+#    #+#             */
+/*   Updated: 2024/10/28 22:54:41 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
 
-char	*my_getenv(char *var_name, t_env *env)
+int check_dollar(char *str)
 {
-	// int	j;
-	t_env	*tmp;
+    int i;
 
-	if (!var_name)
-		return (NULL);
-	// j = ft_strlen(var_name);
-	tmp = env;
-	while (tmp)
-	{
-		
-        if (ft_strcmp(var_name, tmp->key) == 0)
-			return (tmp->value);
-		tmp = tmp->next;
-	}
-	return (NULL);
+    i = -1;
+    while (str[++i])
+    {
+        if (str[i] == '$')
+            return (1);
+    }
+    return (0);
 }
-
-
+int is_special_char(char c)
+{
+	if (c == '.' || c == '#'||c == '%'
+            || c == '6' || c == '&' || c == '*'
+            || c == '+' || c == '=' || c == '-'
+            || c == ']' || c == '}')
+			return (1);
+	return (0);
+}

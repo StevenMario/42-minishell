@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/28 12:13:01 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/28 22:52:22 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,9 @@ char *fill_res(int len,int j,char *str)
 	res = (char *)malloc(sizeof(char) *len + 1);
 	if (!res)
 		return (NULL);
-	if (str[j] == '{' && str[len] == '}')
-	{
-		j++;
-		len -= 2;
-	}
+	printf("j = %d len = %d\n",j,len);
 	res = ft_substr(str,j,len);
+	res = ft_strtrim(res,"{}");
 	return (res);
 }
 
@@ -52,7 +49,7 @@ char	*get_var_sufix(char *str)
 	char *dest;
 
 	i = 0;
-	while (str[i] && str[i] != '.')
+	while (str[i] && !is_special_char(str[i]))
 		i++;
 	j = i;
 	while (str[i])
@@ -60,6 +57,7 @@ char	*get_var_sufix(char *str)
 	dest = (char *)malloc(sizeof(char) * (i - j + 1));
 	if (!dest)
 		return (NULL);
+	
 	dest = ft_substr(str,j,i);
 	return (dest);
 }
@@ -83,7 +81,7 @@ void	check_var(char *str,t_env *e_list)
 		{	
 			i++;
 			j = i;
-			while (str[i] && (str[i] != ' ' && str[i] != '.'
+			while (str[i] && (str[i] != ' ' && !is_special_char(str[i])
 				&& str[i] != '$'))
 			{
 				
@@ -92,8 +90,11 @@ void	check_var(char *str,t_env *e_list)
 			}
 			i--;
 			pref = get_var_prefix(str);
+			printf("pref = %s\n",pref);
 			res = fill_res(var_len,j,str);
+			printf("res = %s\n",res);
 			val = my_getenv(res, e_list);
+			printf("val = %s\n",val);
 		}
 	}
 	// if (pref)
