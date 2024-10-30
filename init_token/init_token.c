@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/23 13:17:39 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 09:41:41 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char *fill_temp(char *input,int *i,int *j)
 		*j = *i;
 		temp = fill_temp_without_quote(i,j,&temp,input);
 	}
+	printf("temp = %s\n",temp);
 	return (temp);
 }
 

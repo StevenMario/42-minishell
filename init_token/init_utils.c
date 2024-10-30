@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/23 13:03:05 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 09:43:51 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ char *fill_temp_with_quote(int *i,int *j,char **temp,char *input)
 			break;
 		(*i)++;
 	}
+	(*i)++;
+	printf("Avant input[*i] = %c\n",input[*i]);
+	while (input && input[*i] && (check_redire(input,i) != -1))
+		(*i)++;
+	printf("Apres input[*i] = %c\n",input[*i]);
 	*temp = malloc(sizeof(char) * (*i - *j + 1));
 	while (*j <= *i)
 	{

@@ -45,6 +45,7 @@ CFILES =	ft_isalnum.c \
 		print_unsigned_dec.c\
 		print_hex.c\
 		print_adress_hex.c\
+		ft_count_char_in_str.c\
 		ft_printf.c
 OFILES =  $(CFILES:.c=.o)
 
