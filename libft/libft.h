@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 10:31:40 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/30 09:26:08 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:13:22 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ long	ft_atoi(const char *str);
 int		ft_tolower(int character);
 int		ft_printf(const char *format, ...);
 int		ft_print_char(char c);
-int		ft_count_char_in_str(char *str,char c);
 int		print_str(char *str);
 int		print_int(int nbr);
 int		print_unsigned_dec(unsigned int nbr);

@@ -6,25 +6,25 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/30 10:17:18 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:03:05 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 
-int check_redire(char *temp,int i)
+int check_redire(char *temp,int *i)
 {
-	if (temp[i] == ' ')
-		return (-2);
-	else if ((temp[i] == '>' && temp[i + 1] == '>'))
+	if (temp[*i] == '"')
+		return (-1);
+	else if ((temp[*i] == '>' && temp[*i + 1] == '>'))
 		return (APPEND);
-	else if ((temp[i] == '<' && temp[i + 1] == '<'))		
+	else if ((temp[*i] == '<' && temp[*i + 1] == '<'))		
 		return  (HEREDOC);
-	else if (temp[i] == '<')
+	else if (temp[*i] == '<')
 		return (INPUT);
-	else if (temp[i] == '>')
+	else if (temp[*i] == '>')
 		return (TRUNC);
-	else if (temp[i] == '|')
+	else if (temp[*i] == '|')
 		return (PIPE);
 	return (-1);
 }
@@ -40,11 +40,6 @@ char *fill_temp_with_quote(int *i,int *j,char **temp,char *input)
 			break;
 		(*i)++;
 	}
-	(*i)++;
-	printf("Avant input[*i] = %c\n",input[*i]);
-	while (input && input[*i] && (check_redire(input,i) != -1))
-		(*i)++;
-	printf("Apres input[*i] = %c\n",input[*i]);
 	*temp = malloc(sizeof(char) * (*i - *j + 1));
 	while (*j <= *i)
 	{
