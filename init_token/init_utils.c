@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/30 10:50:39 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:15:09 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@ int check_redire(char *temp,int *i)
 		return (TRUNC);
 	else if (temp[*i] == '|')
 		return (PIPE);
+	else if (temp[*i] == ' ')
+		return (0);
 	return (-1);
 }
 
 char *fill_temp_with_quote(int *i,int *j,char **temp,char *input)
 {
 	int x;
-
+	int check_re;
 	x = 0;
 	while (input[*i] && (input[*i] != '\'' || input[*i] != '"'))
 	{
@@ -40,7 +42,15 @@ char *fill_temp_with_quote(int *i,int *j,char **temp,char *input)
 			break;
 		(*i)++;
 	}
-	
+	(*i)++;
+	check_re  = check_redire(input,i);
+	// printf("check_redire = %d\n",check_re);
+	if (check_re == -1)
+	{
+		while (input[*i] && (check_redire(input,i) == -1))
+			(*i)++;
+		// printf("Apres input[i] = %c\n",input[*i]);
+	}
 	*temp = malloc(sizeof(char) * (*i - *j + 1));
 	while (*j <= *i)
 	{

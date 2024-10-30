@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:55:08 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/23 08:24:56 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:56:16 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		is_not_arg_or_cmd(char *content);
 int		check_type(t_token *temp);
 void	ft_is_arg_or_cmd(t_token *temp);
 void	assigne_type_token(t_data *data);
-char	*fill_temp(char *input,int *i,int *j);
+char	*fill_temp(char *input,int *i);
 void	fill_data(t_data *data, char *temp);
 void	init_token(t_data *data,char *input);
 int		check_redire(char *temp,int *i);
