@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/30 10:28:29 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:35:03 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char *fill_temp(char *input,int *i)
 
 	temp = NULL;
 	// j = *i;
+
 	if (input && input[*i] && (check_redire(input,*i) == -1))
 	{
 		j = *i;

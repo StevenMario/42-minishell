@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/30 10:26:35 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:34:16 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int main(int argc,char **argv,char **env)
 	t_data *data;
 	
 	(void)argv;
-	check_quote = 0;
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (1);
