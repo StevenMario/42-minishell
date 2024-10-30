@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/30 10:17:36 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:26:35 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int init_data(t_data *data, char *input,char **env)
 	data->e_lst = fill_env_in_t_env(env);
 	init_token(data,input);
 	assigne_type_token(data);
-	init_cmd(data);
+	// init_cmd(data);
+	ft_print_token(data->token);
 	// ft_print_cmd(datla->cmd);
 	// printf_t_env(data->e_lst);
 	// clear_data(data);
@@ -51,8 +52,6 @@ int main(int argc,char **argv,char **env)
 	int	check_squote;
 	int check_dquote;
 	t_data *data;
-	int check_quote;
-	int check_dquote;
 	
 	(void)argv;
 	check_quote = 0;
@@ -65,11 +64,18 @@ int main(int argc,char **argv,char **env)
 	while (1)
 	{
 		input = readline("minishell$: ");
-		if (input)
+		check_dquote = ft_count_char_in_str(input,'"') % 2;
+		check_squote = ft_count_char_in_str(input,'\'') % 2;
+		if (check_dquote != 0 || check_squote != 2)
+			printf("A quote or double quote is not closed!\n");
+		else
 		{
-			add_history(input);
-			if (!init_data(data,input,env))
-				return (1);
+			if (input)
+			{
+				add_history(input);
+				if (!init_data(data,input,env))
+					return (1);
+			}
 		}
 	}
     return (0);

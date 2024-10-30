@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:34:45 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/29 19:43:32 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:23:17 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,21 +97,5 @@ int check_quote(char *str)
 	}
 	return (0);
 }
-
-int	ft_count_char(char *str, char c)
-{
-	int i;
-	int count;
-
-	count = 0;
-	i = -1;
-	while (str[++i])
-	{
-		if (str[i] == c)
-			count++;
-	}
-	return (count);
-}
-
 
 
