@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/30 12:43:56 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 13:22:07 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 
 int		ft_strcmp(char *s1, char *s2);
 void	ft_print_token(t_token *token);
-// char	*ft_remove_front_and_back_space(char *str);
 void	 new_cmd(t_token *token,t_cmd **cmd);
 char    *remove_quotes(char *str);
 int     check_quote(char *str);

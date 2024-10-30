@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/30 12:38:10 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 13:22:02 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	init_token(t_data *data,char *input)
 	int i;
 	
 	i = 0;
-	// input = ft_remove_front_and_back_space(input);
 	input = ft_strtrim(input," \n\t");
 	while (input[i])
 	{
