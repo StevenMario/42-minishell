@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/30 11:13:23 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:13:53 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int main(int argc,char **argv,char **env)
 		input = readline("minishell$: ");
 		check_dquote = ft_count_char_in_str(input,'"') % 2;
 		check_squote = ft_count_char_in_str(input,'\'') % 2;
+		add_history(input);
 		if (check_dquote != 0 || check_squote != 0)
 			printf("A quote or double quote is not closed\n");
 		else

@@ -6,85 +6,110 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/30 11:15:09 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:46:36 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 
-int check_redire(char *temp,int *i)
+int check_redire(char *temp,int i)
 {
-	if (temp[*i] == '"')
-		return (-1);
-	else if ((temp[*i] == '>' && temp[*i + 1] == '>'))
+	// if (temp[i] == '"')
+	// 	return (-2);
+	 if ((temp[i] == '>' && temp[i + 1] == '>'))
 		return (APPEND);
-	else if ((temp[*i] == '<' && temp[*i + 1] == '<'))		
+	else if ((temp[i] == '<' && temp[i + 1] == '<'))		
 		return  (HEREDOC);
-	else if (temp[*i] == '<')
+	else if (temp[i] == '<')
 		return (INPUT);
-	else if (temp[*i] == '>')
+	else if (temp[i] == '>')
 		return (TRUNC);
-	else if (temp[*i] == '|')
+	else if (temp[i] == '|')
 		return (PIPE);
-	else if (temp[*i] == ' ')
+	else if (temp[i] == ' ')
 		return (0);
 	return (-1);
 }
 
-char *fill_temp_with_quote(int *i,int *j,char **temp,char *input)
+char *stock_char(int *i,int *j,char *input)
+{
+	char *temp;
+	int		x;
+
+	temp = NULL;
+	x = 0;
+	temp = malloc(sizeof(char) * (*i - *j + 1));
+	while (*j <= *i)
+	{
+		temp[x] = input[*j];
+		x++;
+		(*j)++;
+	}
+	(*i)++;
+	temp[x] = '\0';
+	return (temp);
+}
+
+char *fill_temp_with_quote(int *i,int *j,char *input)
 {
 	int x;
-	int check_re;
+	char *temp;
+
 	x = 0;
-	while (input[*i] && (input[*i] != '\'' || input[*i] != '"'))
+	temp = NULL;
+	while (input && input[*i] && (input[*i] != '\'' || input[*i] != '"'))
 	{
 		if (input[*i] == input[*j])
 			break;
 		(*i)++;
 	}
-	(*i)++;
-	check_re  = check_redire(input,i);
-	// printf("check_redire = %d\n",check_re);
-	if (check_re == -1)
+	while (input && input[*i])
 	{
-		while (input[*i] && (check_redire(input,i) == -1))
-			(*i)++;
-		// printf("Apres input[i] = %c\n",input[*i]);
+		if (check_redire(input,*i + 1) != -1)
+			break;
+		(*i)++;
 	}
-	*temp = malloc(sizeof(char) * (*i - *j + 1));
-	while (*j <= *i)
-	{
-		(*temp)[x] = input[*j];
-		x++;
-		(*j)++;
-	}
-	(*i)++;
-	(*temp)[x] = '\0';
-	
-	return (*temp);
+	temp = stock_char(i, j,input);
+	return (temp);
 }
 
-char *fill_temp_without_quote(int *i,int *j,char **temp,char *input)
+char *fill_temp_without_quote(int *i,int *j,char *input)
 {
 	int	k;
 	int x;
+	char *temp;
+	char quote;
 
 	x = 0;
+	quote = 0;
+	temp = NULL;
 	while ((input[*i] != ' ' && input[*i] != '|'
 		&& input[*i] != '>' && input[*i] != '<')&& input[*i])
+	{
+		quote = is_quote(input[*i]);
+		if (quote)
+		{
+			// (*i)++;
+			while (input[++(*i)])
+			{
+				if (input[*i] == quote)
+					break;
+			}
+		}
 		(*i)++;
+	}
 	k = *i;
-	*temp = malloc(sizeof(char) * (k - *j + 1));
+	temp = malloc(sizeof(char) * (k - *j + 1));
 	if (!*temp)
 		return (NULL);
 	while (*j < k)
 	{
-		(*temp)[x] = input[*j];
+		temp[x] = input[*j];
 		x++;
 		(*j)++;
 	}
-	(*temp)[x] = '\0';
-	return (*temp);
+	temp[x] = '\0';
+	return (temp);
 }
 char *fill_temp_with_redire(char *temp,int check,int *i)
 {

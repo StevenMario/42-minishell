@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/30 10:44:36 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 12:38:10 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void fill_data(t_data *data, char *temp)
 {
-	temp = ft_remove_front_and_back_space(temp);
+	temp = ft_strtrim(temp," \n\t");
 	if (temp != NULL)
 	{
 		if (data->token == NULL)
@@ -31,12 +31,12 @@ char *fill_temp(char *input,int *i)
 	int check;
 
 	temp = NULL;
-	check = check_redire(input, i);
+	check = check_redire(input, *i);
 	if (input[*i] == '\'' || input[*i] == '"')
 	{
 		j = *i;
 		(*i)++;
-		temp = fill_temp_with_quote(i,&j,&temp,input);
+		temp = fill_temp_with_quote(i,&j,input);
 	}
 	else if (check == PIPE || check == APPEND
 		|| check == INPUT || check == TRUNC || check == HEREDOC)
@@ -47,7 +47,7 @@ char *fill_temp(char *input,int *i)
 	else
 	{
 		j = *i;
-		temp = fill_temp_without_quote(i,&j,&temp,input);
+		temp = fill_temp_without_quote(i,&j,input);
 	}
 	return (temp);
 }
@@ -58,7 +58,8 @@ void	init_token(t_data *data,char *input)
 	int i;
 	
 	i = 0;
-	input = ft_remove_front_and_back_space(input);
+	// input = ft_remove_front_and_back_space(input);
+	input = ft_strtrim(input," \n\t");
 	while (input[i])
 	{
 		while (input[i] == ' ' && input[i])
