@@ -6,25 +6,25 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/30 09:43:51 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:17:18 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 
-int check_redire(char *temp,int *i)
+int check_redire(char *temp,int i)
 {
-	if (temp[*i] == '"')
-		return (-1);
-	else if ((temp[*i] == '>' && temp[*i + 1] == '>'))
+	if (temp[i] == ' ')
+		return (-2);
+	else if ((temp[i] == '>' && temp[i + 1] == '>'))
 		return (APPEND);
-	else if ((temp[*i] == '<' && temp[*i + 1] == '<'))		
+	else if ((temp[i] == '<' && temp[i + 1] == '<'))		
 		return  (HEREDOC);
-	else if (temp[*i] == '<')
+	else if (temp[i] == '<')
 		return (INPUT);
-	else if (temp[*i] == '>')
+	else if (temp[i] == '>')
 		return (TRUNC);
-	else if (temp[*i] == '|')
+	else if (temp[i] == '|')
 		return (PIPE);
 	return (-1);
 }

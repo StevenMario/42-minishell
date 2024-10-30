@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/28 22:52:22 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/29 21:09:14 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	check_var(char *str,t_env *e_list)
 			printf("val = %s\n",val);
 		}
 	}
+	
 	// if (pref)
 	// 	str = ft_strjoin(pref,val);
 	
