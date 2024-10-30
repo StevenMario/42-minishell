@@ -43,6 +43,7 @@ CFILES =	ft_isalnum.c \
 		print_int.c\
 		print_str.c\
 		print_unsigned_dec.c\
+		ft_count_char_in_str.c\
 		print_hex.c\
 		print_adress_hex.c\
 		ft_printf.c

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/28 11:36:19 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:48:40 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int main(int argc,char **argv,char **env)
 {
 	char *input;
 	t_data *data;
+	int check_dquote;
+	int check_squote;
 
 	(void)argv;
 	data = malloc(sizeof(t_data));
@@ -59,11 +61,18 @@ int main(int argc,char **argv,char **env)
 	while (1)
 	{
 		input = readline("minishell$: ");
-		if (input)
+		check_dquote = ft_count_char_in_str(input,'"') % 2;
+		check_squote = ft_count_char_in_str(input,'\'') % 2;
+		if (check_dquote != 0 || check_squote != 0)
+			printf("A quote or double quote is not closed\n");
+		else
 		{
-			add_history(input);
-			if (!init_data(data,input,env))
-				return (1);
+			if (input)
+			{
+				add_history(input);
+				if (!init_data(data,input,env))
+					return (1);
+			}
 		}
 	}
     return (0);
