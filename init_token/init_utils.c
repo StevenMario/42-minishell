@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/30 12:46:36 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/30 13:21:26 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,8 @@ char *fill_temp_without_quote(int *i,int *j,char *input)
 		(*i)++;
 	}
 	k = *i;
-	temp = malloc(sizeof(char) * (k - *j + 1));
-	if (!*temp)
-		return (NULL);
-	while (*j < k)
-	{
-		temp[x] = input[*j];
-		x++;
-		(*j)++;
-	}
-	temp[x] = '\0';
+	k--;
+	temp = stock_char(&k, j,input);
 	return (temp);
 }
 char *fill_temp_with_redire(char *temp,int check,int *i)
