@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:56:39 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/31 11:57:28 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/31 21:46:35 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int is_special_char(char c)
 			return (1);
 	return (0);
 }
+
 char *join_expand_char(char *val, char *pref, char *suf)
 {
 	char *str;
@@ -41,7 +42,7 @@ char *join_expand_char(char *val, char *pref, char *suf)
 	{
 		str = ft_strdup(" ");
 		if (pref)
-			str = pref;
+			str = ft_strdup(pref);
 	}
 	else
 	{
@@ -52,6 +53,9 @@ char *join_expand_char(char *val, char *pref, char *suf)
 		if (suf)
 			str = ft_strjoin(str,suf);
 	}
-	printf("str = %s\n",str);
+	if (val)
+		free(val);
+	if (suf)
+		free(suf);
 	return (str);
 }

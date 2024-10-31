@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/31 13:43:05 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/31 21:57:04 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ char *fill_res(int len,int j,char *str)
 {
 	char *res;
 
-	res = (char *)malloc(sizeof(char) *len + 1);
-	if (!res)
-		return (NULL);
+	// res = (char *)malloc(sizeof(char) *len + 1);
+	// if (!res)
+	// 	return (NULL);
 	// printf("j = %d len = %d\n",j,len);
+	res = NULL;
 	res = ft_substr(str,j,len);
 	res = ft_strtrim(res,"{}");
 	return (res);
@@ -28,17 +29,17 @@ char *fill_res(int len,int j,char *str)
 char	*get_var_prefix(char *str)
 {
 	int i;
+	int j;
 	char *dest;
 
+	dest = NULL;
 	i = 0;
-	if (str[0] == '$')
+	if (str && str[i] == '$')
 		return (NULL);
+	j = i;
 	while (str[i] && str[i] != '$')
 		i++;
-	dest = (char *)malloc(sizeof(char) * (i + 1));
-	if (!dest)
-		return (NULL);
-	dest = ft_substr(str,0,i);
+	dest = ft_substr(str,j,i);
 	return (dest);
 }
 
@@ -47,30 +48,42 @@ char	*get_var_sufix(char *str,int var_len,int j)
 	int i;
 	char *dest;
 
+	dest = NULL;
 	i = 0;
-	// printf("str[j] = %c   str[var_LEN + 1] = %c\n",str[j],str[var_len + 1]);
 	if (str[j] == '{' && str[var_len] == '}')
 		i = var_len + 1;
 	else
 		i = var_len;
 	while (str[var_len])
 		var_len++;
-	dest = (char *)malloc(sizeof(char) * (var_len - i + 1));
-	if (!dest)
-		return (NULL);
-	// printf("str[i] = %c\n",str[i]);
+	// dest = (char *)malloc(sizeof(char) * (var_len - i + 1));
+	// if (!dest)
+	// 	return (NULL);
 	dest = ft_substr(str,i,var_len);
 	return (dest);
+}
+
+char *fill_expand_value(int var_len,int j,t_env *e_list,char *str)
+{
+	char *res;
+	char *suf;
+	char *val;
+	int i;
+	char *pref;
+
+	i = j;
+	j = check_dollar(str) + 1;
+	suf = get_var_sufix(str,i,j);
+	val = my_getenv(fill_res(var_len,j,str), e_list);
+	pref =  get_var_prefix(str);
+	res = join_expand_char(val,pref, suf);
+	return (res);
 }
 
 char *check_var(char *str,t_env *e_list)
 {
 	int j;
-	int i;
-	// char *pref;
 	char *res;
-	char *suf;
-	char *val;
 	int var_len;
 
 	var_len = 0;
@@ -81,15 +94,9 @@ char *check_var(char *str,t_env *e_list)
 		var_len++;
 		j++;
 	}
-	i = j;
-	j = check_dollar(str) + 1;
-	// pref = get_var_prefix(str);
-	res = fill_res(var_len,j,str);
-	suf = get_var_sufix(str,i,j);
-	val = my_getenv(res, e_list);
-	str = join_expand_char(val, get_var_prefix(str), suf); 
-	printf("str = %s\n",str);
-	return (str);
+	res = fill_expand_value(var_len, j, e_list, str);
+	free(str);
+	return (res);
 }
 
 void cmd_expand(t_data *data)
@@ -109,4 +116,9 @@ void cmd_expand(t_data *data)
 		}
 		cmd = cmd->next;	
 	}
+}
+
+void cmd_rfile_expand(t_cmd *cmd)
+{
+	
 }
