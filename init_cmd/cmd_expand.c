@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/28 22:52:22 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/31 10:53:49 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char *fill_res(int len,int j,char *str)
 	res = (char *)malloc(sizeof(char) *len + 1);
 	if (!res)
 		return (NULL);
-	printf("j = %d len = %d\n",j,len);
+	// printf("j = %d len = %d\n",j,len);
 	res = ft_substr(str,j,len);
 	res = ft_strtrim(res,"{}");
 	return (res);
@@ -42,23 +42,23 @@ char	*get_var_prefix(char *str)
 	return (dest);
 }
 
-char	*get_var_sufix(char *str)
+char	*get_var_sufix(char *str,int var_len,int j)
 {
 	int i;
-	int j;
 	char *dest;
 
 	i = 0;
-	while (str[i] && !is_special_char(str[i]))
-		i++;
-	j = i;
-	while (str[i])
-		i++;
-	dest = (char *)malloc(sizeof(char) * (i - j + 1));
+	if (str[j] == '{' && str[var_len + 1] == '}')
+		i = var_len + 2;
+	else
+		i = var_len + 1;
+	while (str[var_len])
+		var_len++;
+	dest = (char *)malloc(sizeof(char) * (var_len - i + 1));
 	if (!dest)
 		return (NULL);
 	
-	dest = ft_substr(str,j,i);
+	dest = ft_substr(str,i,var_len);
 	return (dest);
 }
 
@@ -71,10 +71,10 @@ void	check_var(char *str,t_env *e_list)
 	char *suf;
 	char *val;
 	int var_len;
+
+
 	i = -1;
 	var_len = 0;
-	suf = get_var_sufix(str);
-	printf("sufix = %s\n",suf);
 	while (str[++i])
 	{
 		if (str[i] == '$')
@@ -89,16 +89,14 @@ void	check_var(char *str,t_env *e_list)
 				i++;
 			}
 			i--;
+
 			pref = get_var_prefix(str);
-			printf("pref = %s\n",pref);
 			res = fill_res(var_len,j,str);
-			printf("res = %s\n",res);
+			suf = get_var_sufix(str,var_len,j);
 			val = my_getenv(res, e_list);
-			printf("val = %s\n",val);
 		}
 	}
-	// if (pref)
-	// 	str = ft_strjoin(pref,val);
+	join_expand_char(val, pref, suf);
 	
 }
 

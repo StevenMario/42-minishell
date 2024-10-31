@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/30 13:21:26 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/31 10:15:12 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ char *stock_char(int *i,int *j,char *input)
 
 char *fill_temp_with_quote(int *i,int *j,char *input)
 {
-	int x;
+	// int x;
 	char *temp;
 
-	x = 0;
+	// x = 0;
 	temp = NULL;
 	while (input && input[*i] && (input[*i] != '\'' || input[*i] != '"'))
 	{
@@ -76,11 +76,11 @@ char *fill_temp_with_quote(int *i,int *j,char *input)
 char *fill_temp_without_quote(int *i,int *j,char *input)
 {
 	int	k;
-	int x;
+	// int x;
 	char *temp;
 	char quote;
 
-	x = 0;
+	// x = 0;
 	quote = 0;
 	temp = NULL;
 	while ((input[*i] != ' ' && input[*i] != '|'

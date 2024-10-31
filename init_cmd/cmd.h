@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:10:14 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/28 22:14:35 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/31 10:55:42 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ void	ft_lstclear_file(t_file **lst);
 t_cmd	*ft_initcmd(void);
 char	*my_getenv(char *var_name, t_env *env);
 void	cmd_expand(t_data *data);
+char    *join_expand_char(char *val, char *pref, char *suf);
 #endif
