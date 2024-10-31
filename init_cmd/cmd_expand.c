@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/31 10:53:49 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/10/31 13:43:05 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,56 +48,48 @@ char	*get_var_sufix(char *str,int var_len,int j)
 	char *dest;
 
 	i = 0;
-	if (str[j] == '{' && str[var_len + 1] == '}')
-		i = var_len + 2;
-	else
+	// printf("str[j] = %c   str[var_LEN + 1] = %c\n",str[j],str[var_len + 1]);
+	if (str[j] == '{' && str[var_len] == '}')
 		i = var_len + 1;
+	else
+		i = var_len;
 	while (str[var_len])
 		var_len++;
 	dest = (char *)malloc(sizeof(char) * (var_len - i + 1));
 	if (!dest)
 		return (NULL);
-	
+	// printf("str[i] = %c\n",str[i]);
 	dest = ft_substr(str,i,var_len);
 	return (dest);
 }
 
-void	check_var(char *str,t_env *e_list)
+char *check_var(char *str,t_env *e_list)
 {
+	int j;
 	int i;
-	int	j;
-	char *pref;
+	// char *pref;
 	char *res;
 	char *suf;
 	char *val;
 	int var_len;
 
-
-	i = -1;
 	var_len = 0;
-	while (str[++i])
+	j = check_dollar(str) + 1;
+	while (str[j] && (str[j] != ' ' && !is_special_char(str[j])
+		&& str[j] != '$'))
 	{
-		if (str[i] == '$')
-		{	
-			i++;
-			j = i;
-			while (str[i] && (str[i] != ' ' && !is_special_char(str[i])
-				&& str[i] != '$'))
-			{
-				
-				var_len++;
-				i++;
-			}
-			i--;
-
-			pref = get_var_prefix(str);
-			res = fill_res(var_len,j,str);
-			suf = get_var_sufix(str,var_len,j);
-			val = my_getenv(res, e_list);
-		}
+		var_len++;
+		j++;
 	}
-	join_expand_char(val, pref, suf);
-	
+	i = j;
+	j = check_dollar(str) + 1;
+	// pref = get_var_prefix(str);
+	res = fill_res(var_len,j,str);
+	suf = get_var_sufix(str,i,j);
+	val = my_getenv(res, e_list);
+	str = join_expand_char(val, get_var_prefix(str), suf); 
+	printf("str = %s\n",str);
+	return (str);
 }
 
 void cmd_expand(t_data *data)
@@ -111,8 +103,8 @@ void cmd_expand(t_data *data)
 		i = 0;
 		while (cmd->arg[i])
 		{
-			if (check_dollar(cmd->arg[i]))
-				check_var(cmd->arg[i],data->e_lst);
+			if (check_dollar(cmd->arg[i]) > -1)
+				cmd->arg[i] = check_var(cmd->arg[i],data->e_lst);
 			i++;
 		}
 		cmd = cmd->next;	
