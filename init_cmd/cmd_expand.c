@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/01 14:00:45 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/01 21:12:02 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,15 @@ char	*get_var_prefix(char *str)
 		return (NULL);
 	j = i;
 	while (str[i] && str[i] != '$')
+	{
+		if (str[i] == '\'')
+		{
+			i++;
+			while(str[i] && str[i] != '\'')
+				i++;
+		}
 		i++;
+	}
 	dest = ft_substr(str,j,i);
 	return (dest);
 }

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:56:39 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/01 14:22:56 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/01 20:55:38 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,16 @@
 int check_dollar(char *str)
 {
 	int i;
-
+	
 	i = -1;
 	while (str[++i])
 	{
 		if (str[i] == '\'')
-			return (-1);
+		{
+			i++;
+			while (str[i] && str[i] != '\'')
+				i++;	
+		}
 		if (str[i] == '$')
 			return (i);
 	}
