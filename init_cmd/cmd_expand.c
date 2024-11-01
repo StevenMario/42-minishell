@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/31 21:57:04 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/01 14:00:45 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,6 @@ char *fill_res(int len,int j,char *str)
 {
 	char *res;
 
-	// res = (char *)malloc(sizeof(char) *len + 1);
-	// if (!res)
-	// 	return (NULL);
-	// printf("j = %d len = %d\n",j,len);
 	res = NULL;
 	res = ft_substr(str,j,len);
 	res = ft_strtrim(res,"{}");
@@ -56,9 +52,6 @@ char	*get_var_sufix(char *str,int var_len,int j)
 		i = var_len;
 	while (str[var_len])
 		var_len++;
-	// dest = (char *)malloc(sizeof(char) * (var_len - i + 1));
-	// if (!dest)
-	// 	return (NULL);
 	dest = ft_substr(str,i,var_len);
 	return (dest);
 }
@@ -118,7 +111,52 @@ void cmd_expand(t_data *data)
 	}
 }
 
-void cmd_rfile_expand(t_cmd *cmd)
+void cmd_rfile_expand(t_file *rfile, t_env *e_list)
 {
-	
+	t_file *temp;
+
+	temp = rfile;
+	while (temp)
+	{
+		if (temp && temp->content && check_dollar(temp->content) > -1)
+			temp->content = check_var(temp->content, e_list);
+		temp = temp->next;	
+	}
 }
+
+void fill_infile_expand(t_data *data)
+{
+	t_cmd *cmd;
+	t_file *temp;
+
+	cmd = data->cmd;
+	while (cmd)
+	{
+		temp = cmd->infile;
+		while (temp)
+		{
+			cmd_rfile_expand(temp, data->e_lst);
+			temp = temp->next;
+		}
+		cmd = cmd->next;
+	}
+}
+
+void fill_outfile_expand(t_data *data)
+{
+	t_cmd *cmd;
+	t_file *temp;
+
+	cmd = data->cmd;
+	while (cmd)
+	{
+		temp = cmd->outfile;
+		while (temp)
+		{
+			cmd_rfile_expand(temp, data->e_lst);
+			temp = temp->next;
+		}
+		cmd = cmd->next;
+	}
+}
+

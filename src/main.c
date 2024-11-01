@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/30 13:22:37 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/01 14:02:41 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void init_cmd(t_data *data)
 	data->cmd = NULL;
 	new_cmd(data->token,&data->cmd);
 	cmd_expand(data);
+	if (data->cmd->infile)
+		fill_infile_expand(data);
+	if (data->cmd->outfile)
+		fill_outfile_expand(data);
 	cmd_processing(data);
 }
 void clear_data(t_data *data)
