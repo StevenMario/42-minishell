@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/01 21:12:02 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/02 21:41:58 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,19 +83,30 @@ char *fill_expand_value(int var_len,int j,t_env *e_list,char *str)
 
 char *check_var(char *str,t_env *e_list)
 {
-	int j;
-	char *res;
-	int var_len;
+	int		j;
+	char	*res;
+	int		var_len;
+	int		count_dollar;
 
-	var_len = 0;
-	j = check_dollar(str) + 1;
-	while (str[j] && (str[j] != ' ' && !is_special_char(str[j])
-		&& str[j] != '$'))
-	{
-		var_len++;
-		j++;
+	count_dollar = ft_count_char_in_str(str,'$');
+	printf("count_dollars = %d\n",count_dollar);
+	while (count_dollar > 0)
+	{	
+		var_len = 0;
+		j = check_dollar(str) + 1;
+		while (str[j] && (str[j] != ' ' && !is_special_char(str[j])
+			&& str[j] != '$'))
+		{
+			var_len++;
+			j++;
+		}
+		res = fill_expand_value(var_len, j, e_list, str);
+		free(str);
+		str = ft_strdup(res);
+		printf("str = %s\n",str);
+		printf("res = %s\n",res);
+		count_dollar--;
 	}
-	res = fill_expand_value(var_len, j, e_list, str);
 	free(str);
 	return (res);
 }
@@ -104,6 +115,7 @@ void cmd_expand(t_data *data)
 {
 	int i;
 	t_cmd *cmd;
+	
 
 	cmd = data->cmd;
 	while (cmd)
@@ -111,6 +123,7 @@ void cmd_expand(t_data *data)
 		i = 0;
 		while (cmd->arg[i])
 		{
+
 			if (check_dollar(cmd->arg[i]) > -1)
 				cmd->arg[i] = check_var(cmd->arg[i],data->e_lst);
 			i++;
