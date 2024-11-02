@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/02 21:41:58 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/02 22:16:01 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ char *check_var(char *str,t_env *e_list)
 	int		count_dollar;
 
 	count_dollar = ft_count_char_in_str(str,'$');
-	printf("count_dollars = %d\n",count_dollar);
 	while (count_dollar > 0)
 	{	
 		var_len = 0;
@@ -103,8 +102,6 @@ char *check_var(char *str,t_env *e_list)
 		res = fill_expand_value(var_len, j, e_list, str);
 		free(str);
 		str = ft_strdup(res);
-		printf("str = %s\n",str);
-		printf("res = %s\n",res);
 		count_dollar--;
 	}
 	free(str);

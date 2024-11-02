@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:21:53 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/24 06:55:14 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/02 21:56:42 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include "../src/structure.h"
 
 t_env	*fill_env_in_t_env(char **envp);
+t_env   *init_t_env(void);
 void    printf_t_env(t_env *env);
-t_env *init_t_env(void);
-
+void    ft_echo(char **echo);
 
 #endif

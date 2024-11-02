@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:29:31 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/23 18:55:53 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/02 22:05:19 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void  ft_echo(char **echo)
 
  	i = 1;
 	option = 0;
-
 	while (echo[i] != NULL && iof_flag(echo[i]) == 1)
 	{
 		option = 1;
@@ -51,5 +50,5 @@ void  ft_echo(char **echo)
 	}
 	if (option == 0)
 		printf("\n");
-	return (0);
+	// return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/01 14:02:41 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/02 22:21:39 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,19 @@ void clear_data(t_data *data)
 	ft_lstclear_token(&data->token);
 	free(data);
 }
+
+void print_echo(t_cmd *cmd)
+{
+	t_cmd *temp;
+	
+	temp = cmd;
+	while (temp)
+	{
+		ft_echo(temp->arg);
+		temp = temp->next;
+	}
+}
+
 int init_data(t_data *data, char *input,char **env)
 {	
 	data->token = malloc(sizeof(t_token));
@@ -42,10 +55,11 @@ int init_data(t_data *data, char *input,char **env)
 	init_token(data,input);
 	assigne_type_token(data);
 	init_cmd(data);
-	ft_print_cmd(data->cmd);
+	print_echo(data->cmd);
+	// ft_print_cmd(data->cmd);
+	// clear_data(data);
 	// ft_print_token(data->token);
 	// printf_t_env(data->e_lst);
-	// clear_data(data);
 	// <file1 echo>>app test"test" >out.txt<<doc|cat -e "test'hello'" <<heredoc
 	return 1;
 }
