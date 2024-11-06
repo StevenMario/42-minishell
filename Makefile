@@ -12,11 +12,17 @@ SRC = 		./src/utils.c\
 			./init_cmd/init_rfile.c\
 			./init_cmd/init_rfile_utils.c\
 			./builtins/env/env_utils.c\
+			./builtins/env/m_env.c\
 			./builtins/m_echo.c\
 			./init_cmd/cmd_processing.c\
 			./init_cmd/cmd_processing_utils.c\
 			./init_cmd/cmd_expand.c\
 			./init_cmd/cmd_expand_utils.c\
+			./builtins/export/m_export.c\
+			./builtins/export/export_utils.c\
+			./builtins/m_unset.c\
+			./builtins/m_pwd.c\
+			./builtins/m_cd.c\
 			./src/main.c
 			
 LIBFT_D = ./libft

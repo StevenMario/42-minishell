@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/24 06:13:08 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:17:11 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_env
 {
 	char	*key;
 	char    *value;
-	struct s_env	*prev;
 	struct s_env    *next;
 }		t_env;
 

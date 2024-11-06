@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:49:38 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/27 22:25:13 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/06 11:26:10 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ t_env	*ft_double_lstnew_env(char *key, char *value)
 	new_env = init_t_env();
 	if (!new_env)
 		return (NULL);
-	new_env->prev = NULL;
 	if (key)
 		new_env->key = ft_strdup(key);
 	if(value)
@@ -78,7 +77,6 @@ t_env	*fill_env_in_t_env(char **envp)
 
 	i = -1;
 	root = NULL;
-	// root = init_t_env();
 	while (envp[++i])
 	{
 		split_env = split_for_env(envp[i]);
@@ -97,8 +95,35 @@ t_env *init_t_env(void)
 	env->key = NULL;
 	env->value = NULL;
 	env->next = NULL;
-	env->prev = NULL;
 	return (env);
+}
+
+t_env	*duplicate_env(t_env *src)
+{
+	t_env	*new_node;
+	t_env	*head;
+	t_env	*tail;
+	t_env	*current;
+
+	if (!src || !(head = malloc(sizeof(t_env))))
+		return (NULL);
+	head->key = strdup(src->key);
+	head->value = strdup(src->value);
+	head->next = NULL;
+	tail = head;
+	current = src->next;
+	while (current)
+	{
+		if (!(new_node = malloc(sizeof(t_env))))
+			return (NULL);
+		new_node->key = strdup(current->key);
+		new_node->value = strdup(current->value);
+		new_node->next = NULL;
+		tail->next = new_node;
+		tail = new_node;
+		current = current->next;
+	}
+	return (head);
 }
 
 void printf_t_env(t_env *env)

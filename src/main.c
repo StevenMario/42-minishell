@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/02 22:21:39 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/06 12:37:34 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,6 @@ void clear_data(t_data *data)
 	free(data);
 }
 
-void print_echo(t_cmd *cmd)
-{
-	t_cmd *temp;
-	
-	temp = cmd;
-	while (temp)
-	{
-		ft_echo(temp->arg);
-		temp = temp->next;
-	}
-}
 
 int init_data(t_data *data, char *input,char **env)
 {	
@@ -51,11 +40,15 @@ int init_data(t_data *data, char *input,char **env)
 		return (0);
 	data->token = NULL;
 	data->env = env;
-	data->e_lst = fill_env_in_t_env(env);
+	if (data && !data->e_lst)
+		data->e_lst = fill_env_in_t_env(env);
 	init_token(data,input);
 	assigne_type_token(data);
 	init_cmd(data);
-	print_echo(data->cmd);
+	if (ft_strcmp(data->cmd->arg[0],"pwd") == 0)
+		ft_pwd(data->e_lst);
+	if (ft_strcmp(data->cmd->arg[0],"cd") == 0)
+		ft_cd(data->cmd, data->e_lst);
 	// ft_print_cmd(data->cmd);
 	// clear_data(data);
 	// ft_print_token(data->token);
