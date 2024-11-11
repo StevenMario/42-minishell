@@ -6,13 +6,13 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/11 11:02:24 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/11 11:05:11 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
+int get_status;
 
 void init_cmd(t_data *data)
 {
@@ -78,6 +78,7 @@ void signal_handler(int signal)
 {
    if (signal == SIGINT)
    {
+		get_status = 130;
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("",1);
