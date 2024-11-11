@@ -6,10 +6,10 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/06 13:00:36 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/11 10:15:26 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minishell.h"
+
 
 char **split_for_path(t_env *env)
 {
@@ -104,6 +104,7 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 	i = -1;
 	env_2d = env_to_2d(env);
 	path_spl = split_for_path(env);
+	
 	while (path_spl[++i])
 	{
 		join_path = ft__join_env(path_spl[i], cmd->arg[0]);

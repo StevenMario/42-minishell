@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/06 12:37:34 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/11 11:02:24 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void init_cmd(t_data *data)
 	data->cmd = NULL;
 	new_cmd(data->token,&data->cmd);
 	cmd_expand(data);
-	if (data->cmd->infile)
+	if (data && data->cmd && data->cmd->infile)
 		fill_infile_expand(data);
-	if (data->cmd->outfile)
+	if (data && data->cmd && data->cmd->outfile)
 		fill_outfile_expand(data);
 	cmd_processing(data);
 }
@@ -56,13 +56,50 @@ int init_data(t_data *data, char *input,char **env)
 	// <file1 echo>>app test"test" >out.txt<<doc|cat -e "test'hello'" <<heredoc
 	return 1;
 }
+int check_pair_quote(char *input)
+{
+	int check_dquote;
+	int check_squote;
+
+	check_dquote = ft_count_char_in_str(input,'"') % 2;
+	check_squote = ft_count_char_in_str(input,'\'') % 2;
+	if (check_dquote != 0 || check_squote != 0)
+		return (1);
+	return (0);
+}
+
+void exit_ctrl_d(char *input)
+{
+	free(input);
+	exit(0);
+}
+
+void signal_handler(int signal)
+{
+   if (signal == SIGINT)
+   {
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("",1);
+		rl_redisplay();
+   }
+}
+void init_signals(void)
+{
+	struct sigaction action;
+
+	memset(&action, 0, sizeof(action));
+	action.sa_handler = signal_handler;
+	sigemptyset(&action.sa_mask);
+	action.sa_flags = 0;
+	sigaction(SIGINT, &action, NULL);
+	signal(SIGQUIT,SIG_IGN);
+}
 
 int main(int argc,char **argv,char **env)
 {
 	char *input;
 	t_data *data;
-	int check_dquote;
-	int check_squote;
 
 	(void)argv;
 	data = malloc(sizeof(t_data));
@@ -70,17 +107,17 @@ int main(int argc,char **argv,char **env)
 		return (1);
 	if (argc > 1)
 		printf("[Error].Run without argument !\n");
+	init_signals();
 	while (1)
 	{
 		input = readline("minishell$: ");
-		check_dquote = ft_count_char_in_str(input,'"') % 2;
-		check_squote = ft_count_char_in_str(input,'\'') % 2;
-		add_history(input);
-		if (check_dquote != 0 || check_squote != 0)
-			printf("A quote or double quote is not closed\n");
+		if (input == NULL)
+			exit_ctrl_d(input);
+		if (check_pair_quote(input))
+			printf("minishell: unclosed quote detected\n");
 		else
 		{
-			if (input)
+			if (input && *input != '\0' && !ft_is_space(input))
 			{
 				add_history(input);
 				if (!init_data(data,input,env))
