@@ -23,6 +23,9 @@ SRC = 		./src/utils.c\
 			./builtins/m_unset.c\
 			./builtins/m_pwd.c\
 			./builtins/m_cd.c\
+			./execution/exec_no_builtins.c\
+			./execution/exec_no_builtins_utils.c\
+			./execution/exec.c\
 			./src/main.c
 			
 LIBFT_D = ./libft

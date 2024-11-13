@@ -6,10 +6,11 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/11 10:15:26 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/13 08:41:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "exec.h"
 
 char **split_for_path(t_env *env)
 {
@@ -26,7 +27,7 @@ char **split_for_path(t_env *env)
 	return (arr);
 }
 
-char *ft__join_env(char *s1, char *s2)
+char *ft_join_env(char *s1, char *s2)
 {
 	char	*str;
 	size_t	s1_i;
@@ -50,7 +51,7 @@ char	*double_join_env(char *s1, char *s2)
 
 	if (!s1)
 		return (NULL);
-	r1 = ft__join_env(s1, "=");
+	r1 = ft_join_env(s1, "=");
 	if (!r1)
 		return (NULL);
 	r1 = ft_strjoin(r1, s2);
@@ -59,6 +60,21 @@ char	*double_join_env(char *s1, char *s2)
 	return (r1);
 }
 
+
+char	*double_join_env1(char *s1, char *s2)
+{
+	char	*r1;
+
+	if (!s1)
+		return (NULL);
+	r1 = ft_join_env(s1, "/");
+	if (!r1)
+		return (NULL);
+	r1 = ft_strjoin(r1, s2);
+	if (!r1)
+		return (NULL);
+	return (r1);
+}
 char **env_to_2d(t_env *env)
 {
 	char	**arr;
@@ -78,14 +94,18 @@ char **env_to_2d(t_env *env)
 }
 int	ft_test_access(char *path)
 {
-	if (path)
+	int	j;
+
+	j = -1;
+	printf("path = %s\n",path);
+	 (path[++j])
 	{
-		if (!access(path, F_OK))
+		if (access(path, F_OK) != 0)
 		{
 			printf("mininshell: ls: command not found\n");
 			return (1);	
 		}
-		if (!access(path, X_OK))
+		if (access(path, X_OK) != 0)
 		{
 			printf("mininshell: ls: permission denied\n");
 			return (1);	
@@ -96,9 +116,10 @@ int	ft_test_access(char *path)
 }
 int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 {
-	char **env_2d;
+	char	**env_2d;
 	char	**path_spl;
 	char	*join_path;
+
 	int	i;
 
 	i = -1;
@@ -107,11 +128,11 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 	
 	while (path_spl[++i])
 	{
-		join_path = ft__join_env(path_spl[i], cmd->arg[0]);
+		join_path = double_join_env1(path_spl[i], cmd->arg[0]);
 		if (ft_test_access(join_path) == 0)
 		{
 			execve(join_path, cmd->arg, env_2d);
-			return (0);
+			exit(0);
 		}
 		free(join_path);
 	}
