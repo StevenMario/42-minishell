@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/13 08:41:00 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:05:10 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ char	*double_join_env1(char *s1, char *s2)
 		return (NULL);
 	return (r1);
 }
+
 char **env_to_2d(t_env *env)
 {
 	char	**arr;
@@ -94,24 +95,18 @@ char **env_to_2d(t_env *env)
 }
 int	ft_test_access(char *path)
 {
-	int	j;
-
-	j = -1;
-	printf("path = %s\n",path);
-	 (path[++j])
-	{
 		if (access(path, F_OK) != 0)
 		{
-			printf("mininshell: ls: command not found\n");
+			if (!path)
+				printf("mininshell: ls: command not found\n");
 			return (1);	
 		}
-		if (access(path, X_OK) != 0)
+		if (path && access(path, X_OK) != 0)
 		{
 			printf("mininshell: ls: permission denied\n");
 			return (1);	
 		}
-
-	}
+	// }
 	return (0);
 }
 int	exec_extern_cmd(t_env *env, t_cmd *cmd)
@@ -125,7 +120,6 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 	i = -1;
 	env_2d = env_to_2d(env);
 	path_spl = split_for_path(env);
-	
 	while (path_spl[++i])
 	{
 		join_path = double_join_env1(path_spl[i], cmd->arg[0]);
