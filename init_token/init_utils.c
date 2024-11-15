@@ -6,20 +6,18 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/31 10:15:12 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/15 08:55:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 
-int check_redire(char *temp,int i)
+int	check_redire(char *temp, int i)
 {
-	// if (temp[i] == '"')
-	// 	return (-2);
-	 if ((temp[i] == '>' && temp[i + 1] == '>'))
+	if ((temp[i] == '>' && temp[i + 1] == '>'))
 		return (APPEND);
-	else if ((temp[i] == '<' && temp[i + 1] == '<'))		
-		return  (HEREDOC);
+	else if ((temp[i] == '<' && temp[i + 1] == '<'))
+		return (HEREDOC);
 	else if (temp[i] == '<')
 		return (INPUT);
 	else if (temp[i] == '>')
@@ -31,9 +29,9 @@ int check_redire(char *temp,int i)
 	return (-1);
 }
 
-char *stock_char(int *i,int *j,char *input)
+char	*stock_char(int *i, int *j, char *input)
 {
-	char *temp;
+	char	*temp;
 	int		x;
 
 	temp = NULL;
@@ -50,60 +48,56 @@ char *stock_char(int *i,int *j,char *input)
 	return (temp);
 }
 
-char *fill_temp_with_quote(int *i,int *j,char *input)
+char	*fill_temp_with_quote(int *i, int *j, char *input)
 {
-	// int x;
-	char *temp;
+	char	*temp;
 
-	// x = 0;
 	temp = NULL;
 	while (input && input[*i] && (input[*i] != '\'' || input[*i] != '"'))
 	{
 		if (input[*i] == input[*j])
-			break;
+			break ;
 		(*i)++;
 	}
 	while (input && input[*i])
 	{
 		if (check_redire(input,*i + 1) != -1)
-			break;
+			break ;
 		(*i)++;
 	}
-	temp = stock_char(i, j,input);
+	temp = stock_char(i, j, input);
 	return (temp);
 }
 
-char *fill_temp_without_quote(int *i,int *j,char *input)
+char	*fill_temp_without_quote(int *i, int *j, char *input)
 {
-	int	k;
-	// int x;
-	char *temp;
-	char quote;
+	int		k;
+	char	*temp;
+	char	quote;
 
-	// x = 0;
 	quote = 0;
 	temp = NULL;
 	while ((input[*i] != ' ' && input[*i] != '|'
-		&& input[*i] != '>' && input[*i] != '<')&& input[*i])
+			&& input[*i] != '>' && input[*i] != '<') && input[*i])
 	{
 		quote = is_quote(input[*i]);
 		if (quote)
 		{
-			// (*i)++;
 			while (input[++(*i)])
 			{
 				if (input[*i] == quote)
-					break;
+					break ;
 			}
 		}
 		(*i)++;
 	}
 	k = *i;
 	k--;
-	temp = stock_char(&k, j,input);
+	temp = stock_char(&k, j, input);
 	return (temp);
 }
-char *fill_temp_with_redire(char *temp,int check,int *i)
+
+char	*fill_temp_with_redire(char *temp, int check, int *i)
 {
 	if (check == PIPE)
 		temp = ft_strdup("|");
@@ -123,4 +117,3 @@ char *fill_temp_with_redire(char *temp,int check,int *i)
 		temp = ft_strdup(">");
 	return (temp);
 }
-

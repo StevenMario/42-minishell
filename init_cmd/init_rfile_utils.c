@@ -6,11 +6,11 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 22:38:33 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/23 10:10:59 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/15 09:08:52 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cmd.h"
+#include "cmd.h"
 
 void	ft_lstclear_file(t_file **lst)
 {
@@ -27,7 +27,7 @@ void	ft_lstclear_file(t_file **lst)
 			next = (temp)->next;
 			if (temp->content)
 				free(temp->content);
-            free(temp);
+			free(temp);
 			temp = next;
 		}
 		*lst = NULL;

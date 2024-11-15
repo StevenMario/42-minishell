@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:54:36 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/06 12:28:54 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/15 09:33:54 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_pwd(t_env *env)
 {
-	char *env_cwd;
+	char	*env_cwd;
 
 	env_cwd = NULL;
 	env_cwd = my_getenv("PWD", env);

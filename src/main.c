@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/13 08:08:28 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/15 08:09:57 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ int check_pair_quote(char *input)
 	check_dquote = ft_count_char_in_str(input,'"') % 2;
 	check_squote = ft_count_char_in_str(input,'\'') % 2;
 	if (check_dquote != 0 || check_squote != 0)
+	{
+		printf("minishell: unclosed quote detected\n");
 		return (1);
+	}
 	return (0);
 }
 
@@ -111,17 +114,13 @@ int main(int argc,char **argv,char **env)
 		input = readline("minishell$: ");
 		if (input == NULL)
 			exit_ctrl_d(input);
-		if (check_pair_quote(input))
-			printf("minishell: unclosed quote detected\n");
-		else
-		{
-			if (input && *input != '\0' && !ft_is_space(input))
+		if (input && *input != '\0' && !ft_is_space(input)
+			&& !check_pair_quote(input))
 			{
 				add_history(input);
 				if (!init_data(data,input,env))
 					return (1);
 			}
-		}
 	}
     return (0);
 }

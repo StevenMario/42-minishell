@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 13:12:44 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/06 12:27:33 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/15 09:33:34 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_unset(t_cmd *cmd, t_env *env)
 	if (cmd->arg[l])
 	{
 		if (cmd->arg[l][0] == '-')
-		printf("unset: -%c: invalid option\n",cmd->arg[l][1]);
+			printf("unset: -%c: invalid option\n", cmd->arg[l][1]);
 		while (cmd->arg[l])
 		{
 			ft_rm_for_unset(&env, cmd->arg[l]);
@@ -50,5 +50,4 @@ int	ft_unset(t_cmd *cmd, t_env *env)
 	}
 	else
 		return (0);
-
 }

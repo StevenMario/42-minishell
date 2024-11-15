@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 13:07:59 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/23 13:13:12 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/15 08:48:36 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_is_space(char *str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i])

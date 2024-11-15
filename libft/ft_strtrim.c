@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 07:36:25 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/28 22:50:43 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/15 08:47:22 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,5 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (!str)
 		return (NULL);
 	ft_strlcpy(str, &s1[start], end - start + 1);
-	// free(s1);
 	return (str);
 }

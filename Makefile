@@ -17,6 +17,7 @@ SRC = 		./src/utils.c\
 			./init_cmd/cmd_processing.c\
 			./init_cmd/cmd_processing_utils.c\
 			./init_cmd/cmd_expand.c\
+			./init_cmd/cmd_expand_rfile.c\
 			./init_cmd/cmd_expand_utils.c\
 			./builtins/export/m_export.c\
 			./builtins/export/export_utils.c\

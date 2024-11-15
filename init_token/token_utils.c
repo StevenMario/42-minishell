@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:07:43 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/23 12:52:30 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/15 08:51:46 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,6 @@ t_token	*ft_double_lstnew_token(char *content)
 	return (new_token);
 }
 
-void ft_print_token(t_token *token)
-{
-	while (token)
-	{
-		printf("data->token->content == %s  {}  data->token->type == %d   \n",token->content,token->type);
-		token = token->next;
-	}
-}
 void	ft_lstclear_token(t_token **lst)
 {
 	t_token	*temp;
@@ -67,7 +59,7 @@ void	ft_lstclear_token(t_token **lst)
 			next = (temp)->next;
 			if (temp->content)
 				free(temp->content);
-            free(temp);
+			free(temp);
 			temp = next;
 		}
 		*lst = NULL;

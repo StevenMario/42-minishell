@@ -6,15 +6,15 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:19:49 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/23 13:49:49 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/15 09:07:13 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cmd.h"
+#include "cmd.h"
 
-t_file *ft_init_file(void)
+t_file	*ft_init_file(void)
 {
-	t_file *rfile;
+	t_file	*rfile;
 
 	rfile = malloc(sizeof(t_file));
 	if (!rfile)
@@ -37,19 +37,7 @@ void	ft_add_back_infile(t_file **rfile, t_file *new_file)
 		temp->next = new_file;
 }
 
-void printf_infile(t_file *rfile)
-{
-	while(rfile)
-	{
-		if (rfile->type && rfile->content)
-			printf("[%d]  [content = %s]\n",rfile->type,rfile->content);
-		else
-			printf("Tsisi rfile\n");
-		rfile = rfile->next;
-	}
-}
-
-int init_file(t_token *token,t_cmd *cmd)
+int	init_file(t_token *token, t_cmd *cmd)
 {
 	t_file	*temp;
 
