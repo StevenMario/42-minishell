@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/18 11:02:20 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/18 11:52:56 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,6 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 	char	**path_spl;
 	char *path;
 
-
-	int	i;
-
-	i = -1;
 	env_2d = env_to_2d(env);
 	path_spl = split_for_path(env);
 	path = ft_test_access(path_spl,cmd->arg[0]);
