@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:07:29 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/18 08:39:42 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/18 11:56:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int	ft_is_builtin(t_cmd *cmd)
 	else if (ft_strcmp(cmd->arg[0], "unset") == 0)
 		return (1);
 	else if (ft_strcmp(cmd->arg[0], "pwd") == 0)
-		return (0);
+		return (1);
 	else if (ft_strcmp(cmd->arg[0], "env") == 0)
-		return (0);
+		return (1);
 	else if (ft_strcmp(cmd->arg[0], "echo") == 0)
-		return (0);
+		return (1);
 	else
 		return (-1);
 }
