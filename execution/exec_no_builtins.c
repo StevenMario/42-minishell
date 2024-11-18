@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/14 17:05:10 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/18 11:02:20 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,42 +93,53 @@ char **env_to_2d(t_env *env)
 	arr[j] = NULL;
 	return (arr);
 }
-int	ft_test_access(char *path)
+char *ft_test_access(char **path_spl, char *cmd)
 {
-		if (access(path, F_OK) != 0)
-		{
-			if (!path)
-				printf("mininshell: ls: command not found\n");
-			return (1);	
-		}
-		if (path && access(path, X_OK) != 0)
-		{
-			printf("mininshell: ls: permission denied\n");
-			return (1);	
-		}
-	// }
-	return (0);
+	int i;
+	char	*join_path;
+	i = -1;
+
+	while (path_spl[++i])
+	{
+		join_path = double_join_env1(path_spl[i], cmd);
+		if (join_path && access(join_path, F_OK) == 0)
+			return (join_path);		
+	}
+	
+	return (NULL);
 }
 int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 {
 	char	**env_2d;
 	char	**path_spl;
-	char	*join_path;
+	char *path;
+
 
 	int	i;
 
 	i = -1;
 	env_2d = env_to_2d(env);
 	path_spl = split_for_path(env);
-	while (path_spl[++i])
+	path = ft_test_access(path_spl,cmd->arg[0]);
+	if (path == NULL)
 	{
-		join_path = double_join_env1(path_spl[i], cmd->arg[0]);
-		if (ft_test_access(join_path) == 0)
-		{
-			execve(join_path, cmd->arg, env_2d);
-			exit(0);
-		}
-		free(join_path);
-	}
+		printf("mininshell: %s: command not found\n",cmd->arg[0]);
+		return (0);
+	}	
+	if (access(path, X_OK)!= 0)
+	{
+		printf("mininshell: %s: permission denied\n",cmd->arg[0]);
+		return (0);
+	}	
+	// while (path_spl[++i])
+	// {
+	// 	join_path = double_join_env1(path_spl[i], cmd->arg[0]);
+	// 	if (ft_test_access(join_path) == 0)
+	// 	{
+	execve(path, cmd->arg, env_2d);
+	exit(0);
+	// 	}
+	// 	free(join_path);
+	// }
 	return (1);
 }
