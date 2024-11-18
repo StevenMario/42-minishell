@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/15 08:09:57 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/18 08:35:07 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int init_data(t_data *data, char *input,char **env)
 	init_token(data,input);
 	assigne_type_token(data);
 	init_cmd(data);
-	ft_exec(data->cmd, data->e_lst);
+	exec_simple_cmd(data, data->cmd, data->e_lst);
 	// ft_print_cmd(data->cmd);
 	// clear_data(data);
 	// ft_print_token(data->token);

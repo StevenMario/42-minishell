@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/11/06 11:45:26 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/18 08:45:07 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int ft_if_var_exist(t_env *env, char *k, char *val)
 	return (0);
 }
 
-void	ft_export(t_cmd *cmd, t_env *env)
+int	ft_export(t_cmd *cmd, t_env *env)
 {
 	int	i;
 	int	l;
@@ -80,7 +80,7 @@ void	ft_export(t_cmd *cmd, t_env *env)
 			{
 				i = 0;
 				if (ft_count_char_in_str(cmd->arg[l],'=') == 0)
-					return ;
+					return (1);
 				while (cmd->arg[l][i] && cmd->arg[l][i] != '=')
 					i++;
 				k  = ft_substr(cmd->arg[l], 0, i);
@@ -93,4 +93,5 @@ void	ft_export(t_cmd *cmd, t_env *env)
 	}
 	else
 		ft_print_dx(env);
+	return (0);
 }

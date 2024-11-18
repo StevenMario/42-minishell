@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:29:31 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/15 09:34:53 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/18 08:47:55 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	iof_flag(char *echo)
 	return (1);
 }
 
-void	ft_echo(char **echo)
+int	ft_echo(char **echo)
 {
 	int	i;
 	int	option;
@@ -50,4 +50,5 @@ void	ft_echo(char **echo)
 	}
 	if (option == 0)
 		printf("\n");
+	return (0);
 }

@@ -26,6 +26,7 @@ SRC = 		./src/utils.c\
 			./builtins/m_cd.c\
 			./execution/exec_no_builtins.c\
 			./execution/exec_no_builtins_utils.c\
+			./execution/exec_builtins.c\
 			./execution/exec.c\
 			./src/main.c
 			

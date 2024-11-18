@@ -6,7 +6,8 @@
         "token.h": "c",
         "structure.h": "c",
         "libft.h": "c",
-        "builtins.h": "c"
+        "builtins.h": "c",
+        "exec.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

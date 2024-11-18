@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/13 08:04:34 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/18 08:58:03 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include "../init_cmd/cmd.h"
 # include "../execution/exec.h"
 # include "../builtins/builtins.h"
+# include <sys/types.h>
+# include <sys/wait.h>
 
 int		ft_strcmp(char *s1, char *s2);
 void	ft_print_token(t_token *token);

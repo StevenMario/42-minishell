@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:07:29 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/06 13:02:27 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/18 08:39:42 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
-int	check_cmd_process(t_cmd *cmd)
+int	ft_is_builtin(t_cmd *cmd)
 {
 	if (ft_strcmp(cmd->arg[0], "cd") == 0)
 		return (1);
