@@ -6,16 +6,26 @@
 /*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:11:23 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/11/20 13:50:10 by iarantsoa        ###   ########.fr       */
+/*   Updated: 2024/11/20 14:25:03 by iarantsoa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void dup_std(int in, int out)
+void	ft_restore_std(int backup[2]);
 {
-	in = dup(STDIN_FILENO);
-	out = dup(STDOUT_FILENO);
+	dup2(STDOUT_FILENO, backup[0]);
+	dup2(STDIN_FILENO, backup[1]);
+}
+void	close_fds(int fd[2])
+{
+	close(fd[0]);
+	close(fd[1]);
+}
+void	dup_std(int r_fd[2]);
+{
+	r_fd[0] = dup(STDIN_FILENO);
+	r_fd[1] = dup(STDOUT_FILENO);
 }
 
 int	ft_count_cmd(t_cmd *cmd)
