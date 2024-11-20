@@ -6,7 +6,7 @@
 /*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:11:23 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/11/20 13:41:09 by iarantsoa        ###   ########.fr       */
+/*   Updated: 2024/11/20 13:50:10 by iarantsoa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,6 @@ void get_exit_status(t_data *mish)
 	wait(&wstatus);
 	if (WIFEXITED(wstatus))
 		mish->exit_status = WEXITSTATUS(wstatus);
+	else if (WIFSIGNALED(wstatus))
+	    mish->exit_status = WTERMSIG(wstatus);
 }

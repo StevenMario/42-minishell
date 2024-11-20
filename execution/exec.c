@@ -6,7 +6,7 @@
 /*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/20 13:17:00 by iarantsoa        ###   ########.fr       */
+/*   Updated: 2024/11/20 13:50:33 by iarantsoa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ int piping_cmd(t_data *mish)
 	if (count == 1)
 	{
 		exec_simple_cmd(mish, cmd, mish->env);
-        get_exit_status();
+        get_exit_status(mish);
 	}
 }
