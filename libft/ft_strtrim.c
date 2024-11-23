@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antanana      +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 07:36:25 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/02/24 07:36:29 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/15 08:47:22 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

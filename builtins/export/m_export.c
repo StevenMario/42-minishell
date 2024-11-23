@@ -6,11 +6,11 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/10/24 14:53:03 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/18 08:45:07 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../builtins.h"
 
 static int	ft_var_is_val(int c)
 {
@@ -29,8 +29,11 @@ static int	check_valid_var(char *arg)
 	int	i;
 
 	if (arg[0] && (ft_isdigit(arg[0]) == 1))
+	{
+		printf("Minishell: export: '%s' not a valid identifier\n", arg);
 		return (0);
-	if (arg[i] != NULL)
+	}
+	else
 	{
 		i = 0;
 		while (arg[i] && arg[i] != '=')
@@ -42,8 +45,7 @@ static int	check_valid_var(char *arg)
 		}
 		return (1);
 	}
-	else
-		return (0);
+	return (0);
 }
 
 int ft_if_var_exist(t_env *env, char *k, char *val)
@@ -62,7 +64,7 @@ int ft_if_var_exist(t_env *env, char *k, char *val)
 	return (0);
 }
 
-void	ft_export(t_cmd *cmd, t_env *env)
+int	ft_export(t_cmd *cmd, t_env *env)
 {
 	int	i;
 	int	l;
@@ -77,6 +79,8 @@ void	ft_export(t_cmd *cmd, t_env *env)
 			if (check_valid_var(cmd->arg[l]) == 1)
 			{
 				i = 0;
+				if (ft_count_char_in_str(cmd->arg[l],'=') == 0)
+					return (1);
 				while (cmd->arg[l][i] && cmd->arg[l][i] != '=')
 					i++;
 				k  = ft_substr(cmd->arg[l], 0, i);
@@ -89,4 +93,5 @@ void	ft_export(t_cmd *cmd, t_env *env)
 	}
 	else
 		ft_print_dx(env);
+	return (0);
 }

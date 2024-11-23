@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_pwd.c                                            :+:      :+:    :+:   */
+/*   cmd_processing_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 13:54:36 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/15 09:33:54 by mrambelo         ###   ########.fr       */
+/*   Created: 2024/10/27 21:14:37 by mrambelo          #+#    #+#             */
+/*   Updated: 2024/11/18 11:53:49 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "cmd.h"
 
-int	ft_pwd(t_env *env)
+char	*my_getenv(char *var_name, t_env *env)
 {
-	char	*env_cwd;
+	t_env	*tmp;
+	char	*val;
 
-	env_cwd = NULL;
-	env_cwd = my_getenv("PWD", env);
-	if (env_cwd == NULL)
-		return (1);
-	printf ("%s\n", env_cwd);
-	return (0);
+	if (!var_name)
+		return (NULL);
+	tmp = env;
+	while (tmp)
+	{
+		if (ft_strcmp(var_name, tmp->key) == 0)
+		{
+			val = ft_strdup(tmp->value);
+			return (val);
+		}
+		tmp = tmp->next;
+	}
+	return (NULL);
 }

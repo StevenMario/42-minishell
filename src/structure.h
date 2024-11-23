@@ -6,12 +6,12 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/24 13:33:39 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/18 08:40:55 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_H
-#define STRUCTURE_H
+# define STRUCTURE_H
 
 # define CMD 0
 # define ARG 1
@@ -35,8 +35,7 @@ typedef struct s_cmd
 	char	**arg;
 	t_file	*infile;
 	t_file	*outfile;
-	char	*env;
-	int		exit_code;
+	pid_t	pid;
 	struct s_cmd	*next;
 }	t_cmd;
 
@@ -48,20 +47,22 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct	s_env
+typedef struct s_env
 {
 	char	*key;
-	char	*value;
-	struct s_env	*prev;
-	struct s_env	*next;
-}	t_env;
+	char    *value;
+	struct s_env    *next;
+}		t_env;
 
 typedef struct s_data
 {
+	char **env;
 	t_token	*token;
 	t_cmd	*cmd;
-	t_env	*m_env;
+	t_env	*e_lst;
+	t_env	*sorted_env;
 	int		exit_status;
 }	t_data;
+
 
 #endif

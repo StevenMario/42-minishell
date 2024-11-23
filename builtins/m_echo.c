@@ -6,12 +6,11 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:29:31 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/24 11:50:00 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/18 08:47:55 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "minishell.h"
+#include "builtins.h"
 
 static int	iof_flag(char *echo)
 {
@@ -30,14 +29,13 @@ static int	iof_flag(char *echo)
 	return (1);
 }
 
-int  ft_echo(char **echo)
+int	ft_echo(char **echo)
 {
 	int	i;
- 	int	option;
+	int	option;
 
- 	i = 1;
+	i = 1;
 	option = 0;
-
 	while (echo[i] != NULL && iof_flag(echo[i]) == 1)
 	{
 		option = 1;

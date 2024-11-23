@@ -1,45 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list_utils.c                                       :+:      :+:    :+:   */
+/*   ft_is_space.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/15 19:03:26 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/10/15 19:03:27 by iarantsoa        ###   ########.fr       */
+/*   Created: 2024/10/23 13:07:59 by mrambelo          #+#    #+#             */
+/*   Updated: 2024/11/15 08:48:36 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	len_list(t_lst *lst)
+int	ft_is_space(char *str)
 {
-	t_lst	*temp;
 	int	i;
 
-	if ((lst))
+	i = -1;
+	while (str[++i])
 	{
-		temp = lst;
-		i = 1;
-		while (temp->next != lst)
-		{
-			i++;
-			temp = temp->next;
-		}
+		if (str[i] != ' ' || str[i] != '\t' || str[i] != '\n')
+			return (0);
+		i++;
 	}
-	return (i);
+	return (1);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

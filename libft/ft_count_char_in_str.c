@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_pwd.c                                            :+:      :+:    :+:   */
+/*   ft_count_char_in_str.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 13:54:36 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/15 09:33:54 by mrambelo         ###   ########.fr       */
+/*   Created: 2024/10/30 10:45:30 by mrambelo          #+#    #+#             */
+/*   Updated: 2024/11/15 08:48:12 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "libft.h"
 
-int	ft_pwd(t_env *env)
+int	ft_count_char_in_str(char *str, char c)
 {
-	char	*env_cwd;
+	int	i;
+	int	count;
 
-	env_cwd = NULL;
-	env_cwd = my_getenv("PWD", env);
-	if (env_cwd == NULL)
-		return (1);
-	printf ("%s\n", env_cwd);
-	return (0);
+	count = 0;
+	i = -1;
+	while (str && str[++i])
+	{
+		if (str[i] == c)
+			count++;
+	}
+	return (count);
 }

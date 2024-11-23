@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_pwd.c                                            :+:      :+:    :+:   */
+/*   init_rfile_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 13:54:36 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/15 09:33:54 by mrambelo         ###   ########.fr       */
+/*   Created: 2024/10/22 22:38:33 by mrambelo          #+#    #+#             */
+/*   Updated: 2024/11/15 09:08:52 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "cmd.h"
 
-int	ft_pwd(t_env *env)
+void	ft_lstclear_file(t_file **lst)
 {
-	char	*env_cwd;
+	t_file	*temp;
+	t_file	*next;
 
-	env_cwd = NULL;
-	env_cwd = my_getenv("PWD", env);
-	if (env_cwd == NULL)
-		return (1);
-	printf ("%s\n", env_cwd);
-	return (0);
+	temp = (*lst);
+	if (temp == NULL)
+		return ;
+	else
+	{
+		while (temp != NULL)
+		{
+			next = (temp)->next;
+			if (temp->content)
+				free(temp->content);
+			free(temp);
+			temp = next;
+		}
+		*lst = NULL;
+	}
 }

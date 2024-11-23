@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_pwd.c                                            :+:      :+:    :+:   */
+/*   exec_no_builtins_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 13:54:36 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/15 09:33:54 by mrambelo         ###   ########.fr       */
+/*   Created: 2024/11/13 08:01:36 by mrambelo          #+#    #+#             */
+/*   Updated: 2024/11/13 08:04:02 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+# include "exec.h"
 
-int	ft_pwd(t_env *env)
+int	ft_env_len(t_env *env)
 {
-	char	*env_cwd;
+	int	i;
 
-	env_cwd = NULL;
-	env_cwd = my_getenv("PWD", env);
-	if (env_cwd == NULL)
-		return (1);
-	printf ("%s\n", env_cwd);
-	return (0);
+	i = 0;
+	while (env)
+	{
+		i++;
+		env = env->next;
+	}
+	return (i);
 }

@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_pwd.c                                            :+:      :+:    :+:   */
+/*   m_envlst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/08 13:54:36 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/15 09:33:54 by mrambelo         ###   ########.fr       */
+/*   Created: 2024/10/13 20:12:32 by iarantsoa         #+#    #+#             */
+/*   Updated: 2024/10/23 18:57:47 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+// #include "minishell.h"
 
-int	ft_pwd(t_env *env)
-{
-	char	*env_cwd;
+// int ft_eee(char *key, t_data *mish)
+// {
+//     t_env	*env;
 
-	env_cwd = NULL;
-	env_cwd = my_getenv("PWD", env);
-	if (env_cwd == NULL)
-		return (1);
-	printf ("%s\n", env_cwd);
-	return (0);
-}
+//     env = mish->e_list; 
+// }

@@ -3,69 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   init_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-<<<<<<< HEAD:init_token.c
-/*   Updated: 2024/10/22 08:10:50 by irabesan         ###   ########.fr       */
-=======
-/*   Updated: 2024/10/22 12:30:41 by mrambelo         ###   ########.fr       */
->>>>>>> main:init_token/init_token.c
+/*   Updated: 2024/11/15 08:57:34 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
 
-void fill_data(t_data *data, char *temp)
+void	fill_data(t_data *data, char *temp)
 {
-	temp = ft_remove_front_and_back_space(temp);
-	if (data->token == NULL)
-				data->token = ft_double_lstnew_token(temp);
+	temp = ft_strtrim(temp, " \n\t");
+	if (temp != NULL)
+	{
+		if (data->token == NULL)
+			data->token = ft_double_lstnew_token(temp);
 		else
-			ft_lstadd_back_token(&data->token,ft_double_lstnew_token(temp));
- 	free(temp);
- }
-char *fill_temp(char *input,int *i,int *j)
+			ft_lstadd_back_token(&data->token, ft_double_lstnew_token(temp));
+		free(temp);
+	}
+}
+
+char	*fill_temp(char *input, int *i)
 {
-	char *temp;
-	int check;
+	char	*temp;
+	int		j;
+	int		check;
 
 	temp = NULL;
-	check = check_redire(input, i);
+	check = check_redire(input, *i);
 	if (input[*i] == '\'' || input[*i] == '"')
 	{
-		*j = *i;
+		j = *i;
 		(*i)++;
-		temp = fill_temp_with_quote(i,j,&temp,input);
+		temp = fill_temp_with_quote(i, &j, input);
 	}
 	else if (check == PIPE || check == APPEND
 		|| check == INPUT || check == TRUNC || check == HEREDOC)
 	{
-		temp = fill_temp_with_redire(temp, check,i);
+		temp = fill_temp_with_redire(temp, check, i);
 		(*i)++;
 	}
 	else
 	{
-		*j = *i;
-		temp = fill_temp_without_quote(i,j,&temp,input);
+		j = *i;
+		temp = fill_temp_without_quote(i, &j, input);
 	}
 	return (temp);
 }
 
-void	init_token(t_data *data,char *input)
+void	init_token(t_data *data, char *input)
 {
-	char *temp;
-	int i;
-	int j;
-	
+	char	*temp;
+	int		i;
+
 	i = 0;
-	j = 0;
-	input = ft_remove_front_and_back_space(input);
+	input = ft_strtrim(input, " \n\t");
 	while (input[i])
 	{
 		while (input[i] == ' ' && input[i])
 			i++;
-		temp = fill_temp(input,&i,&j);
-		fill_data(data,temp);
+		temp = fill_temp(input, &i);
+		if (ft_is_space(temp))
+		{
+			free(temp);
+			break ;
+		}
+		fill_data(data, temp);
 	}
+	free(input);
 }

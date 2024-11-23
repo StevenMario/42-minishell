@@ -3,25 +3,96 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/10/29 13:30:39 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/22 11:54:20 by iarantsoa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "exec.h"
 
-int	ft_exec(t_cmd *cmd, t_env *env)
+int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env) // one cmd
 {
-	pid_t	pid;
-	int	status;
-	int	cmd_process;
+	if (ft_is_builtin(cmd) == 1)
+	{
+		ft_exec_if_builtins(cmd, mish, env);
+		return (0);
+	}
+	else
+	{
+		cmd->pid = fork();
+		if (cmd->pid == -1)
+		{
+			perror("fork");
+			exit(EXIT_FAILURE);
+		}
+		else if (cmd->pid == 0)
+		{
+			exec_extern_cmd(env, cmd);
+			exit(1);
+		}
+		else
+		{
+			waitpid(cmd->pid, &mish->exit_status, 0);
+			get_exit_status(mish->exit_status);
+		}
+	}
+	return (0);
+}
 
-	pid = fork();
-	cmd_process = check_cmd_process(cmd);
-	if (pid == 0 && cmd_process == 1)
-		exit (0);
-	if (pid == 0)
-		exec_extern_cmd(env, cmd);
+void	set_pipe_cmd(t_data *mish,t_cmd *cmd) // link_cmd
+{
+	int fds[2];
+
+	if(pipe(fds) == -1)
+	{
+		perror("pipe");
+        exit(EXIT_FAILURE);
+	}
+	cmd->pid = fork();
+	if (cmd->pid == 0)
+	{
+		dup2(fds[0], STDOUT_FILENO);
+		close_fds(fds);
+		exec_simple_cmd(mish, cmd, mish->e_lst);
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		dup2(fds[1], STDIN_FILENO);
+		close_fds(fds);
+	}
+}
+
+void	piping_cmd(t_data *mish, int backup[2]) //pipeline
+{
+	t_cmd *cmd;
+	int count;
+
+    count = ft_count_cmd(mish);
+	cmd = mish->cmd;
+	dup_std(backup);
+	if (count == 1)
+	{
+		exec_simple_cmd(mish, cmd, mish->e_lst);
+        get_exit_status(mish->exit_status);
+	}
+	while (cmd)
+	{
+		set_pipe_cmd(mish, cmd);
+		cmd = cmd->next;
+	}
+	cmd = mish->cmd;
+	while (cmd)
+	{
+		if (cmd->next == NULL)
+			waitpid(cmd->pid, &mish->exit_status, 0);
+		else
+			waitpid(cmd->pid, NULL, 0);
+		cmd = cmd->next;
+	}
+	mish->exit_status = get_exit_status(mish->exit_status);
+	ft_restore_std(backup);
+	close_fds(backup);
 }
