@@ -28,6 +28,7 @@ SRC = 		./src/utils.c\
 			./execution/exec_no_builtins_utils.c\
 			./execution/exec_builtins.c\
 			./execution/exec.c\
+			./execution/exec_utils.c\
 			./src/main.c
 			
 LIBFT_D = ./libft

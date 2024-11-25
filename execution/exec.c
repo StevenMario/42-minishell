@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/21 10:00:20 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/25 09:06:51 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env) // one cmd
 		else
 		{
 			waitpid(cmd->pid, &mish->exit_status, 0);
-			get_exit_status(&mish->exit_status);
+			get_exit_status(mish->exit_status);
 		}
 	}
 	return (0);
@@ -70,13 +70,13 @@ void	piping_cmd(t_data *mish, int backup[2]) //pipeline
 	t_cmd *cmd;
 	int count;
 
-    count = ft_count_cmd(mish->cmd);
+    count = ft_count_cmd(mish);
 	cmd = mish->cmd;
 	dup_std(backup);
 	if (count == 1)
 	{
-		exec_simple_cmd(mish, cmd, mish->env);
-        get_exit_status(mish);
+		exec_simple_cmd(mish, cmd, mish->e_lst);
+        get_exit_status(mish->exit_status);
 	}
 	while (cmd)
 	{

@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:11:23 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/11/21 09:55:15 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/25 09:07:31 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,5 @@ int	get_exit_status(int exit_status)
 		exit_status = WTERMSIG(exit_status) + 128;
 		write(1, "\n", 1);
 	}
+	return (exit_status);
 }

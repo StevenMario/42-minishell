@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/22 09:19:57 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/25 09:01:25 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		get_exit_status(int exit_status);
 int		ft_exec_if_builtins(t_cmd *cmd, t_data	*mish, t_env *env);
 int		exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env);
 int		ft_is_builtin(t_cmd *cmd);
+void	piping_cmd(t_data *mish, int backup[2]);
 
 
 #endif
