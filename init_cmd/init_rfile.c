@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:19:49 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/15 09:07:13 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/25 10:39:38 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_file	*ft_init_file(void)
 		return (NULL);
 	rfile->next = NULL;
 	rfile->content = NULL;
+	rfile->delimiter = NULL;
 	return (rfile);
 }
 

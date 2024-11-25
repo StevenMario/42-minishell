@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/18 08:58:03 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/25 10:38:18 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # include <sys/wait.h>
 
 int		ft_strcmp(char *s1, char *s2);
-void	ft_print_token(t_token *token);
 void	 new_cmd(t_token *token,t_cmd **cmd);
 char    *remove_quotes(char *str);
 int     check_quote(char *str);

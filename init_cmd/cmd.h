@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:10:14 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/15 09:28:30 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/25 10:49:54 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 int		get_nb_arg(t_token *token);
 int		check_dollar(char *str);
 int		init_file(t_token *token, t_cmd *cmd);
+t_file	*ft_init_file(void);
 int		is_special_char(char c);
 char	*my_getenv(char *var_name, t_env *env);
 char	*join_expand_char(char *val, char *pref, char *suf);
@@ -36,5 +37,6 @@ char	*get_var_sufix(char *str, int var_len, int j);
 char	*get_var_prefix(char *str);
 char	*check_var(char *str, t_env *e_list);
 t_cmd	*ft_initcmd(void);
+void	herdoc_handler(t_cmd *cmd);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/25 09:09:58 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/25 11:06:45 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void clear_data(t_data *data)
 
 int init_data(t_data *data, char *input,char **env)
 {
-	int	backup[2];
+	// int	backup[2];
 	data->token = malloc(sizeof(t_token));
 	if (!data->token)
 		return (0);
@@ -46,7 +46,8 @@ int init_data(t_data *data, char *input,char **env)
 	init_token(data,input);
 	assigne_type_token(data);
 	init_cmd(data);
-	piping_cmd(data, backup);
+	herdoc_handler(data->cmd);
+	// piping_cmd(data, backup);
 	//exec_simple_cmd(data, data->cmd, data->e_lst);
 	// ft_print_cmd(data->cmd);
 	// clear_data(data);
@@ -110,7 +111,7 @@ int main(int argc,char **argv,char **env)
 		return (1);
 	if (argc > 1)
 		printf("[Error].Run without argument !\n");
-	init_signals();
+	// init_signals();
 	while (1)
 	{
 		input = readline("minishell$: ");

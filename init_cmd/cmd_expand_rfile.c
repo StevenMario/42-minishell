@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 09:23:45 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/15 09:32:22 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/25 09:55:18 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	fill_infile_expand(t_data *data)
 	while (cmd)
 	{
 		temp = cmd->infile;
-		while (temp)
+		while (temp && temp->type != HEREDOC)
 		{
 			cmd_rfile_expand(temp, data->e_lst);
 			temp = temp->next;

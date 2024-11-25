@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:34:45 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/10/30 12:41:43 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/25 09:54:08 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,40 +44,6 @@ char *remove_quotes(char *str)
 	free(str);
 	return result;
 }
-
-// char *ft_remove_front_and_back_space(char *str)
-// {
-// 	char *dest;
-// 	int i;
-// 	int j;
-// 	int k;
-
-// 	i = 0;
-// 	k = 0;
-// 	j = ft_strlen(str);
-// 	while (str[i])
-// 	{
-// 		if (str[i] == ' ' || str[i] == '\n')
-// 			i++;
-// 		else
-// 			break ;
-// 	}
-// 	while (j > i)
-// 	{
-// 		if (str[j] == ' ' || str[j] == '\n')
-// 			j--;
-// 		else 
-// 			break;
-// 	}
-// 	dest = malloc(sizeof(char) * (j - i + 1));
-// 	if (!dest)
-// 		return (NULL);
-// 	while (i < j)
-// 		dest[k++] = str[i++];
-// 	dest[k] = '\0';
-// 	free(str);
-// 	return (dest);
-// }
 
 char is_quote(char c)
 {
