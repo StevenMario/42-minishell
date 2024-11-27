@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 09:23:45 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/25 09:55:18 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 08:48:40 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	cmd_rfile_expand(t_file *rfile, t_env *e_list)
 	}
 }
 
-void	fill_infile_expand(t_data *data)
+void	fill_rfile_expand(t_data *data)
 {
 	t_cmd	*cmd;
 	t_file	*temp;
@@ -33,7 +33,7 @@ void	fill_infile_expand(t_data *data)
 	cmd = data->cmd;
 	while (cmd)
 	{
-		temp = cmd->infile;
+		temp = cmd->rfile;
 		while (temp && temp->type != HEREDOC)
 		{
 			cmd_rfile_expand(temp, data->e_lst);
@@ -43,20 +43,20 @@ void	fill_infile_expand(t_data *data)
 	}
 }
 
-void	fill_outfile_expand(t_data *data)
-{
-	t_cmd	*cmd;
-	t_file	*temp;
+// void	fill_outfile_expand(t_data *data)
+// {
+// 	t_cmd	*cmd;
+// 	t_file	*temp;
 
-	cmd = data->cmd;
-	while (cmd)
-	{
-		temp = cmd->outfile;
-		while (temp)
-		{
-			cmd_rfile_expand(temp, data->e_lst);
-			temp = temp->next;
-		}
-		cmd = cmd->next;
-	}
-}
+// 	cmd = data->cmd;
+// 	while (cmd)
+// 	{
+// 		temp = cmd->outfile;
+// 		while (temp)
+// 		{
+// 			cmd_rfile_expand(temp, data->e_lst);
+// 			temp = temp->next;
+// 		}
+// 		cmd = cmd->next;
+// 	}
+// }

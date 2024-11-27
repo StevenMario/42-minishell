@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/25 10:38:33 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 08:38:54 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,16 @@
 
 typedef struct s_file
 {
-	char *content;
-	char *delimiter;
-	int type;
-	struct s_file *next;
+	char			*content;
+	int				fd;
+	int				type;
+	struct s_file	*next;
 }	t_file;
 
 typedef struct s_cmd
 {
 	char	**arg;
-	t_file	*infile;
-	t_file	*outfile;
+	t_file	*rfile;
 	t_file	*herdoc;
 	pid_t	pid;
 	struct s_cmd	*next;

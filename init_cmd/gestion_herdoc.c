@@ -6,26 +6,25 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/25 11:09:24 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 09:53:32 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
 
-void printf_rfile(t_file *rfile,int type)
+void printf_rfile(t_file *rfile)
 {
 
 		printf("---------------------------------------\n");
-		if (type == 1)
-			printf("=============INFILE================\n");
-		else
-			printf("=============OUTFILE================\n");
 		while (rfile)
 		{
-			printf("type = %d\n",type);
-			printf("content = %s\n",rfile->content);
-			if (rfile->delimiter)
-				printf("delimiter = %s\n",rfile->delimiter);
+			if (rfile->type == HEREDOC || rfile->type == INPUT)
+				printf("=============INFILE================\n");
+			else
+				printf("=============OUTFILE================\n");
+			printf(" type = %d\n",rfile->type);
+			if (rfile->content)
+				printf("content = %s\n",rfile->content);
 			rfile = rfile->next;
 		}
 		
@@ -34,27 +33,15 @@ void printf_rfile(t_file *rfile,int type)
 
 
 void herdoc_handler(t_cmd *cmd)
-{
-	t_file *herdoc;
-	t_file *temp;
-	
+{	
 	while (cmd)
 	{
-		temp = ft_init_file();
-		while (cmd->infile)
+		while (cmd->rfile)
 		{
-			if (cmd->infile->type == HEREDOC)
-			{
-				temp->type = HEREDOC;
-				temp->delimiter = ft_strdup(cmd->infile->content);
-			}
-			if (!herdoc)
-				herdoc = temp;
-			else
-				herdoc->next = temp;
-			cmd->infile = cmd->infile->next;
+			if (cmd->rfile->type == HEREDOC)
+				fill_fd_herdoc(cmd->rfile);
+			cmd->rfile = cmd->rfile->next;
 		}
 		cmd = cmd->next;
-		printf_rfile(herdoc,1);
 	}
 }

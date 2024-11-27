@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:18:13 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/15 09:11:59 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 09:06:44 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ t_cmd	*ft_initcmd(void)
 
 	new_cmd = malloc(sizeof(t_cmd));
 	new_cmd->arg = NULL;
-	new_cmd->infile = NULL;
-	new_cmd->outfile = NULL;
+	new_cmd->rfile = NULL;
 	new_cmd->next = NULL;
 	return (new_cmd);
 }
@@ -66,10 +65,8 @@ void	ft_lstclear_cmd(t_cmd **lst)
 			next = (temp)->next;
 			if (temp->arg)
 				ft_free_str(temp->arg);
-			if (temp->infile)
-				ft_lstclear_file(&temp->infile);
-			if (temp->outfile)
-				ft_lstclear_file(&temp->outfile);
+			if (temp->rfile)
+				ft_lstclear_file(&temp->rfile);
 			free(temp);
 			temp = next;
 		}
