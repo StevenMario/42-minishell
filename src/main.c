@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/27 10:11:54 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 10:30:25 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void init_cmd(t_data *data)
 	// 	fill_outfile_expand(data);
 	cmd_processing(data);
 }
+
 void clear_data(t_data *data)
 {
 	ft_lstclear_cmd(&data->cmd);
@@ -46,17 +47,17 @@ int init_data(t_data *data, char *input,char **env)
 	init_token(data,input);
 	assigne_type_token(data);
 	init_cmd(data);
-	// herdoc_handler(data->cmd);
-	while (data->cmd)
-	{
-		if (data->cmd->rfile)
-			printf_rfile(data->cmd->rfile);
-		data->cmd = data->cmd->next;
-	}
+	herdoc_handler(data);
+	// while (data->cmd)
+	// {
+	// 	if (data->cmd->rfile)
+	// 		printf_rfile(data->cmd->rfile);
+	// 	data->cmd = data->cmd->next;
+	// }
 	// piping_cmd(data, backup);
 	//exec_simple_cmd(data, data->cmd, data->e_lst);
 	// ft_print_cmd(data->cmd);
-	clear_data(data);
+	// clear_data(data);
 	// ft_print_token(data->token);
 	// printf_t_env(data->e_lst);
 	// <file1 echo>>app test"test" >out.txt<<doc|cat -e "test'hello'" <<heredoc
@@ -79,7 +80,7 @@ int check_pair_quote(char *input)
 
 void exit_ctrl_d(char *input)
 {
-	clear_data(data);
+	// clear_data(data);
 	free(input);
 	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:10:14 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/27 09:42:36 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 10:25:41 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ char	*get_var_prefix(char *str);
 char	*check_var(char *str, t_env *e_list);
 t_cmd	*ft_initcmd(void);
 void	printf_rfile(t_file *rfile);
-// void	herdoc_handler(t_cmd *cmd);
+void herdoc_handler(t_data *data);
 
 #endif

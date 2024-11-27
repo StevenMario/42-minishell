@@ -7,7 +7,8 @@
         "structure.h": "c",
         "libft.h": "c",
         "builtins.h": "c",
-        "exec.h": "c"
+        "exec.h": "c",
+        "stdlib.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

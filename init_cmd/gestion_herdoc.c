@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/27 10:18:13 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 10:34:28 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,30 @@ void printf_rfile(t_file *rfile)
 		
 }
 
-void exit_status(char *input,t_data *data)
+void exit_status(t_data *data)
 {
-	
+	clear_data(data);
+	exit(0);
 }
 
-void fill_herdocc_fd(t_file *rfile,t_data *data)
+void fill_herdocc_fd(t_file *rfile,t_data *data,int *fd)
 {
 	char *input;
 
 	close(fd[0]);
+	// close(fd[1]);
 	while (1)
 	{
 		input = readline(">>");
 		if (input == NULL )
-			exit_status(input);
-		if (ft_strcmp(input,rfile->content))
+			exit_status(data);
+		if (ft_strcmp(input,rfile->content) == 0)
 		{
 			free(input);
-			exit_status(input);
+			exit_status(data);
 		}
-		ft_putstr_fd(input,fd[1]);
+		expand_variable(input);
+		ft_putendl_fd(input,fd[1]);
 		free(input);
 	}
 }
@@ -60,12 +63,13 @@ void create_fd_herdoc(t_data *data,t_file *rfile)
 	int pid;
 	int fd[2];
 
-	pid = fork(fd);
+	pipe(fd);
+	pid = fork();
 	if (pid == 0)
-		fill_herdocc_fd(cmd->rfile,data);
+		fill_herdocc_fd(rfile,data,fd);
 	wait(NULL);
 	close(fd[1]);
-	cmd->rffile->fd = fd[0];
+	rfile->fd = fd[0];
 }
 
 void herdoc_handler(t_data *data)
