@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:19:49 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/15 09:07:13 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 09:36:04 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ t_file	*ft_init_file(void)
 		return (NULL);
 	rfile->next = NULL;
 	rfile->content = NULL;
+	rfile->fd = 0;
 	return (rfile);
 }
 
-void	ft_add_back_infile(t_file **rfile, t_file *new_file)
+void	ft_add_back_rfile(t_file **rfile, t_file *new_file)
 {
 	t_file	*temp;
 
@@ -42,25 +43,30 @@ int	init_file(t_token *token, t_cmd *cmd)
 	t_file	*temp;
 
 	temp = ft_init_file();
-	if (token->next && (token->type == INPUT || token->type == HEREDOC))
+	if (token->next && (token->type == INPUT || token->type == HEREDOC
+		|| token->type == TRUNC || token->type == APPEND))
 	{
 		temp->content = ft_strdup(token->next->content);
 		if (token->type == INPUT)
 			temp->type = INPUT;
-		else
+		else if (token->type == HEREDOC)
 			temp->type = HEREDOC;
-		ft_add_back_infile(&cmd->infile, temp);
-		return (1);
-	}
-	else if ((token->next && (token->type == TRUNC || token->type == APPEND)))
-	{
-		temp->content = ft_strdup(token->next->content);
-		if (token->type == TRUNC)
+		else if (token->type == TRUNC)
 			temp->type = TRUNC;
-		else
-			temp->type = APPEND;
-		ft_add_back_infile(&cmd->outfile, temp);
+		else if (token->type ==  APPEND)
+			temp->type = APPEND;	
+		ft_add_back_rfile(&cmd->rfile, temp);
 		return (1);
 	}
+	// else if ((token->next && (token->type == TRUNC || token->type == APPEND)))
+	// {
+	// 	temp->content = ft_strdup(token->next->content);
+	// 	if (token->type == TRUNC)
+	// 		temp->type = TRUNC;
+	// 	else
+	// 		temp->type = APPEND;
+	// 	ft_add_back_infile(&cmd->outfile, temp);
+	// 	return (1);
+	// }
 	return (0);
 }

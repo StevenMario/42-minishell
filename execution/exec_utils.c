@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:11:23 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/11/22 12:03:48 by iarantsoa        ###   ########.fr       */
+/*   Updated: 2024/11/25 12:37:42 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_restore_std(int backup[2])
 {
-	dup2(STDOUT_FILENO, backup[0]);
-	dup2(STDIN_FILENO, backup[1]);
+	dup2(backup[0], STDIN_FILENO);
+	dup2(backup[1], STDOUT_FILENO);
 }
 void	close_fds(int fd[2])
 {

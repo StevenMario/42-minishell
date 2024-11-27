@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/15 09:28:04 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 09:26:51 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,14 @@ void	cmd_expand(t_data *data)
 	while (cmd)
 	{
 		i = 0;
-		while (cmd->arg[i])
+		if (cmd->arg)
 		{
-			if (check_dollar(cmd->arg[i]) > -1)
-				cmd->arg[i] = check_var(cmd->arg[i], data->e_lst);
-			i++;
+			while (cmd->arg[i])
+			{
+				if (check_dollar(cmd->arg[i]) > -1)
+					cmd->arg[i] = check_var(cmd->arg[i], data->e_lst);
+				i++;
+			}
 		}
 		cmd = cmd->next;
 	}

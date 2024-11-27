@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/18 08:40:55 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/27 11:35:38 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,17 @@
 
 typedef struct s_file
 {
-	char *content;
-	int type;
-	struct s_file *next;
+	char			*content;
+	int				type;
+	int				fd;
+	struct s_file	*next;
 }	t_file;
 
 typedef struct s_cmd
 {
 	char	**arg;
-	t_file	*infile;
-	t_file	*outfile;
+	t_file	*rfile;
+	t_file	*herdoc;
 	pid_t	pid;
 	struct s_cmd	*next;
 }	t_cmd;

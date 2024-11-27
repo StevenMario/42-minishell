@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/22 12:11:19 by iarantsoa        ###   ########.fr       */
+/*   Updated: 2024/11/27 12:22:04 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ void init_cmd(t_data *data)
 	data->cmd = NULL;
 	new_cmd(data->token,&data->cmd);
 	cmd_expand(data);
-	if (data && data->cmd && data->cmd->infile)
-		fill_infile_expand(data);
-	if (data && data->cmd && data->cmd->outfile)
-		fill_outfile_expand(data);
+	if (data && data->cmd && data->cmd->rfile)
+		fill_rfile_expand(data);
+	// if (data && data->cmd && data->cmd->outfile)
+	// 	fill_outfile_expand(data);
 	cmd_processing(data);
 }
+
 void clear_data(t_data *data)
 {
 	ft_lstclear_cmd(&data->cmd);
@@ -34,9 +35,8 @@ void clear_data(t_data *data)
 
 
 int init_data(t_data *data, char *input,char **env)
-{	
-	int backup[2];
-
+{
+	// int	backup[2];
 	data->token = malloc(sizeof(t_token));
 	if (!data->token)
 		return (0);
@@ -47,8 +47,15 @@ int init_data(t_data *data, char *input,char **env)
 	init_token(data,input);
 	assigne_type_token(data);
 	init_cmd(data);
-	piping_cmd(data, backup);
-	// exec_simple_cmd(data, data->cmd, data->e_lst);
+	herdoc_handler(data);
+	while (data->cmd)
+	{
+		if (data->cmd->rfile)
+			printf_rfile(data->cmd->rfile);
+		data->cmd = data->cmd->next;
+	}
+	// piping_cmd(data, backup);
+	//exec_simple_cmd(data, data->cmd, data->e_lst);
 	// ft_print_cmd(data->cmd);
 	// clear_data(data);
 	// ft_print_token(data->token);
@@ -73,6 +80,7 @@ int check_pair_quote(char *input)
 
 void exit_ctrl_d(char *input)
 {
+	// clear_data(data);
 	free(input);
 	exit(0);
 }
