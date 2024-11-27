@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/27 10:55:26 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:22:04 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int main(int argc,char **argv,char **env)
 		return (1);
 	if (argc > 1)
 		printf("[Error].Run without argument !\n");
-	// init_signals();
+	init_signals();
 	while (1)
 	{
 		input = readline("minishell$: ");

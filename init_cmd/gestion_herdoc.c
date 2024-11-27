@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/27 10:58:47 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:20:28 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ void exit_status(t_data *data)
 
 char *expand_variable(char *input,t_data *data)
 {
-	// char *res;
-	
-
 	input = check_var(input,data->e_lst);
 	return (input);
 }
@@ -79,19 +76,23 @@ int create_fd_herdoc(t_data *data,t_file *rfile)
 		fill_herdocc_fd(rfile,data,fd);
 	wait(NULL);
 	close(fd[1]);
-	return (fd[1]);
+	return (fd[0]);
 }
 
-void herdoc_handler(t_data *data)
+void	herdoc_handler(t_data *data)
 {
-	while (data->cmd)
+	t_cmd *temp;
+	t_file *tfile_tmp;
+	temp = data->cmd;
+	while (temp)
 	{
-		while (data->cmd->rfile)
+		tfile_tmp = temp->rfile;
+		while (tfile_tmp)
 		{
-			if (data->cmd->rfile->type == HEREDOC)
-				data->cmd->rfile->fd = create_fd_herdoc(data,data->cmd->rfile);
-			data->cmd->rfile = data->cmd->rfile->next;
+			if (tfile_tmp->type == HEREDOC)
+				tfile_tmp->fd = create_fd_herdoc(data,tfile_tmp);
+			tfile_tmp = tfile_tmp->next;
 		}
-		data->cmd = data->cmd->next;
+		temp = temp->next;
 	}
 }

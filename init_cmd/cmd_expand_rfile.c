@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 09:23:45 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/27 08:48:40 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 11:23:42 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,3 @@ void	fill_rfile_expand(t_data *data)
 		cmd = cmd->next;
 	}
 }
-
-// void	fill_outfile_expand(t_data *data)
-// {
-// 	t_cmd	*cmd;
-// 	t_file	*temp;
-
-// 	cmd = data->cmd;
-// 	while (cmd)
-// 	{
-// 		temp = cmd->outfile;
-// 		while (temp)
-// 		{
-// 			cmd_rfile_expand(temp, data->e_lst);
-// 			temp = temp->next;
-// 		}
-// 		cmd = cmd->next;
-// 	}
-// }

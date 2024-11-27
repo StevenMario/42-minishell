@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/27 08:38:54 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 11:35:38 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 typedef struct s_file
 {
 	char			*content;
-	int				fd;
 	int				type;
+	int				fd;
 	struct s_file	*next;
 }	t_file;
 
