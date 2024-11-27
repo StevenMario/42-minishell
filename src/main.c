@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/27 10:30:25 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 10:55:26 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int init_data(t_data *data, char *input,char **env)
 	assigne_type_token(data);
 	init_cmd(data);
 	herdoc_handler(data);
-	// while (data->cmd)
-	// {
-	// 	if (data->cmd->rfile)
-	// 		printf_rfile(data->cmd->rfile);
-	// 	data->cmd = data->cmd->next;
-	// }
+	while (data->cmd)
+	{
+		if (data->cmd->rfile)
+			printf_rfile(data->cmd->rfile);
+		data->cmd = data->cmd->next;
+	}
 	// piping_cmd(data, backup);
 	//exec_simple_cmd(data, data->cmd, data->e_lst);
 	// ft_print_cmd(data->cmd);
