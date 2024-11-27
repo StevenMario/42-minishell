@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/25 12:41:01 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/27 15:54:35 by iarantsoa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	piping_cmd(t_data *mish, int backup[2]) //pipeline
 	{
 		exec_simple_cmd(mish, cmd, mish->e_lst);
 		return ;
-        // get_exit_status(mish->exit_status);
 	}
 	dup_std(backup);
 	while (cmd)
