@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_no_builtins.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/18 11:52:56 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 14:41:35 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,12 +123,12 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 		path = ft_test_access(path_spl,cmd->arg[0]);
 	if (path == NULL)
 	{
-		printf("mininshell: %s: command not found\n",cmd->arg[0]);
+		printf("minishell: %s: command not found\n",cmd->arg[0]);
 		return (0);
 	}	
 	if (access(path, X_OK) != 0)
 	{
-		printf("mininshell: %s: permission denied\n",cmd->arg[0]);
+		printf("minishell: %s: permission denied\n",cmd->arg[0]);
 		return (0);
 	}	
 	
