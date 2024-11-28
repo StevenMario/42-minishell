@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/27 15:54:35 by iarantsoa        ###   ########.fr       */
+/*   Updated: 2024/11/28 11:29:03 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env) // one cmd
 {
 	if (ft_is_builtin(cmd) == 1)
 	{
-		ft_exec_if_builtins(cmd, mish, env);
+		exec_redir_builtin(mish, cmd, env);
 		return (0);
 	}
 	else
@@ -29,6 +29,8 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env) // one cmd
 		}
 		else if (cmd->pid == 0)
 		{
+			if (cmd->rfile != NULL)
+				ft_browse_redir(cmd);
 			exec_extern_cmd(env, cmd);
 			exit(1);
 		}

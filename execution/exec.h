@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/25 09:01:25 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:33:05 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define EXEC_H
 
 #include "../src/minishell.h"
+void	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env);
+void check_type_for_dup2(t_file *redir);
+void check_error_redir(t_file *redir);
+void	ft_open_redir(t_file *redir);
+void	ft_browse_redir(t_cmd *cmd);
 int		ft_count_cmd(t_data *mish);
 void	dup_std(int r_fd[2]);
 int		ft_env_len(t_env *env);

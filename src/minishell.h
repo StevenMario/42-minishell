@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/27 10:27:10 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 09:47:31 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "../builtins/builtins.h"
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 
 int		ft_strcmp(char *s1, char *s2);
 void	 new_cmd(t_token *token,t_cmd **cmd);
