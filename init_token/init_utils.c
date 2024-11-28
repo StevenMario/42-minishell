@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/28 12:37:56 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:25:07 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*stock_char(int *i, int *j, char *input)
 		x++;
 		(*j)++;
 	}
-	(*i)++;
+	// (*i)++;
 	temp[x] = '\0';
 	return (temp);
 }

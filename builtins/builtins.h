@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:21:53 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/20 08:45:44 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:28:04 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_lstadd_back_env(t_env **f_elem, t_env *n_elem);
 t_env	*fill_env_in_t_env(char **envp);
 t_env	*ft_double_lstnew_env(char *key, char *value);
 t_env	*duplicate_env(t_env *src);
+void	ft_lstclear_env(t_env **lst);
 t_env	*init_t_env(void);
 
 #endif

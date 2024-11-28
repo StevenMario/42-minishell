@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/28 13:35:11 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:28:56 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void clear_data(t_data *data)
 			ft_lstclear_cmd(&data->cmd);
 		if (data->token)
 			ft_lstclear_token(&data->token);
+		if (data->env)
+			ft_lstclear_env(&data->e_lst);
 		free(data);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:49:38 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/22 08:49:49 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:27:45 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,28 @@ t_env	*duplicate_env(t_env *src)
 		current = current->next;
 	}
 	return (head);
+}
+
+void	ft_lstclear_env(t_env **lst)
+{
+	t_env	*temp;
+	t_env	*next;
+
+	temp = (*lst);
+	if (temp == NULL)
+		return ;
+	else
+	{
+		while (temp != NULL)
+		{
+			next = (temp)->next;
+			if (temp->value)
+				free(temp->value);
+			if (temp->key)
+				free(temp->key);
+			free(temp);
+			temp = next;
+		}
+		*lst = NULL;
+	}
 }
