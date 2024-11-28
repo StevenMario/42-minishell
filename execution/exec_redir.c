@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:29:10 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/28 11:32:40 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:20:18 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void check_error_redir(t_file *redir)
 		(void)sb;
 		if (access(redir->content, F_OK) == -1)
 			printf("minishell: %s: No such file or directory\n", redir->content);
-		if (access(redir->content, W_OK | R_OK | X_OK == -1))
+		if (access(redir->content, W_OK | R_OK | X_OK) == -1)
 			printf("minishell: %s: Permission denied\n", redir->content);
 	}
 	else
@@ -49,7 +49,7 @@ void check_error_redir(t_file *redir)
 		lstat(redir->content, &sb);
 		if (S_ISDIR(sb.st_mode))
 			printf("minishell: %s: is a directory\n", redir->content);
-		if (access(redir->content, W_OK | R_OK | X_OK == -1))
+		if (access(redir->content, W_OK | R_OK | X_OK) == -1)
 			printf("minishell: %s: Permission denied\n", redir->content);
 	}
 	
