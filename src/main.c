@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/28 13:12:27 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 13:35:11 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ void clear_data(t_data *data)
 int init_data(t_data *data, char *input,char **env)
 {
 	int	backup[2];
-	// data->token = malloc(sizeof(t_token));
-	// if (!data->token)
-	// 	return (0);
+	
 	data->token = NULL;
 	data->env = env;
 	if (data && !data->e_lst)
