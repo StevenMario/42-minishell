@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/28 12:38:27 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 13:12:27 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,14 @@ void init_cmd(t_data *data)
 
 void clear_data(t_data *data)
 {
-	ft_lstclear_cmd(&data->cmd);
-	ft_lstclear_token(&data->token);
-	free(data);
+	if (data)
+	{
+		if (data->cmd)
+			ft_lstclear_cmd(&data->cmd);
+		if (data->token)
+			ft_lstclear_token(&data->token);
+		free(data);
+	}
 }
 // void print_token(t_token *token)
 // {
@@ -82,10 +87,13 @@ int check_pair_quote(char *input)
 	return (0);
 }
 
-void exit_ctrl_d(char *input)
+void exit_ctrl_d(char *input,t_data *data)
 {
-	// clear_data(data);
-	free(input);
+	if (data)
+		clear_data(data);
+	rl_clear_history();
+	if (input)
+		free(input);
 	exit(0);
 }
 
@@ -122,6 +130,7 @@ t_data *data_initialized(void)
 	data->e_lst = NULL;
 	data->cmd = NULL;
 	data->env = NULL;
+	data->token = NULL;
 	return (data);
 }
 
@@ -135,6 +144,7 @@ int main(int argc,char **argv,char **env)
 	data  = data_initialized();
 	// if (!data || !data->e_lst)
 	// 	return (NULL);
+	input = NULL;
 	if (argc > 1)
 		printf("[Error].Run without argument !\n");
 	init_signals();
@@ -142,7 +152,7 @@ int main(int argc,char **argv,char **env)
 	{
 		input = readline("minishell$: ");
 		if (input == NULL)
-			exit_ctrl_d(input);
+			exit_ctrl_d(input,data);
 		if (input && *input != '\0' && !ft_is_space(input)
 			&& !check_pair_quote(input))
 			{
