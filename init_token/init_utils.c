@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/15 08:55:00 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 12:37:56 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*stock_char(int *i, int *j, char *input)
 
 	temp = NULL;
 	x = 0;
-	temp = malloc(sizeof(char) * (*i - *j + 1));
+	temp = malloc(sizeof(char) * (*i - *j + 2));
 	while (*j <= *i)
 	{
 		temp[x] = input[*j];

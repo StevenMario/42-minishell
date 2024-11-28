@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/28 10:54:26 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/28 12:38:27 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,23 @@ void clear_data(t_data *data)
 	ft_lstclear_token(&data->token);
 	free(data);
 }
+// void print_token(t_token *token)
+// {
+// 	while (token)
+// 	{
+// 		printf("token->type  = %d || token content = %s\n",token->type,token->content);
+// 		token = token->next;
+// 	}
+// }
+
 
 
 int init_data(t_data *data, char *input,char **env)
 {
 	int	backup[2];
-	data->token = malloc(sizeof(t_token));
-	if (!data->token)
-		return (0);
+	// data->token = malloc(sizeof(t_token));
+	// if (!data->token)
+	// 	return (0);
 	data->token = NULL;
 	data->env = env;
 	if (data && !data->e_lst)
@@ -49,6 +58,7 @@ int init_data(t_data *data, char *input,char **env)
 	init_cmd(data);
 	herdoc_handler(data);
 	piping_cmd(data, backup);
+	// print_token(data->token);
 	//exec_simple_cmd(data, data->cmd, data->e_lst);
 	// ft_print_cmd(data->cmd);
 	// clear_data(data);
@@ -102,15 +112,29 @@ void init_signals(void)
 	signal(SIGQUIT,SIG_IGN);
 }
 
+t_data *data_initialized(void)
+{
+	t_data *data;
+
+	data = malloc(sizeof(t_data));
+	if (!data)
+		return (NULL);
+	data->e_lst = NULL;
+	data->cmd = NULL;
+	data->env = NULL;
+	return (data);
+}
+
 int main(int argc,char **argv,char **env)
 {
 	char *input;
 	t_data *data;
 
 	(void)argv;
-	data = malloc(sizeof(t_data));
-	if (!data)
-		return (1);
+	// data = malloc(sizeof(t_data));
+	data  = data_initialized();
+	// if (!data || !data->e_lst)
+	// 	return (NULL);
 	if (argc > 1)
 		printf("[Error].Run without argument !\n");
 	init_signals();

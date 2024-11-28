@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/15 09:10:50 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 12:40:26 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	get_cmd(t_token *token, t_cmd *cmd)
 		{
 			if (!cmd->arg)
 			{
-				cmd->arg = malloc(sizeof(char *) * get_nb_arg(token) + 1);
+				cmd->arg = malloc(sizeof(char *) * (get_nb_arg(token) + 1));
 				if (!cmd->arg)
 					return ;
 				cmd->arg[get_nb_arg(token)] = NULL;
