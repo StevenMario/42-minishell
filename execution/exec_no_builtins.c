@@ -108,6 +108,7 @@ char *ft_test_access(char **path_spl, char *cmd)
 	
 	return (NULL);
 }
+
 int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 {
 	char	**env_2d;
@@ -116,26 +117,22 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 
 	env_2d = env_to_2d(env);
 	path_spl = split_for_path(env);
-	path = ft_test_access(path_spl,cmd->arg[0]);
+	if (ft_strchr(cmd->arg[0], '/'))
+		path = cmd->arg[0];
+	else	
+		path = ft_test_access(path_spl,cmd->arg[0]);
 	if (path == NULL)
 	{
 		printf("mininshell: %s: command not found\n",cmd->arg[0]);
 		return (0);
 	}	
-	if (access(path, X_OK)!= 0)
+	if (access(path, X_OK) != 0)
 	{
 		printf("mininshell: %s: permission denied\n",cmd->arg[0]);
 		return (0);
 	}	
-	// while (path_spl[++i])
-	// {
-	// 	join_path = double_join_env1(path_spl[i], cmd->arg[0]);
-	// 	if (ft_test_access(join_path) == 0)
-	// 	{
+	
 	execve(path, cmd->arg, env_2d);
-	exit(0);
-	// 	}
-	// 	free(join_path);
-	// }
+	exit(EXIT_SUCCESS);
 	return (1);
 }

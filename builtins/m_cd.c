@@ -11,7 +11,20 @@
 /* ************************************************************************** */
 
 #include "builtins.h"
+void	check_error_chdir(char *path)
+{
+	struct stat	sb;
 
+	lstat(path, &sb);
+	if (!S_ISDIR(sb.st_mode))
+		printf("minishell: %s: is not a directory\n", path);
+	else if (!access(path, F_OK))
+		printf("minishell: %s: no such file or directory\n", path);
+	else if (!access(path, X_OK))
+		printf("minishell: %s: permission denied\n", path);
+	else
+		return ;
+}
 int	count_av(char **av)
 {
 	int	i;
@@ -52,7 +65,10 @@ int	ft_cd(t_cmd *cmd, t_env *env)
 	if (verif == 0)
 		return (1);
 	if (!path || (chdir(path) < 0))
+	{
+		check_error_chdir(path);
 		return (1);
+	}
 	else if (getcwd(cwd, 1024) != NULL)
 	{
 		update_env("OLDPWD", my_getenv("PWD", env), env);
@@ -60,3 +76,4 @@ int	ft_cd(t_cmd *cmd, t_env *env)
 	}
 	return (0);
 }
+
