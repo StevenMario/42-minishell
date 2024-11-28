@@ -30,6 +30,7 @@ SRC = 		./src/utils.c\
 			./execution/exec_builtins.c\
 			./execution/exec.c\
 			./execution/exec_utils.c\
+			./execution/exec_redir.c\
 			./src/main.c
 			
 LIBFT_D = ./libft

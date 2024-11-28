@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/27 12:22:04 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 10:54:26 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void clear_data(t_data *data)
 
 int init_data(t_data *data, char *input,char **env)
 {
-	// int	backup[2];
+	int	backup[2];
 	data->token = malloc(sizeof(t_token));
 	if (!data->token)
 		return (0);
@@ -48,13 +48,7 @@ int init_data(t_data *data, char *input,char **env)
 	assigne_type_token(data);
 	init_cmd(data);
 	herdoc_handler(data);
-	while (data->cmd)
-	{
-		if (data->cmd->rfile)
-			printf_rfile(data->cmd->rfile);
-		data->cmd = data->cmd->next;
-	}
-	// piping_cmd(data, backup);
+	piping_cmd(data, backup);
 	//exec_simple_cmd(data, data->cmd, data->e_lst);
 	// ft_print_cmd(data->cmd);
 	// clear_data(data);
