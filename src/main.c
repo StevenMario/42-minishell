@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/28 17:28:56 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 19:46:07 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ int main(int argc,char **argv,char **env)
 				if (!init_data(data,input,env))
 					return (1);
 			}
+		clear_data(data);
 	}
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:07:43 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/28 13:47:47 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 20:12:33 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_lstclear_token(t_token **lst)
 	{
 		while (temp != NULL)
 		{
-			next = (temp)->next;
+			next = temp->next;
 			if (temp->content)
 				free(temp->content);
 			free(temp);

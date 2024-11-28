@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 12:16:53 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/15 08:46:54 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 19:46:14 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,5 @@ void	ft_free_str(char **str)
 		i++;
 	}
 	if (str)
-	{
 		free(str);
-	}
 }

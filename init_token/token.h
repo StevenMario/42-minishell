@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:55:08 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/15 08:50:33 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/28 17:40:29 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void	fill_data(t_data *data, char *temp);
 void	init_token(t_data *data, char *input);
 void	assigne_type_token(t_data *data);
 void	ft_lstadd_back_token(t_token **lst, t_token *new);
-void	ft_print_token(t_token *token);
 void	ft_lstclear_token(t_token **lst);
-t_token	*ft_double_lstnew_token(char *content);
+t_token *ft_double_lstnew_token(char *content);
 
 #endif
