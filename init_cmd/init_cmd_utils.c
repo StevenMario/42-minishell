@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:18:13 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/28 19:46:22 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/29 08:07:18 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,21 @@ t_cmd	*ft_initcmd(void)
 	return (new_cmd);
 }
 
+
 void	ft_lstclear_cmd(t_cmd **lst)
 {
-	t_cmd	*temp;
+
 	t_cmd	*next;
 
-	temp = (*lst);
-	if (temp == NULL)
-		return ;
-	else
+	while ((*lst) != NULL)
 	{
-		while (temp != NULL)
-		{
-			next = (temp)->next;
-			if (temp->arg)
-				ft_free_str(temp->arg);
-			if (temp->rfile)
-				ft_lstclear_file(&temp->rfile);
-			free(temp);
-			temp = next;
-		}
-		*lst = NULL;
+		next = (*lst)->next;
+		if ((*lst)->arg)
+			ft_free_str((*lst)->arg);
+		if ((*lst)->rfile)
+			ft_lstclear_file(&(*lst)->rfile);
+		free((*lst));
+		(*lst) = next;
 	}
+	*lst = NULL;
 }

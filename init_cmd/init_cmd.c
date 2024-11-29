@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/28 19:44:59 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/29 08:06:52 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,6 @@ void	new_cmd(t_token *token, t_cmd **cmd)
 {
 	t_cmd	*new_cmd;
 
-	
-	// new_cmd = ft_initcmd();
-	// if (!new_cmd)
-		// return ;
 	new_cmd = NULL;
 	while (token)
 	{
@@ -59,7 +55,6 @@ void	new_cmd(t_token *token, t_cmd **cmd)
 				return ;
 		}
 		get_cmd(token, new_cmd);
-		// printf("add new->cmd %p\n",&new_cmd);
 		if (token->type == PIPE || !token->next)
 		{
 			ft_add_back_cmd(cmd, new_cmd);

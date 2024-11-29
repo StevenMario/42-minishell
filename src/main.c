@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/28 19:46:07 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/29 08:10:14 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void clear_data(t_data *data)
 			ft_lstclear_cmd(&data->cmd);
 		if (data->token)
 			ft_lstclear_token(&data->token);
-		if (data->env)
+		if (data->e_lst)
 			ft_lstclear_env(&data->e_lst);
 		free(data);
 	}
@@ -63,10 +63,10 @@ int init_data(t_data *data, char *input,char **env)
 	init_cmd(data);
 	herdoc_handler(data);
 	piping_cmd(data, backup);
+	// clear_data(data);
 	// print_token(data->token);
 	//exec_simple_cmd(data, data->cmd, data->e_lst);
 	// ft_print_cmd(data->cmd);
-	// clear_data(data);
 	// ft_print_token(data->token);
 	// printf_t_env(data->e_lst);
 	// <file1 echo>>app test"test" >out.txt<<doc|cat -e "test'hello'" <<heredoc
@@ -140,16 +140,13 @@ int main(int argc,char **argv,char **env)
 	t_data *data;
 
 	(void)argv;
-	// data = malloc(sizeof(t_data));
-	data  = data_initialized();
-	// if (!data || !data->e_lst)
-	// 	return (NULL);
 	input = NULL;
 	if (argc > 1)
 		printf("[Error].Run without argument !\n");
 	init_signals();
 	while (1)
 	{
+		data  = data_initialized();
 		input = readline("minishell$: ");
 		if (input == NULL)
 			exit_ctrl_d(input,data);
@@ -162,5 +159,6 @@ int main(int argc,char **argv,char **env)
 			}
 		clear_data(data);
 	}
+	rl_clear_history();
     return (0);
 }

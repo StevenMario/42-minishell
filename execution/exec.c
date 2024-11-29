@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/28 11:29:03 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/11/29 08:12:28 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env) // one cmd
 			if (cmd->rfile != NULL)
 				ft_browse_redir(cmd);
 			exec_extern_cmd(env, cmd);
+			clear_data(mish);
+			rl_clear_history();
 			exit(1);
 		}
 		waitpid(cmd->pid, &mish->exit_status, 0);
@@ -56,6 +58,8 @@ void	set_pipe_cmd(t_data *mish,t_cmd *cmd) // link_cmd
 			dup2(fds[1], STDOUT_FILENO);
 		close_fds(fds);
 		exec_simple_cmd(mish, cmd, mish->e_lst);
+		clear_data(mish);
+		rl_clear_history();
 		exit(EXIT_SUCCESS);
 	}
 	else
