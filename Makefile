@@ -21,6 +21,8 @@ SRC = 		./src/utils.c\
 			./init_cmd/cmd_expand_rfile.c\
 			./init_cmd/cmd_expand_utils.c\
 			./builtins/export/m_export.c\
+			./builtins/exit/m_exit.c\
+			./builtins/exit/exit_utils.c\
 			./builtins/export/export_utils.c\
 			./builtins/m_unset.c\
 			./builtins/m_pwd.c\

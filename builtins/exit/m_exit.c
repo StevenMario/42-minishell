@@ -6,11 +6,11 @@
 /*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 07:58:07 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/30 16:12:32 by iarantsoa        ###   ########.fr       */
+/*   Updated: 2024/11/30 18:09:25 by iarantsoa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../builtins.h"
 
 static int	ft_arg_is_nbr(char *arg)
 {
@@ -35,7 +35,7 @@ static long long	ft_atll(char *arg)
 	res = 0;
 	sign = 1;
 	while (*arg && *arg == ' ')
-		i++;
+		arg++;
 	if (*arg == '+' || *arg == '-')
 	{
 		if (*arg == '-')
@@ -44,8 +44,8 @@ static long long	ft_atll(char *arg)
 	}
 	while (*arg >= '0' && *arg <= '9')
 	{
-		result *= 10 + (*arg - '0');
-		*arg++;
+		res *= 10 + (*arg - '0');
+		arg++;
 	}
 	return (res *sign);
 }
@@ -55,22 +55,22 @@ static int	ft_arg_is_overlong(char *arg) // 1=isn't overlong, 0=is overlong
 	char *tmp;
 
     tmp = arg;
-	if (*tmp == '-' | *tmp == '+')
+	if (*tmp == '-' || *tmp == '+')
 		tmp++;
 	if (ft_arg_is_nbr(arg) == 0 && ft_strlen(tmp) < 19)
 		return (1);
 	if (ft_strlen(tmp) > 19)
 		return (0);
-	if (ft_arg_is_nbr(arg) == 0 && ft_strcmp(str, "9223372036854775807") > 0)
+	if (ft_arg_is_nbr(arg) == 0 && ft_strcmp(arg, "9223372036854775807") > 0)
 		return (0);
-	if (ft_arg_is_nbr(arg) == 0 && ft_strcmp(str, "-9223372036854775808") > 0)
+	if (ft_arg_is_nbr(arg) == 0 && ft_strcmp(arg, "-9223372036854775808") > 0)
 		return (0);
 	return (1);
 }
 
 static void handling_exit_error(char *arg, char *m_err, int code_failure)
 {
-	ft_putstr_fd("exit\nminishell: exit: ");
+	ft_putstr_fd("minishell: exit: ", 2);
 	if (code_failure == 1)
 		ft_putstr_fd(m_err, 2);
 	ft_putstr_fd(arg, 2);
@@ -95,10 +95,11 @@ int	ft_exit(t_data *mish, t_cmd *cmd)
 		else if (count_av(str) > 2)
 		{
 			mish-> exit_status = 1;
-			return(handling_exit_error(str[i], ": too many arguments\n", 2), 1);
+			return(handling_exit_error(str[i], ": too many arguments\n", 1), 2);
 		}
-		status = ft_atll(str[i] % 256);
+		status = ft_atll(str[i]);
 	}
-	if (count_av((cmd->arg) == 2))
+	if (count_av((cmd->arg)) == 2 || count_av((cmd->arg)) == 1)
+		print_exit_and_free(mish, status);
 	return (status);
 }

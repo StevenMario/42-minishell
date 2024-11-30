@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:07:29 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/18 11:56:00 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:58:38 by iarantsoa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_is_builtin(t_cmd *cmd)
 	else if (ft_strcmp(cmd->arg[0], "env") == 0)
 		return (1);
 	else if (ft_strcmp(cmd->arg[0], "echo") == 0)
+		return (1);
+	else if (ft_strcmp(cmd->arg[0], "exit") == 0)
 		return (1);
 	else
 		return (-1);
@@ -52,5 +54,7 @@ int	ft_exec_if_builtins(t_cmd *cmd, t_data	*mish, t_env *env)
 		ft_env(cmd, env);
 	else if (ft_strcmp(cmd->arg[0], "echo") == 0)
 		ft_echo(cmd->arg);
+	else if (ft_strcmp(cmd->arg[0], "exit") == 0)
+		ft_exit(mish, cmd);
 	return (0);
 }

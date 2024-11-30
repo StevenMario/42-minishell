@@ -6,11 +6,11 @@
 /*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:06:15 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/11/30 16:12:03 by iarantsoa        ###   ########.fr       */
+/*   Updated: 2024/11/30 17:37:09 by iarantsoa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
+#include "../builtins.h"
 
 void print_exit_and_free(t_data *mish, int status)
 {
