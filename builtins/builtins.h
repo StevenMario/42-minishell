@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:21:53 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/28 17:28:04 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/11/30 15:44:35 by iarantsoa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ t_env	*ft_double_lstnew_env(char *key, char *value);
 t_env	*duplicate_env(t_env *src);
 void	ft_lstclear_env(t_env **lst);
 t_env	*init_t_env(void);
+int	count_av(char **av);
+
 
 #endif
