@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/29 08:12:28 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/01 11:17:12 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env) // one cmd
 		if (cmd->pid == -1)
 		{
 			perror("fork");
+			clear_data(mish);
 			exit(EXIT_FAILURE);
 		}
 		else if (cmd->pid == 0)

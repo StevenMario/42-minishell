@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 09:03:50 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/15 09:37:37 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/01 11:40:41 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	ft_cd(t_cmd *cmd, t_env *env)
 	char	*path;
 	char	cwd[1024];
 	int		verif;
+	char	*pwd_update;
 
 	path = get_path(cmd, env, &verif);
 	if (verif == 0)
@@ -71,9 +72,13 @@ int	ft_cd(t_cmd *cmd, t_env *env)
 	}
 	else if (getcwd(cwd, 1024) != NULL)
 	{
-		update_env("OLDPWD", my_getenv("PWD", env), env);
+		
+		pwd_update = my_getenv("PWD", env);
+		update_env("OLDPWD", pwd_update, env);
 		update_env("PWD", cwd, env);
+		free(pwd_update);
 	}
+	free(path);
 	return (0);
 }
 

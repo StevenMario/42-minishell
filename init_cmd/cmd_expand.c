@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/27 09:26:51 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/01 11:04:55 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*fill_expand_value(int var_len, int j, t_env *e_list, char *str)
 	val = my_getenv(fill_res(var_len, j, str), e_list);
 	pref = get_var_prefix(str);
 	res = join_expand_char(val, pref, suf);
+	// free(suf);
 	return (res);
 }
 
