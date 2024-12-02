@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:52:00 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/01 11:39:45 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/02 09:22:26 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	update_env(char *var_name, char *new_val, t_env *env)
 		return (0);
 	while (env)
 	{
-		if (strcmp(var_name, env->key) == 0)
+		if (ft_strcmp(var_name, env->key) == 0)
 		{
 			free(env->value);
 			env->value = ft_strdup(new_val);

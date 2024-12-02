@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/01 11:45:20 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/02 09:47:40 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int init_data(t_data *data, char *input,char **env)
 	data->env = env;
 	if (data && !data->e_lst)
 		data->e_lst = fill_env_in_t_env(env);
+	// printf("OLDPWD = %s\n",my_getenv("OLDPWD",data->e_lst));
+	// printf("PWD = %s\n",my_getenv("PWD",data->e_lst));
 	init_token(data,input);
 	assigne_type_token(data);
 	init_cmd(data);
@@ -133,6 +135,12 @@ t_data *data_initialized(void)
 	data->token = NULL;
 	return (data);
 }
+void data__token_cmd_initialized(t_data *data)
+{
+	data->cmd = NULL;
+	data->env = NULL;
+	data->token = NULL;
+}
 
 int main(int argc,char **argv,char **env)
 {
@@ -141,12 +149,15 @@ int main(int argc,char **argv,char **env)
 
 	(void)argv;
 	input = NULL;
+	data = NULL;
 	if (argc > 1)
 		printf("[Error].Run without argument !\n");
+	if (!data)
+		data = data_initialized();
 	init_signals();
 	while (1)
 	{
-		data  = data_initialized();
+		data__token_cmd_initialized(data);
 		input = readline("minishell$: ");
 		if (input == NULL)
 			exit_ctrl_d(input,data);
@@ -157,7 +168,7 @@ int main(int argc,char **argv,char **env)
 				if (!init_data(data,input,env))
 					return (1);
 			}
-		clear_data(data);
+		// clear_data(data);
 	}
 	rl_clear_history();
     return (0);
