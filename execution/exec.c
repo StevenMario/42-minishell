@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/02 09:38:15 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/02 09:53:13 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 			exit(1);
 		}
 		waitpid(cmd->pid, &mish->exit_status, 0);
-		get_exit_status(mish->exit_status);
+		mish->exit_status = get_exit_status(mish->exit_status);
 		clear_data(mish);
 	}
 	return (0);
