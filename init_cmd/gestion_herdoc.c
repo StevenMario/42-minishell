@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/27 12:20:28 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:15:04 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,15 @@ char *expand_variable(char *input,t_data *data)
 void fill_herdocc_fd(t_file *rfile,t_data *data,int *fd)
 {
 	char *input;
+	int flag;
 
 	close(fd[0]);
+	flag = 0;
+	if (ft_count_char_in_str(rfile->content,'"') || ft_count_char_in_str(rfile->content,'\''))
+	{
+		rfile->content = remove_quotes(rfile->content);
+		flag = 1;
+	}	
 	while (1)
 	{
 		input = readline(">>");
@@ -58,7 +65,7 @@ void fill_herdocc_fd(t_file *rfile,t_data *data,int *fd)
 			free(input);
 			exit_status(data);
 		}
-		if (ft_count_char_in_str(input,'$'))
+		if (ft_count_char_in_str(input,'$') && flag == 0)
 			input = expand_variable(input, data);
 		ft_putendl_fd(input,fd[1]);
 		free(input);
