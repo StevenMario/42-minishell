@@ -6,30 +6,11 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/03 10:15:04 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:52:16 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
-
-void printf_rfile(t_file *rfile)
-{
-
-		printf("---------------------------------------\n");
-		while (rfile)
-		{
-			if (rfile->type == HEREDOC || rfile->type == INPUT)
-				printf("=============INFILE================\n");
-			else
-				printf("=============OUTFILE================\n");
-			printf(" type = %d\n",rfile->type);
-			if (rfile->content)
-				printf("content = %s\n",rfile->content);
-			printf("fd = %d\n",rfile->fd);
-			rfile = rfile->next;
-		}
-		
-}
 
 void exit_status(t_data *data)
 {

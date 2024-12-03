@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/03 09:41:33 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:17:50 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,23 @@ char	*fill_expand_value(int var_len, int j, t_env *e_list, char *str)
 	i = j;
 	j = check_dollar(str) + 1;
 	suf = get_var_sufix(str, i, j);
-	// printf("val = %s\n",fill_res(var_len, j, str));
+	
 	val = my_getenv(fill_res(var_len, j, str), e_list);
 	pref = get_var_prefix(str);
 	res = join_expand_char(val, pref, suf);
 	return (res);
 }
 
-char	*check_var(char *str, t_env *e_list)
+void check_exit_status(char *check_status)
+{
+	char *res;
+	res = NULL;
+	if (ft_strcmp(check_status,"?" == 0))
+		res = ft_itoa(get_status);
+	return (res);
+}
+
+char	*check_var(char *str, t_env *e_list,t_data *data)
 {
 	int		j;
 	char	*res;
@@ -58,6 +67,7 @@ char	*check_var(char *str, t_env *e_list)
 			var_len++;
 			j++;
 		}
+		check_exit_status(fill_res(var_len, check_dollar(str) + 1, str));
 		res = fill_expand_value(var_len, j, e_list, str);
 		free(str);
 		str = ft_strdup(res);
