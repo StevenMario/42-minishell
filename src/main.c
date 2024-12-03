@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/03 09:14:39 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:34:09 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ int main(int argc,char **argv,char **env)
 				if (!init_data(data,input,env))
 					return (1);
 			}
+		get_status = data->exit_status;
 		clear_data_without_env(data);
 	}
 	rl_clear_history();

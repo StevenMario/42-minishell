@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/03 11:17:50 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:29:25 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,21 @@ char	*fill_expand_value(int var_len, int j, t_env *e_list, char *str)
 	return (res);
 }
 
-void check_exit_status(char *check_status)
+char  *check_exit_status(char *check_status)
 {
 	char *res;
 	res = NULL;
-	if (ft_strcmp(check_status,"?" == 0))
+	if (ft_strcmp(check_status,"?") == 0)
+	{
 		res = ft_itoa(get_status);
+		free(check_status);
+	}
+	else
+		return (free(check_status),NULL);
 	return (res);
 }
 
-char	*check_var(char *str, t_env *e_list,t_data *data)
+char	*check_var(char *str, t_env *e_list)
 {
 	int		j;
 	char	*res;
@@ -67,8 +72,9 @@ char	*check_var(char *str, t_env *e_list,t_data *data)
 			var_len++;
 			j++;
 		}
-		check_exit_status(fill_res(var_len, check_dollar(str) + 1, str));
-		res = fill_expand_value(var_len, j, e_list, str);
+		res = check_exit_status(fill_res(var_len, check_dollar(str) + 1, str));
+		if (!res)
+			res = fill_expand_value(var_len, j, e_list, str);
 		free(str);
 		str = ft_strdup(res);
 		count_dollar--;
