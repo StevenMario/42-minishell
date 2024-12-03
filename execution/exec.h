@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/28 11:33:05 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/03 08:48:38 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		ft_exec_if_builtins(t_cmd *cmd, t_data	*mish, t_env *env);
 int		exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env);
 int		ft_is_builtin(t_cmd *cmd);
 void	piping_cmd(t_data *mish, int backup[2]);
+void	clear_data_without_env(t_data *data);
 
 
 #endif

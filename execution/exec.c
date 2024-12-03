@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/02 09:53:13 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/03 08:46:17 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 		if (cmd->pid == -1)
 		{
 			perror("fork");
-			clear_data(mish);
+			// clear_data(mish);
 			exit(EXIT_FAILURE);
 		}
 		else if (cmd->pid == 0)
@@ -39,7 +39,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 		}
 		waitpid(cmd->pid, &mish->exit_status, 0);
 		mish->exit_status = get_exit_status(mish->exit_status);
-		clear_data(mish);
+		// clear_data(mish);
 	}
 	return (0);
 }
@@ -60,6 +60,7 @@ void	set_pipe_cmd(t_data *mish,t_cmd *cmd) // link_cmd
 			dup2(fds[1], STDOUT_FILENO);
 		close_fds(fds);
 		exec_simple_cmd(mish, cmd, mish->e_lst);
+		clear_data(mish);
 		rl_clear_history();
 		exit(EXIT_SUCCESS);
 	}
