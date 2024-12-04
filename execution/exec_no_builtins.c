@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_no_builtins.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 10:36:55 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:31:30 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,16 @@ char	*ft_test_access(char **path_spl, char *cmd)
 	return (NULL);
 }
 
+void ft_free_env2d_pathspl(char **env_2d, char **path_spl, char	*path)
+{
+	if (env_2d)
+		ft_free_str(env_2d);
+	if (path_spl)
+		ft_free_str(path_spl);
+	if (path)
+		free(path);
+}
+
 int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 {
 	char	**env_2d;
@@ -84,20 +94,22 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 	env_2d = env_to_2d(env);
 	path_spl = split_for_path(env);
 	if (ft_strchr(cmd->arg[0], '/'))
-		path = cmd->arg[0];
+		path = ft_strdup(cmd->arg[0]);
 	else
 		path = ft_test_access(path_spl, cmd->arg[0]);
 	if (path == NULL)
 	{
 		printf("minishell: %s: command not found\n", cmd->arg[0]);
+		ft_free_env2d_pathspl(env_2d, path_spl, path);
 		return (0);
 	}
 	if (access(path, X_OK) != 0)
 	{
 		printf("minishell: %s: permission denied\n", cmd->arg[0]);
+		ft_free_env2d_pathspl(env_2d, path_spl, path);
 		return (0);
 	}
 	execve(path, cmd->arg, env_2d);
-	exit(EXIT_SUCCESS);
-	return (1);
+	ft_free_env2d_pathspl(env_2d, path_spl, path);
+	return (exit(EXIT_SUCCESS),1);
 }
