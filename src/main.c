@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/04 12:39:47 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:38:46 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,30 @@ void clear_data(t_data *data)
 		free(data);
 	}
 }
-// void print_token(t_token *token)
-// {
-// 	while (token)
-// 	{
-// 		printf("token->type  = %d || token content = %s\n",token->type,token->content);
-// 		token = token->next;
-// 	}
-// }
+void print_cmd(t_cmd *cmd)
+{
+	int i;
+	
+	while (cmd)
+	{
+		i = -1;
+		while (cmd->arg[++i])
+		{
+			if (cmd->arg[i])
+				printf("arg = %s\n",cmd->arg[i]);
+		}
+		if (cmd->rfile)
+		{
+			while (cmd->rfile)
+			{
+				if (cmd->rfile->content)
+					printf("[%d]  content = %s\n",cmd->rfile->type,cmd->rfile->content);
+				cmd->rfile = cmd->rfile->next;
+			}
+		}
+		cmd = cmd->next;
+	}
+}
 
 
 
