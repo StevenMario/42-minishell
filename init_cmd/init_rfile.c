@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_rfile.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:19:49 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 11:19:14 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:39:26 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	ft_add_back_rfile(t_file **rfile, t_file *new_file)
 	while (temp && temp->next)
 		temp = temp->next;
 	if (!temp)
-		*rfile = new_file;
+		*rfile = duplicate_file(new_file);
 	else
-		temp->next = new_file;
+		temp->next = duplicate_file(new_file);
 }
 
 int	init_file(t_token *token, t_cmd *cmd)
@@ -56,17 +56,8 @@ int	init_file(t_token *token, t_cmd *cmd)
 		else if (token->type ==  APPEND)
 			temp->type = APPEND;	
 		ft_add_back_rfile(&cmd->rfile, temp);
+		ft_lstclear_file(&temp);
 		return (1);
 	}
-	// else if ((token->next && (token->type == TRUNC || token->type == APPEND)))
-	// {
-	// 	temp->content = ft_strdup(token->next->content);
-	// 	if (token->type == TRUNC)
-	// 		temp->type = TRUNC;
-	// 	else
-	// 		temp->type = APPEND;
-	// 	ft_add_back_infile(&cmd->outfile, temp);
-	// 	return (1);
-	// }
 	return (0);
 }

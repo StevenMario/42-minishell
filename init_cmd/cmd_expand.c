@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 10:57:35 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:27:29 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 char	*fill_res(int len, int j, char *str)
 {
 	char	*res;
+	char	*temp;
 
 	res = NULL;
 	res = ft_substr(str, j, len);
-	res = ft_strtrim(res, "{}");
-	return (res);
+	temp = ft_strtrim(res, "{}");
+	free(res);
+	return (temp);
 }
 
 char	*fill_expand_value(int var_len, int j, t_env *e_list, char *str)
@@ -33,7 +35,7 @@ char	*fill_expand_value(int var_len, int j, t_env *e_list, char *str)
 	i = j;
 	j = check_dollar(str) + 1;
 	suf = get_var_sufix(str, i, j);
-	val = my_getenv(fill_res(var_len, j, str), e_list);
+	val = my_getenv2(fill_res(var_len, j, str), e_list);
 	pref = get_var_prefix(str);
 	res = join_expand_char(val, pref, suf);
 	return (res);

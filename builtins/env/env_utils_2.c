@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 09:34:41 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/04 09:41:38 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:54:05 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ t_env	*duplicate_env(t_env *src)
 	t_env	*tail;
 	t_env	*current;
 
-	if (!src || !(head = malloc(sizeof(t_env))))
+	head = malloc(sizeof(t_env));
+	if (!src || !head)
 		return (NULL);
-	head->key = strdup(src->key);
-	head->value = strdup(src->value);
+	head->key = ft_strdup(src->key);
+	head->value = ft_strdup(src->value);
 	head->next = NULL;
 	tail = head;
 	current = src->next;
@@ -30,8 +31,8 @@ t_env	*duplicate_env(t_env *src)
 	{
 		if (!(new_node = malloc(sizeof(t_env))))
 			return (NULL);
-		new_node->key = strdup(current->key);
-		new_node->value = strdup(current->value);
+		new_node->key = ft_strdup(current->key);
+		new_node->value = ft_strdup(current->value);
 		new_node->next = NULL;
 		tail->next = new_node;
 		tail = new_node;

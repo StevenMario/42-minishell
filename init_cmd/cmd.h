@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:10:14 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 11:15:22 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:38:53 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ void	ft_lstclear_cmd(t_cmd **lst);
 void	ft_lstclear_file(t_file **lst);
 void	fill_rfile_expand(t_data *data);
 void	cmd_rfile_expand(t_file *rfile, t_env *e_list);
+t_file	*duplicate_file(t_file *file);
 void	cmd_expand(t_data *data);
 char	*get_var_sufix(char *str, int var_len, int j);
 char	*get_var_prefix(char *str);
+char	*my_getenv2(char *var_name, t_env *env);
 char	*check_var(char *str, t_env *e_list);
 t_cmd	*ft_initcmd(void);
 void	printf_rfile(t_file *rfile);

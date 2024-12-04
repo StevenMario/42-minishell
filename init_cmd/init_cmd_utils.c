@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:18:13 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 11:15:36 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:53:45 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ t_file	*duplicate_file(t_file *file)
 	if (!new_file)
 		return (NULL);
 	if (file->content)
-	{
-		new_file->content = malloc(strlen(file->content) + 1);
-		strcpy(new_file->content, file->content);
-	}
+		new_file->content = ft_strdup(file->content);
 	new_file->type = file->type;
 	new_file->fd = file->fd;
 	new_file->next = NULL;

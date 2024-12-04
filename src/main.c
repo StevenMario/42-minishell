@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/03 20:16:47 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:39:47 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void init_cmd(t_data *data)
 	cmd_expand(data);
 	if (data && data->cmd && data->cmd->rfile)
 		fill_rfile_expand(data);
-	// if (data && data->cmd && data->cmd->outfile)
-	// 	fill_outfile_expand(data);
 	cmd_processing(data);
 }
 
@@ -36,8 +34,6 @@ void clear_data(t_data *data)
 			ft_lstclear_token(&data->token);
 		if (data->e_lst)
 			ft_lstclear_env(&data->e_lst);
-		if (data->sorted_env)
-			ft_lstclear_env(&data->sorted_env);
 		free(data);
 	}
 }
@@ -132,7 +128,6 @@ t_data *data_initialized(void)
 	data->e_lst = NULL;
 	data->cmd = NULL;
 	data->env = NULL;
-	data->sorted_env = NULL;
 	data->token = NULL;
 	return (data);
 }

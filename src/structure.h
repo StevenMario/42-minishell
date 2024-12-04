@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/02 09:34:04 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:25:32 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,7 @@ typedef struct s_data
 	t_token	*token;
 	t_cmd	*cmd;
 	t_env	*e_lst;
-	t_env	*sorted_env;
 	int		exit_status;
 }	t_data;
-
 
 #endif

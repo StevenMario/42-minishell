@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:52:00 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 10:10:06 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:40:23 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	ft_print_dx(t_env *env)
 		printf("\"%s\"\n", sorted_env->value);
 		sorted_env = sorted_env->next;
 	}
+	if (sorted_env)
+		ft_lstclear_env(&sorted_env);
 }
 
 int	take_len_bf_char(char *str, char c)
