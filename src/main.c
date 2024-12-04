@@ -36,6 +36,8 @@ void clear_data(t_data *data)
 			ft_lstclear_token(&data->token);
 		if (data->e_lst)
 			ft_lstclear_env(&data->e_lst);
+		if (data->sorted_env)
+			ft_lstclear_env(&data->sorted_env);
 		free(data);
 	}
 }
@@ -130,6 +132,7 @@ t_data *data_initialized(void)
 	data->e_lst = NULL;
 	data->cmd = NULL;
 	data->env = NULL;
+	data->sorted_env = NULL;
 	data->token = NULL;
 	return (data);
 }
