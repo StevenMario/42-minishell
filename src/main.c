@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/04 16:47:20 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 17:05:48 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,6 @@ int init_data(t_data *data, char *input,char **env)
 	init_cmd(data);
 	herdoc_handler(data);
 	piping_cmd(data, backup);
-	// clear_data(data);
-	// print_token(data->token);
-	//exec_simple_cmd(data, data->cmd, data->e_lst);
-	// ft_print_cmd(data->cmd);
-	// ft_print_token(data->token);
-	// printf_t_env(data->e_lst);
-	// <file1 echo>>app test"test" >out.txt<<doc|cat -e "test'hello'" <<heredoc
 	return 1;
 }
 int check_pair_quote(char *input)

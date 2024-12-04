@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/04 10:09:31 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/04 17:30:15 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_if_var_exist(t_env *env, char *k, char *val)
 	return (0);
 }
 
-int	ft_export(t_cmd *cmd, t_env *env)
+int	ft_export(t_data *data)
 {
 	int		i;
 	int		l;
@@ -71,23 +71,23 @@ int	ft_export(t_cmd *cmd, t_env *env)
 	char	*k;
 
 	l = 0;
-	if (cmd->arg[1])
+	if (data->cmd->arg[1])
 	{
-		while (cmd->arg[++l])
+		while (data->cmd->arg[++l])
 		{
-			if (check_valid_var(cmd->arg[l]) == 1)
+			if (check_valid_var(data->cmd->arg[l]) == 1)
 			{
-				if (ft_count_char_in_str(cmd->arg[l], '=') == 0)
+				if (ft_count_char_in_str(data->cmd->arg[l], '=') == 0)
 					return (1);
-				i = take_len_bf_char(cmd->arg[l], '=');
-				k = ft_substr(cmd->arg[l], 0, i);
-				val = ft_strdup(cmd->arg[l] + (i + 1));
-				if (!ft_if_var_exist(env, k, val))
-					ft_lstadd_back_env(&env, ft_double_lstnew_env(k, val));
+				i = take_len_bf_char(data->cmd->arg[l], '=');
+				k = ft_substr(data->cmd->arg[l], 0, i);
+				val = ft_strdup(data->cmd->arg[l] + (i + 1));
+				if (!ft_if_var_exist(data->e_lst, k, val))
+					ft_lstadd_back_env(&data->e_lst, ft_double_lstnew_env(k, val));
 			}
 		}
 	}
 	else
-		ft_print_dx(env);
+		ft_print_dx(data);
 	return (0);
 }

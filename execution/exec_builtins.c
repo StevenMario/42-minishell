@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:07:29 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/04 10:27:19 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/04 17:30:55 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_exec_if_builtins(t_cmd *cmd, t_data	*mish, t_env *env)
 	}
 	else if (ft_strcmp(cmd->arg[0], "export") == 0)
 	{
-		mish->exit_status = ft_export(cmd, env);
+		mish->exit_status = ft_export(mish);
 		return (1);
 	}
 	else if (ft_strcmp(cmd->arg[0], "unset") == 0)

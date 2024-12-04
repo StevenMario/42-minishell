@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:19:49 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 16:57:55 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 20:00:52 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ int	init_file(t_token *token, t_cmd *cmd)
 {
 	t_file	*temp;
 
-	temp = ft_init_file();
+	temp = NULL;
 	if (token->next && (token->type == INPUT || token->type == HEREDOC
 	|| token->type == TRUNC || token->type == APPEND))
 	{
+		temp = ft_init_file();
 		temp->content = ft_strdup(token->next->content);
 		if (token->type == INPUT)
 			temp->type = INPUT;
@@ -59,6 +60,5 @@ int	init_file(t_token *token, t_cmd *cmd)
 		ft_lstclear_file(&temp);
 		return (1);
 	}
-	ft_lstclear_file(&temp);
 	return (0);
 }

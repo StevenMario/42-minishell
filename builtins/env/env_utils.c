@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:49:38 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 09:39:50 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/04 17:39:13 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	ft_lstadd_back_env(t_env **f_elem, t_env *n_elem)
 	while (temp && temp->next)
 		temp = temp->next;
 	if (!temp)
-		*f_elem = n_elem;
+		*f_elem = duplicate_env(n_elem);
 	else
-		temp->next = n_elem;
+		temp->next = duplicate_env(n_elem);
 }
 
 char	**split_for_env(char *str)
@@ -58,15 +58,19 @@ t_env	*fill_env_in_t_env(char **envp)
 {
 	int		i;
 	t_env	*root;
+	t_env	*temp;
 	char	**split_env;
+
 
 	i = -1;
 	root = NULL;
+	temp = NULL;
 	while (envp[++i])
 	{
 		split_env = split_for_env(envp[i]);
-		ft_lstadd_back_env(&root, ft_double_lstnew_env(split_env[0],
-				split_env[1]));
+		temp = ft_double_lstnew_env(split_env[0],split_env[1]);
+		ft_lstadd_back_env(&root,temp);
+		ft_lstclear_env(&temp);
 		ft_free_str(split_env);
 	}
 	return (root);

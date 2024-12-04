@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:52:00 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 12:40:23 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 17:44:34 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,23 @@ int	update_env(char *var_name, char *new_val, t_env *env)
 	return (0);
 }
 
-static t_env	*bubble_sort_env(t_env *env)
+static t_env	*bubble_sort_env(t_data *data)
 {
 	t_env	*sorted_env;
 
-	sorted_env = duplicate_env(env);
+	// sorted_env = duplicate_env(env);
+	sorted_env = fill_env_in_t_env(data->env);
 	ft_sort_env(&sorted_env);
 	return (sorted_env);
 }
 
-void	ft_print_dx(t_env *env)
+void	ft_print_dx(t_data *data)
 {
 	t_env	*sorted_env;
+	t_env	*temp;
 
-	sorted_env = bubble_sort_env(env);
+	temp = bubble_sort_env(data);
+	sorted_env = temp;
 	while (sorted_env != NULL)
 	{
 		printf("declare -x ");
@@ -81,8 +84,8 @@ void	ft_print_dx(t_env *env)
 		printf("\"%s\"\n", sorted_env->value);
 		sorted_env = sorted_env->next;
 	}
-	if (sorted_env)
-		ft_lstclear_env(&sorted_env);
+	if (temp)
+		ft_lstclear_env(&temp);
 }
 
 int	take_len_bf_char(char *str, char c)
