@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 09:03:50 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/04 10:20:33 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:03:09 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	check_error_chdir(char *path)
 {
 	struct stat	sb;
 
+	sb.st_mode = 0;
 	lstat(path, &sb);
 	if (!S_ISDIR(sb.st_mode))
 		printf("minishell: %s: is not a directory\n", path);
@@ -52,7 +53,7 @@ static char	*get_path(t_cmd *cmd, t_env *env, int *verif)
 	else if (ft_strcmp(cmd->arg[1], "-") == 0)
 		path = my_getenv("OLDPWD", env);
 	else
-		path = cmd->arg[1];
+		path = ft_strdup(cmd->arg[1]);
 	*verif = 1;
 	return (path);
 }
@@ -64,14 +65,13 @@ int	ft_cd(t_cmd *cmd, t_env *env)
 	int		verif;
 	char	*pwd_update;
 
+	path = NULL;
 	path = get_path(cmd, env, &verif);
-	printf("path = %s\n", path);
 	if (verif == 0)
 		return (1);
 	if (!path || (chdir(path) < 0))
 	{
 		check_error_chdir(path);
-		free(path);
 		return (1);
 	}
 	else if (getcwd(cwd, 1024) != NULL)
@@ -81,5 +81,7 @@ int	ft_cd(t_cmd *cmd, t_env *env)
 		update_env("PWD", cwd, env);
 		free(pwd_update);
 	}
+	if (path)
+		free(path);
 	return (0);
 }
