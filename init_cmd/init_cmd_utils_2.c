@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_envlst.c                                         :+:      :+:    :+:   */
+/*   init_cmd_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/13 20:12:32 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/10/23 18:57:47 by mrambelo         ###   ########.fr       */
+/*   Created: 2024/12/04 11:13:42 by irabesan          #+#    #+#             */
+/*   Updated: 2024/12/04 11:14:57 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
+#include "cmd.h"
 
-// int ft_eee(char *key, t_data *mish)
-// {
-//     t_env	*env;
+t_cmd	*ft_initcmd(void)
+{
+	t_cmd	*new_cmd;
 
-//     env = mish->e_list; 
-// }
+	new_cmd = malloc(sizeof(t_cmd));
+	new_cmd->arg = NULL;
+	new_cmd->rfile = NULL;
+	new_cmd->next = NULL;
+	return (new_cmd);
+}

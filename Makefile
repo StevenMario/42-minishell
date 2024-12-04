@@ -8,10 +8,12 @@ SRC = 		./src/utils.c\
 			./init_token/assigne_type_token.c\
 			./init_token/init_utils.c\
 			./init_cmd/init_cmd_utils.c\
+			./init_cmd/init_cmd_utils_2.c\
 			./init_cmd/init_cmd.c\
 			./init_cmd/init_rfile.c\
 			./init_cmd/init_rfile_utils.c\
 			./builtins/env/env_utils.c\
+			./builtins/env/env_utils_2.c\
 			./builtins/env/m_env.c\
 			./builtins/m_echo.c\
 			./init_cmd/gestion_herdoc.c\

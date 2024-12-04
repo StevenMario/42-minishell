@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/11/18 08:45:07 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/04 10:09:31 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,54 +41,50 @@ static int	check_valid_var(char *arg)
 			if (ft_var_is_val(arg[i]) == 0)
 				return (0);
 			i++;
-
 		}
 		return (1);
 	}
 	return (0);
 }
 
-int ft_if_var_exist(t_env *env, char *k, char *val)
+int	ft_if_var_exist(t_env *env, char *k, char *val)
 {
 	while (env)
 	{
-			if (ft_strcmp(env->key, k) == 0)
-			{
-				free(env->value);
-				env->value = ft_strdup(val);
-				return (1);
-			}
-			else
-				env = env->next;
+		if (ft_strcmp(env->key, k) == 0)
+		{
+			free(env->value);
+			env->value = ft_strdup(val);
+			return (1);
+		}
+		else
+			env = env->next;
 	}
 	return (0);
 }
 
 int	ft_export(t_cmd *cmd, t_env *env)
 {
-	int	i;
-	int	l;
+	int		i;
+	int		l;
 	char	*val;
 	char	*k;
 
-	l = 1;
-	if (cmd->arg[l])
+	l = 0;
+	if (cmd->arg[1])
 	{
-		while (cmd->arg[l])
+		while (cmd->arg[++l])
 		{
 			if (check_valid_var(cmd->arg[l]) == 1)
 			{
-				i = 0;
-				if (ft_count_char_in_str(cmd->arg[l],'=') == 0)
+				if (ft_count_char_in_str(cmd->arg[l], '=') == 0)
 					return (1);
-				while (cmd->arg[l][i] && cmd->arg[l][i] != '=')
-					i++;
-				k  = ft_substr(cmd->arg[l], 0, i);
+				i = take_len_bf_char(cmd->arg[l], '=');
+				k = ft_substr(cmd->arg[l], 0, i);
 				val = ft_strdup(cmd->arg[l] + (i + 1));
 				if (!ft_if_var_exist(env, k, val))
 					ft_lstadd_back_env(&env, ft_double_lstnew_env(k, val));
 			}
-			l++;
 		}
 	}
 	else

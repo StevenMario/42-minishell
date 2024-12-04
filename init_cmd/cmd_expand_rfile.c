@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_expand_rfile.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 09:23:45 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/27 11:23:42 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 10:55:57 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

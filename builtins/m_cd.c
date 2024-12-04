@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   m_cd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 09:03:50 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/03 20:52:15 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 10:20:33 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+
 void	check_error_chdir(char *path)
 {
 	struct stat	sb;
@@ -25,6 +26,7 @@ void	check_error_chdir(char *path)
 	else
 		return ;
 }
+
 int	count_av(char **av)
 {
 	int	i;
@@ -63,7 +65,7 @@ int	ft_cd(t_cmd *cmd, t_env *env)
 	char	*pwd_update;
 
 	path = get_path(cmd, env, &verif);
-	printf("path = %s\n",path);
+	printf("path = %s\n", path);
 	if (verif == 0)
 		return (1);
 	if (!path || (chdir(path) < 0))
@@ -74,13 +76,10 @@ int	ft_cd(t_cmd *cmd, t_env *env)
 	}
 	else if (getcwd(cwd, 1024) != NULL)
 	{
-		
 		pwd_update = my_getenv("PWD", env);
 		update_env("OLDPWD", pwd_update, env);
 		update_env("PWD", cwd, env);
 		free(pwd_update);
-		// free(path);
 	}
 	return (0);
 }
-

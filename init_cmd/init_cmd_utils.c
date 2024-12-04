@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:18:13 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/29 09:30:38 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:15:36 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@ int	get_nb_arg(t_token *token)
 	return (nb_token);
 }
 
-t_file* duplicate_file(t_file *file) {
-	t_file *new_file;
-	
+t_file	*duplicate_file(t_file *file)
+{
+	t_file	*new_file;
+
 	new_file = malloc(sizeof(t_file));
 	if (!new_file)
-		return NULL;
+		return (NULL);
 	if (file->content)
 	{
 		new_file->content = malloc(strlen(file->content) + 1);
@@ -40,32 +41,29 @@ t_file* duplicate_file(t_file *file) {
 	new_file->type = file->type;
 	new_file->fd = file->fd;
 	new_file->next = NULL;
-	return new_file;
+	return (new_file);
 }
 
-t_cmd* duplicate_cmd(t_cmd *cmd)
+t_cmd	*duplicate_cmd(t_cmd *cmd)
 {
-	t_cmd *new_cmd ;
-	int arg_count;
+	t_cmd	*new_cmd;
+	int		arg_count;
 
-	new_cmd =  ft_initcmd();
+	new_cmd = ft_initcmd();
 	if (!new_cmd)
-		return NULL;
+		return (NULL);
 	arg_count = 0;
 	while (cmd->arg[arg_count])
 		arg_count++;
-	new_cmd->arg = malloc((arg_count + 1) * sizeof(char*));
+	new_cmd->arg = malloc((arg_count + 1) * sizeof(char *));
 	new_cmd->arg[arg_count] = NULL;
 	arg_count = -1;
 	while (cmd->arg && cmd->arg[++arg_count])
-	{
 		new_cmd->arg[arg_count] = ft_strdup(cmd->arg[arg_count]);
-		// printf("new_cmd->arg[arg_count] = %s\n",new_cmd->arg[arg_count]);
-	}
 	if (cmd->rfile)
 		new_cmd->rfile = duplicate_file(cmd->rfile);
 	new_cmd->next = NULL;
-	return new_cmd;
+	return (new_cmd);
 }
 
 void	ft_add_back_cmd(t_cmd **cmd, t_cmd *new)
@@ -79,24 +77,10 @@ void	ft_add_back_cmd(t_cmd **cmd, t_cmd *new)
 		*cmd = duplicate_cmd(new);
 	else
 		temp->next = duplicate_cmd(new);
-	// free(new);
 }
-
-t_cmd	*ft_initcmd(void)
-{
-	t_cmd	*new_cmd;
-
-	new_cmd = malloc(sizeof(t_cmd));
-	new_cmd->arg = NULL;
-	new_cmd->rfile = NULL;
-	new_cmd->next = NULL;
-	return (new_cmd);
-}
-
 
 void	ft_lstclear_cmd(t_cmd **lst)
 {
-
 	t_cmd	*next;
 
 	while ((*lst) != NULL)

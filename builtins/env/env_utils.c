@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:49:38 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/28 17:27:45 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 09:39:50 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
+
+void	ft_lstadd_back_env(t_env **f_elem, t_env *n_elem)
+{
+	t_env	*temp;
+
+	temp = *f_elem;
+	while (temp && temp->next)
+		temp = temp->next;
+	if (!temp)
+		*f_elem = n_elem;
+	else
+		temp->next = n_elem;
+}
 
 char	**split_for_env(char *str)
 {
@@ -39,34 +52,6 @@ char	**split_for_env(char *str)
 	else
 		arr[1] = NULL;
 	return (arr);
-}
-
-void	ft_lstadd_back_env(t_env **f_elem, t_env *n_elem)
-{
-	t_env	*temp;
-
-	temp = *f_elem;
-	while (temp && temp->next)
-		temp = temp->next;
-	if (!temp)
-		*f_elem = n_elem;
-	else
-		temp->next = n_elem;
-}
-
-t_env	*ft_double_lstnew_env(char *key, char *value)
-{
-	t_env		*new_env;
-
-	new_env = init_t_env();
-	if (!new_env)
-		return (NULL);
-	if (key)
-		new_env->key = ft_strdup(key);
-	if (value)
-		new_env->value = ft_strdup(value);
-	new_env->next = NULL;
-	return (new_env);
 }
 
 t_env	*fill_env_in_t_env(char **envp)
@@ -98,34 +83,6 @@ t_env	*init_t_env(void)
 	env->value = NULL;
 	env->next = NULL;
 	return (env);
-}
-
-t_env	*duplicate_env(t_env *src)
-{
-	t_env	*new_node;
-	t_env	*head;
-	t_env	*tail;
-	t_env	*current;
-
-	if (!src || !(head = malloc(sizeof(t_env))))
-		return (NULL);
-	head->key = strdup(src->key);
-	head->value = strdup(src->value);
-	head->next = NULL;
-	tail = head;
-	current = src->next;
-	while (current)
-	{
-		if (!(new_node = malloc(sizeof(t_env))))
-			return (NULL);
-		new_node->key = strdup(current->key);
-		new_node->value = strdup(current->value);
-		new_node->next = NULL;
-		tail->next = new_node;
-		tail = new_node;
-		current = current->next;
-	}
-	return (head);
 }
 
 void	ft_lstclear_env(t_env **lst)

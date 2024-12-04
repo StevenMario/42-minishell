@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:07:29 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/30 17:58:38 by iarantsoa        ###   ########.fr       */
+/*   Updated: 2024/12/04 10:27:19 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	ft_is_builtin(t_cmd *cmd)
 	else
 		return (-1);
 }
+
 int	ft_exec_if_builtins(t_cmd *cmd, t_data	*mish, t_env *env)
 {
 	if (ft_strcmp(cmd->arg[0], "cd") == 0)

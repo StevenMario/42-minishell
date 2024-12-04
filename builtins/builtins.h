@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:21:53 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/30 17:59:37 by iarantsoa        ###   ########.fr       */
+/*   Updated: 2024/12/04 10:25:32 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ t_env	*ft_double_lstnew_env(char *key, char *value);
 t_env	*duplicate_env(t_env *src);
 void	ft_lstclear_env(t_env **lst);
 t_env	*init_t_env(void);
-int	count_av(char **av);
-void print_exit_and_free(t_data *mish, int status);
-int	ft_exit(t_data *mish, t_cmd *cmd);
+int		count_av(char **av);
+void	print_exit_and_free(t_data *mish, int status);
+int		ft_exit(t_data *mish, t_cmd *cmd);
+int		take_len_bf_char(char *str, char c);
 
 #endif

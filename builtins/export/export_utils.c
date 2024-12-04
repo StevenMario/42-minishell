@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:52:00 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/02 09:22:26 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 10:10:06 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,6 @@ static void	ft_sort_env(t_env **sorted_env)
 			break ;
 	}
 }
-
-// static void ft_sort_env(t_env **sorted_env)
-// {
-//     t_env *current;
-//    // t_env *next;
-//     t_env *temp;
-
-//     current = *sorted_env;
-//     while (current && current->next)
-//     {
-//         if (!strcmp(current->key, current->next->key))
-//         {
-//             temp = current->next;
-//             current->next = current->next->next;
-//             current->key = temp->key;
-//             current->value = temp->value;
-//             temp = NULL;
-//         }
-//         current = current->next;
-//     }
-// }
 
 int	update_env(char *var_name, char *new_val, t_env *env)
 {
@@ -102,4 +81,14 @@ void	ft_print_dx(t_env *env)
 		printf("\"%s\"\n", sorted_env->value);
 		sorted_env = sorted_env->next;
 	}
+}
+
+int	take_len_bf_char(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	return (i);
 }

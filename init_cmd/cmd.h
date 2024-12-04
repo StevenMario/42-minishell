@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:10:14 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/29 08:06:42 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:15:22 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*get_var_prefix(char *str);
 char	*check_var(char *str, t_env *e_list);
 t_cmd	*ft_initcmd(void);
 void	printf_rfile(t_file *rfile);
-void herdoc_handler(t_data *data);
+void	herdoc_handler(t_data *data);
+t_cmd	*ft_initcmd(void);
 
 #endif

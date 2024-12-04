@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/03 08:46:17 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 10:54:05 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,13 @@
 int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 {
 	if (ft_is_builtin(cmd) == 1)
-	{
 		exec_redir_builtin(mish, cmd, env);
-		return (0);
-	}
 	else
 	{
 		cmd->pid = fork();
 		if (cmd->pid == -1)
 		{
 			perror("fork");
-			// clear_data(mish);
 			exit(EXIT_FAILURE);
 		}
 		else if (cmd->pid == 0)
@@ -35,23 +31,22 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 			exec_extern_cmd(env, cmd);
 			clear_data(mish);
 			rl_clear_history();
-			exit(1);
+			exit(EXIT_SUCCESS);
 		}
 		waitpid(cmd->pid, &mish->exit_status, 0);
 		mish->exit_status = get_exit_status(mish->exit_status);
-		// clear_data(mish);
 	}
 	return (0);
 }
 
-void	set_pipe_cmd(t_data *mish,t_cmd *cmd) // link_cmd
+void	set_pipe_cmd(t_data *mish, t_cmd *cmd) // link_cmd
 {
-	int fds[2];
+	int	fds[2];
 
-	if(pipe(fds) == -1)
+	if (pipe(fds) == -1)
 	{
 		perror("pipe");
-        exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	cmd->pid = fork();
 	if (cmd->pid == 0)
@@ -71,7 +66,7 @@ void	set_pipe_cmd(t_data *mish,t_cmd *cmd) // link_cmd
 	}
 }
 
-void clear_data_without_env(t_data *data)
+void	clear_data_without_env(t_data *data)
 {
 	if (data)
 	{
@@ -79,18 +74,15 @@ void clear_data_without_env(t_data *data)
 			ft_lstclear_cmd(&data->cmd);
 		if (data->token)
 			ft_lstclear_token(&data->token);
-		// if (data->e_lst)
-		// 	ft_lstclear_env(&data->e_lst);
-		// free(data);
 	}
 }
 
 void	piping_cmd(t_data *mish, int backup[2]) //pipeline
 {
-	t_cmd *cmd;
-	int count;
+	t_cmd	*cmd;
+	int		count;
 
-    count = ft_count_cmd(mish);
+	count = ft_count_cmd(mish);
 	cmd = mish->cmd;
 	if (count == 1)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/03 20:37:13 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 10:57:35 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,24 @@ char	*fill_expand_value(int var_len, int j, t_env *e_list, char *str)
 	i = j;
 	j = check_dollar(str) + 1;
 	suf = get_var_sufix(str, i, j);
-	
 	val = my_getenv(fill_res(var_len, j, str), e_list);
 	pref = get_var_prefix(str);
 	res = join_expand_char(val, pref, suf);
 	return (res);
 }
 
-char  *check_exit_status(char *check_status)
+char	*check_exit_status(char *check_status)
 {
-	char *res;
-	
+	char	*res;
+
 	res = NULL;
-	if (ft_strcmp(check_status,"?") == 0)
+	if (ft_strcmp(check_status, "?") == 0)
 	{
 		res = ft_itoa(get_status);
 		free(check_status);
 	}
 	else
-		return (free(check_status),NULL);
+		return (free(check_status), NULL);
 	return (res);
 }
 

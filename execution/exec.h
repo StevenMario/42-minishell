@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/03 08:48:38 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 10:54:49 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
-#include "../src/minishell.h"
+# include "../src/minishell.h"
+
 void	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env);
-void check_type_for_dup2(t_file *redir);
-void check_error_redir(t_file *redir);
+void	check_type_for_dup2(t_file *redir);
+void	check_error_redir(t_file *redir);
 void	ft_open_redir(t_file *redir);
 void	ft_browse_redir(t_cmd *cmd);
 int		ft_count_cmd(t_data *mish);
@@ -31,6 +32,7 @@ int		exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env);
 int		ft_is_builtin(t_cmd *cmd);
 void	piping_cmd(t_data *mish, int backup[2]);
 void	clear_data_without_env(t_data *data);
-
+char	**split_for_path(t_env *env);
+char	*ft_join_env(char *s1, char *s2);
 
 #endif
