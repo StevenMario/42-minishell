@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:18:13 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 16:37:51 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:46:16 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ t_file	*duplicate_file(t_file *file)
 t_cmd	*duplicate_cmd(t_cmd *cmd)
 {
 	t_cmd	*new_cmd;
+	t_file	*temp;
 	int		arg_count;
 
+	temp = NULL;
 	new_cmd = ft_initcmd();
 	if (!new_cmd)
 		return (NULL);
@@ -63,8 +65,11 @@ t_cmd	*duplicate_cmd(t_cmd *cmd)
 		{
 			if (!new_cmd->rfile)
 				new_cmd->rfile = duplicate_file(cmd->rfile);
-			else{
-				ft_add_back_rfile(&new_cmd->rfile,duplicate_file(cmd->rfile));
+			else
+			{
+				temp = duplicate_file(cmd->rfile);
+				ft_add_back_rfile(&new_cmd->rfile,temp);
+				ft_lstclear_file(&temp);
 			}
 			cmd->rfile = cmd->rfile->next;
 		}
