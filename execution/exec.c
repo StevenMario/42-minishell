@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/05 13:06:46 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/05 13:54:03 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 			if (cmd->rfile != NULL)
 				ft_browse_redir(cmd);
 			exec_extern_cmd(env, cmd);
+			printf("Tonga eto\n");
 			clear_data(mish);
 			rl_clear_history();
 			exit(EXIT_SUCCESS);
