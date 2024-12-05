@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_no_builtins.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 13:20:20 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/05 18:56:14 by iarantsoa        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 	}
 	if (fork() == 0)
 		execve(path, cmd->arg, env_2d);
+	wait(NULL);
 	ft_free_env2d_pathspl(env_2d, path_spl, path);
 	return (1);
 }
