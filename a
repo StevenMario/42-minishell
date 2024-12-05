@@ -1,0 +1,15 @@
+a
+b
+builtins
+c
+d
+execution
+file
+init_cmd
+init_token
+libft
+Makefile
+minishell
+readline.sup
+README.md
+src
