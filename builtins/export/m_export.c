@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/05 18:57:40 by iarantsoa        ###   ########.fr       */
+/*   Updated: 2024/12/05 19:10:09 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,10 @@ int	ft_export(t_data *data)
 	int		l;
 	char	*val;
 	char	*k;
+	t_env	*new_env;
 
 	l = 0;
+	new_env = NULL;
 	if (data->cmd->arg[1])
 	{
 		while (data->cmd->arg[++l])
@@ -83,7 +85,11 @@ int	ft_export(t_data *data)
 				k = ft_substr(data->cmd->arg[l], 0, i);
 				val = ft_strdup(data->cmd->arg[l] + (i + 1));
 				if (!ft_if_var_exist(data->e_lst, k, val))
-					ft_lstadd_back_env(&data->e_lst, ft_double_lstnew_env(k, val));
+				{
+					new_env = ft_double_lstnew_env(k, val);
+					ft_lstadd_back_env(&data->e_lst, new_env);
+					ft_lstclear_env(&new_env);
+				}
 				free(k);
 				free(val);
 			}
