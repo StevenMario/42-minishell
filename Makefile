@@ -59,4 +59,20 @@ fclean: clean
 	
 re: fclean all
 
+run: re
+	clear
+	./$(NAME)
+	
+gdb: re
+	clear
+	gdb ./$(NAME)
+
+leak: re
+	clear
+	valgrind --suppressions=readline.sup --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME)
+
+leak\:%: re
+	clear
+	valgrind --suppressions=$(subst leak:,,$@).sup --leak-check=full --show-leak-kinds=all ./$(NAME)
+
 .PHONY: all clean fclean re

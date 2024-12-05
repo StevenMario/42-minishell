@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:10:14 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 13:38:53 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/05 12:01:50 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_add_back_rfile(t_file **rfile, t_file *new_file);
 void	ft_add_back_cmd(t_cmd **cmd, t_cmd *new);
 void	ft_lstclear_cmd(t_cmd **lst);
 void	ft_lstclear_file(t_file **lst);
+t_cmd	*duplicate_cmd(t_cmd *cmd);
 void	fill_rfile_expand(t_data *data);
 void	cmd_rfile_expand(t_file *rfile, t_env *e_list);
 t_file	*duplicate_file(t_file *file);

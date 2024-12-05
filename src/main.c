@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/04 17:05:48 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/05 11:44:01 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void clear_data(t_data *data)
 	if (data)
 	{
 		if (data->cmd)
-			ft_lstclear_cmd(&data->cmd);
+			ft_lstclear_cmd(&data->cmd);	
 		if (data->token)
 			ft_lstclear_token(&data->token);
 		if (data->e_lst)
@@ -37,30 +37,30 @@ void clear_data(t_data *data)
 		free(data);
 	}
 }
-// void print_cmd(t_cmd *cmd)
-// {
-// 	int i;
+void print_cmd(t_cmd *cmd)
+{
+	int i;
 	
-// 	while (cmd)
-// 	{
-// 		i = -1;
-// 		while (cmd->arg[++i])
-// 		{
-// 			if (cmd->arg[i])
-// 				printf("arg = %s\n",cmd->arg[i]);
-// 		}
-// 		if (cmd->rfile)
-// 		{
-// 			while (cmd->rfile)
-// 			{
-// 				if (cmd->rfile->content)
-// 					printf("[%d]  content = %s\n",cmd->rfile->type,cmd->rfile->content);
-// 				cmd->rfile = cmd->rfile->next;
-// 			}
-// 		}
-// 		cmd = cmd->next;
-// 	}
-// }
+	while (cmd)
+	{
+		i = -1;
+		while (cmd->arg[++i])
+		{
+			if (cmd->arg[i])
+				printf("arg = %s\n",cmd->arg[i]);
+		}
+		if (cmd->rfile)
+		{
+			while (cmd->rfile)
+			{
+				if (cmd->rfile->content)
+					printf("[%d]  content = %s\n",cmd->rfile->type,cmd->rfile->content);
+				cmd->rfile = cmd->rfile->next;
+			}
+		}
+		cmd = cmd->next;
+	}
+}
 
 
 
@@ -76,7 +76,9 @@ int init_data(t_data *data, char *input,char **env)
 	assigne_type_token(data);
 	init_cmd(data);
 	herdoc_handler(data);
+
 	piping_cmd(data, backup);
+	
 	return 1;
 }
 int check_pair_quote(char *input)

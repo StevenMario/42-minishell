@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 08:01:36 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 07:56:42 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/05 12:53:05 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char	**split_for_path(t_env *env)
 	if (!env || content == NULL)
 		return (NULL);
 	arr = ft_split(content, ':');
+	if (content)
+		free(content);
 	if (!arr)
 		return (NULL);
 	return (arr);

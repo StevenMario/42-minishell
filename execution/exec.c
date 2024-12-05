@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/04 10:54:05 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/05 13:06:46 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 			perror("fork");
 			exit(EXIT_FAILURE);
 		}
-		else if (cmd->pid == 0)
+		if (cmd->pid == 0)
 		{
 			if (cmd->rfile != NULL)
 				ft_browse_redir(cmd);
@@ -39,7 +39,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 	return (0);
 }
 
-void	set_pipe_cmd(t_data *mish, t_cmd *cmd) // link_cmd
+void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2]) // link_cmd
 {
 	int	fds[2];
 
@@ -51,6 +51,7 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd) // link_cmd
 	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
+		close_fds(backup);
 		if (cmd->next != NULL)
 			dup2(fds[1], STDOUT_FILENO);
 		close_fds(fds);
@@ -92,7 +93,7 @@ void	piping_cmd(t_data *mish, int backup[2]) //pipeline
 	dup_std(backup);
 	while (cmd)
 	{
-		set_pipe_cmd(mish, cmd);
+		set_pipe_cmd(mish, cmd, backup);
 		cmd = cmd->next;
 	}
 	cmd = mish->cmd;

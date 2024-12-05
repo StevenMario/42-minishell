@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_rfile_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 22:38:33 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 09:03:00 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/05 12:54:17 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

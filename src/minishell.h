@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 08:19:11 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:50:22 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 extern int	get_status;
 
 int			ft_strcmp(char *s1, char *s2);
+void print_cmd(t_cmd *cmd);
 void		new_cmd(t_token *token, t_cmd **cmd);
 char		*remove_quotes(char *str);
 int			check_quote(char *str);

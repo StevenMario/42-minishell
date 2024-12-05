@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_rfile.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:19:49 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 09:31:46 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/05 11:08:26 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,6 @@ void	ft_add_back_rfile(t_file **rfile, t_file *new_file)
 	temp = NULL;
 }
 
-// void ft_lstadd_back(t_list **lst, t_list *new)
-// {
-//     t_list  *temp;
-
-//     temp = *lst;
-//     while(temp)
-//     {
-//         temp = temp->next;
-//         if (temp->next == NULL)
-//          {
-//             temp->next = new;
-//             new->next = NULL;
-//             break;
-//          }   
-
-//     }
-// }
-
 int	init_file(t_token *token, t_cmd *cmd)
 {
 	t_file	*temp;
@@ -77,6 +59,7 @@ int	init_file(t_token *token, t_cmd *cmd)
 			temp->type = APPEND;
 		ft_add_back_rfile(&cmd->rfile, temp);
 		ft_lstclear_file(&temp);
+
 		return (1);
 	}
 	return (0);

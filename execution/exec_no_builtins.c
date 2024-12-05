@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 07:56:31 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/05 12:54:36 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,11 @@ char	*ft_test_access(char **path_spl, char *cmd)
 		join_path = double_join_env1(path_spl[i], cmd);
 		if (join_path && access(join_path, F_OK) == 0)
 			return (join_path);
+		if (join_path)
+			free(join_path);
 	}
+	if (join_path)
+		free(join_path);
 	return (NULL);
 }
 
@@ -93,6 +97,7 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 		ft_free_env2d_pathspl(env_2d, path_spl, path);
 		return (0);
 	}
+
 	if (access(path, X_OK) != 0)
 	{
 		printf("minishell: %s: permission denied\n", cmd->arg[0]);
@@ -101,5 +106,5 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 	}
 	execve(path, cmd->arg, env_2d);
 	ft_free_env2d_pathspl(env_2d, path_spl, path);
-	return (exit(EXIT_SUCCESS), 1);
+	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:18:13 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 16:46:16 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/05 12:20:07 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_cmd	*duplicate_cmd(t_cmd *cmd)
 	if (!new_cmd)
 		return (NULL);
 	arg_count = 0;
+	print_cmd(cmd);
 	while (cmd->arg[arg_count])
 		arg_count++;
 	new_cmd->arg = malloc((arg_count + 1) * sizeof(char *));
@@ -86,9 +87,9 @@ void	ft_add_back_cmd(t_cmd **cmd, t_cmd *new)
 	while (temp && temp->next)
 		temp = temp->next;
 	if (!temp)
-		*cmd = duplicate_cmd(new);
+		*cmd = new;
 	else
-		temp->next = duplicate_cmd(new);
+		temp->next = new;
 }
 
 void	ft_lstclear_cmd(t_cmd **lst)
