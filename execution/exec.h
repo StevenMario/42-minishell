@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 07:57:31 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/05 08:22:46 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXEC_H
 
 # include "../src/minishell.h"
+# include "../src/structure.h"
 
 void	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env);
 void	check_type_for_dup2(t_file *redir);

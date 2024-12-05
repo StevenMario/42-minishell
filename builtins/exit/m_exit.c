@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 07:58:07 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/04 10:17:44 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/05 08:36:58 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static long long	ft_atll(char *arg)
 	}
 	while (*arg >= '0' && *arg <= '9')
 	{
-		res *= 10 + (*arg - '0');
+		res = (res * 10) + (*arg - '0');
 		arg++;
 	}
 	return (res * sign);
@@ -79,7 +79,7 @@ static void	handling_exit_error(char *arg, char *m_err, int code_failure)
 
 int	ft_exit(t_data *mish, t_cmd *cmd)
 {
-	int		status;
+	long long	status;
 	int		i;
 	char	**str;
 
