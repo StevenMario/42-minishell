@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 12:54:36 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/05 13:20:20 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ char	*ft_test_access(char **path_spl, char *cmd)
 		if (join_path)
 			free(join_path);
 	}
-	if (join_path)
-		free(join_path);
 	return (NULL);
 }
 
@@ -104,7 +102,8 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 		ft_free_env2d_pathspl(env_2d, path_spl, path);
 		return (0);
 	}
-	execve(path, cmd->arg, env_2d);
+	if (fork() == 0)
+		execve(path, cmd->arg, env_2d);
 	ft_free_env2d_pathspl(env_2d, path_spl, path);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/04 17:30:15 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/05 13:32:40 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ int	ft_export(t_data *data)
 				k = ft_substr(data->cmd->arg[l], 0, i);
 				val = ft_strdup(data->cmd->arg[l] + (i + 1));
 				if (!ft_if_var_exist(data->e_lst, k, val))
-					ft_lstadd_back_env(&data->e_lst, ft_double_lstnew_env(k,
-							val));
+					ft_lstadd_back_env(&data->e_lst, ft_double_lstnew_env(k, val));
+				free(k);
+				free(val);
 			}
 		}
 	}
