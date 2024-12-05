@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_no_builtins.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 12:31:30 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/05 07:56:31 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,6 @@ char	*ft_test_access(char **path_spl, char *cmd)
 	return (NULL);
 }
 
-void ft_free_env2d_pathspl(char **env_2d, char **path_spl, char	*path)
-{
-	if (env_2d)
-		ft_free_str(env_2d);
-	if (path_spl)
-		ft_free_str(path_spl);
-	if (path)
-		free(path);
-}
-
 int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 {
 	char	**env_2d;
@@ -111,5 +101,5 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 	}
 	execve(path, cmd->arg, env_2d);
 	ft_free_env2d_pathspl(env_2d, path_spl, path);
-	return (exit(EXIT_SUCCESS),1);
+	return (exit(EXIT_SUCCESS), 1);
 }

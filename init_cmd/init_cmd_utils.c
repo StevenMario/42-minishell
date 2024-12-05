@@ -68,12 +68,12 @@ t_cmd	*duplicate_cmd(t_cmd *cmd)
 			else
 			{
 				temp = duplicate_file(cmd->rfile);
-				ft_add_back_rfile(&new_cmd->rfile,temp);
+				ft_add_back_rfile(&new_cmd->rfile, temp);
 				ft_lstclear_file(&temp);
 			}
 			cmd->rfile = cmd->rfile->next;
 		}
-	}	
+	}
 	new_cmd->next = NULL;
 	return (new_cmd);
 }

@@ -14,15 +14,16 @@
 
 void	fill_data(t_data *data, char *temp)
 {
-	char *trim_temp;
-	
+	char	*trim_temp;
+
 	trim_temp = ft_strtrim(temp, " \n\t");
 	if (trim_temp != NULL)
 	{
 		if (data->token == NULL)
 			data->token = ft_double_lstnew_token(trim_temp);
 		else
-			ft_lstadd_back_token(&data->token, ft_double_lstnew_token(trim_temp));
+			ft_lstadd_back_token(&data->token,
+				ft_double_lstnew_token(trim_temp));
 		// free(trim_temp);
 	}
 }
@@ -41,8 +42,8 @@ char	*fill_temp(char *input, int *i)
 		(*i)++;
 		temp = fill_temp_with_quote(i, &j, input);
 	}
-	else if (check == PIPE || check == APPEND
-		|| check == INPUT || check == TRUNC || check == HEREDOC)
+	else if (check == PIPE || check == APPEND || check == INPUT
+		|| check == TRUNC || check == HEREDOC)
 	{
 		temp = fill_temp_with_redire(temp, check, i);
 		(*i)++;
@@ -58,7 +59,7 @@ char	*fill_temp(char *input, int *i)
 void	init_token(t_data *data, char *input)
 {
 	char	*temp;
-	char *input_temp;
+	char	*input_temp;
 	int		i;
 
 	i = 0;

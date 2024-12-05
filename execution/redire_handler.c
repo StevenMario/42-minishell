@@ -12,16 +12,15 @@
 
 #include "exec.h"
 
-int redire_handler(t_cmd *cmd)
+int	redire_handler(t_cmd *cmd)
 {
-	t_file *input;
-	t_file *output;
+	t_file	*input;
+	t_file	*output;
 
 	if (infile)
 	{
-		while (cmd->infile && open_file(cmd->infile,&input) != -1)
+		while (cmd->infile && open_file(cmd->infile, &input) != -1)
 		{
-			
 		}
 	}
 }

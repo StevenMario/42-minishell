@@ -28,6 +28,6 @@ void	init_token(t_data *data, char *input);
 void	assigne_type_token(t_data *data);
 void	ft_lstadd_back_token(t_token **lst, t_token *new);
 void	ft_lstclear_token(t_token **lst);
-t_token *ft_double_lstnew_token(char *content);
+t_token	*ft_double_lstnew_token(char *content);
 
 #endif

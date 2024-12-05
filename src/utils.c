@@ -12,26 +12,27 @@
 
 #include "minishell.h"
 
-int ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int i = 0;
-	
-	while(s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
+	int	i;
+
+	i = 0;
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 		i++;
 	return (s1[i] - s2[i]);
 }
 
-char *remove_quotes(char *str)
+char	*remove_quotes(char *str)
 {
-	size_t len ;
-	char *result;
-	char *dst;
-	const char *src;
-	
+	size_t		len;
+	char		*result;
+	char		*dst;
+	const char	*src;
+
 	len = ft_strlen(str);
 	result = ft_calloc(len + 1, sizeof(char));
 	if (!result)
-		return NULL;
+		return (NULL);
 	src = str;
 	dst = result;
 	while (*src)
@@ -42,19 +43,19 @@ char *remove_quotes(char *str)
 	}
 	*dst = '\0';
 	free(str);
-	return result;
+	return (result);
 }
 
-char is_quote(char c)
+char	is_quote(char c)
 {
 	if (c == '\'' || c == '"')
 		return (c);
-	return (0);	
+	return (0);
 }
 
-int check_quote(char *str)
+int	check_quote(char *str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i])
@@ -64,6 +65,3 @@ int check_quote(char *str)
 	}
 	return (0);
 }
-
-
-

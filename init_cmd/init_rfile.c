@@ -44,7 +44,7 @@ int	init_file(t_token *token, t_cmd *cmd)
 
 	temp = NULL;
 	if (token->next && (token->type == INPUT || token->type == HEREDOC
-	|| token->type == TRUNC || token->type == APPEND))
+			|| token->type == TRUNC || token->type == APPEND))
 	{
 		temp = ft_init_file();
 		temp->content = ft_strdup(token->next->content);
@@ -54,8 +54,8 @@ int	init_file(t_token *token, t_cmd *cmd)
 			temp->type = HEREDOC;
 		else if (token->type == TRUNC)
 			temp->type = TRUNC;
-		else if (token->type ==  APPEND)
-			temp->type = APPEND;	
+		else if (token->type == APPEND)
+			temp->type = APPEND;
 		ft_add_back_rfile(&cmd->rfile, temp);
 		ft_lstclear_file(&temp);
 		return (1);

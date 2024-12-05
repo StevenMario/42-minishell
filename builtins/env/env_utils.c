@@ -61,15 +61,14 @@ t_env	*fill_env_in_t_env(char **envp)
 	t_env	*temp;
 	char	**split_env;
 
-
 	i = -1;
 	root = NULL;
 	temp = NULL;
 	while (envp[++i])
 	{
 		split_env = split_for_env(envp[i]);
-		temp = ft_double_lstnew_env(split_env[0],split_env[1]);
-		ft_lstadd_back_env(&root,temp);
+		temp = ft_double_lstnew_env(split_env[0], split_env[1]);
+		ft_lstadd_back_env(&root, temp);
 		ft_lstclear_env(&temp);
 		ft_free_str(split_env);
 	}

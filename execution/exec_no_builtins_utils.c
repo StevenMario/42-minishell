@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 08:01:36 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 10:32:17 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/05 07:56:42 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,14 @@ char	*ft_join_env(char *s1, char *s2)
 	ft_strlcpy(str, s1, s1_i + 1);
 	ft_strlcat(str, s2, s2_i + s1_i + 1);
 	return (str);
+}
+
+void	ft_free_env2d_pathspl(char **env_2d, char **path_spl, char *path)
+{
+	if (env_2d)
+		ft_free_str(env_2d);
+	if (path_spl)
+		ft_free_str(path_spl);
+	if (path)
+		free(path);
 }

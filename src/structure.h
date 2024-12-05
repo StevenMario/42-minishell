@@ -29,38 +29,38 @@ typedef struct s_file
 	int				type;
 	int				fd;
 	struct s_file	*next;
-}	t_file;
+}					t_file;
 
 typedef struct s_cmd
 {
-	char	**arg;
-	t_file	*rfile;
-	pid_t	pid;
+	char			**arg;
+	t_file			*rfile;
+	pid_t			pid;
 	struct s_cmd	*next;
-}	t_cmd;
+}					t_cmd;
 
 typedef struct s_token
 {
-	char	*content;
-	int		type;
+	char			*content;
+	int				type;
 	struct s_token	*prev;
 	struct s_token	*next;
-}	t_token;
+}					t_token;
 
 typedef struct s_env
 {
-	char	*key;
-	char    *value;
-	struct s_env    *next;
-}		t_env;
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
 
 typedef struct s_data
 {
-	char **env;
-	t_token	*token;
-	t_cmd	*cmd;
-	t_env	*e_lst;
-	int		exit_status;
-}	t_data;
+	char			**env;
+	t_token			*token;
+	t_cmd			*cmd;
+	t_env			*e_lst;
+	int				exit_status;
+}					t_data;
 
 #endif

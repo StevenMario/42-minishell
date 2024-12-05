@@ -83,7 +83,8 @@ int	ft_export(t_data *data)
 				k = ft_substr(data->cmd->arg[l], 0, i);
 				val = ft_strdup(data->cmd->arg[l] + (i + 1));
 				if (!ft_if_var_exist(data->e_lst, k, val))
-					ft_lstadd_back_env(&data->e_lst, ft_double_lstnew_env(k, val));
+					ft_lstadd_back_env(&data->e_lst, ft_double_lstnew_env(k,
+							val));
 			}
 		}
 	}
