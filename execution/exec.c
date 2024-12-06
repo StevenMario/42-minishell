@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/06 09:01:38 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/06 10:49:27 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,27 +78,50 @@ void	clear_data_without_env(t_data *data)
 	}
 }
 
-// char **check_double_cmd(t_cmd *cmd)
-// {
-// 	char **str;
-// 	char *simple_cmd;
-// 	int i;
+void fill_new_cmd_arg(t_cmd *cmd,char *simple_cmd)
+{
+	char **str;
+	int len;
+	int i;
+	(void)cmd;
 
-// 	i = 0;
-// 	str = NULL;
-// 	if (ft_count_char_in_str(cmd->arg[0],' ') > 0)
-// 	{
-// 		// str = ft_split(cmd->arg[0]);
-// 		while (cmd->arg[i])
-// 		{
-			
-// 		}
-		
-// 		return (str);
-// 	}	
-// 	else
-// 		return (NULL);
-// }
+	i = -1;
+	str = NULL;
+	len = 0;
+	str = ft_split(simple_cmd,' ');
+	if (cmd->arg)
+		ft_free_str(cmd->arg);
+	while (str[len])
+		len++;
+	cmd->arg = malloc(sizeof(char *) * (len + 1));
+	cmd->arg[len] = NULL;
+	while (str[++i])
+	{
+		cmd->arg[i] = ft_strdup(str[i]);
+	}
+	ft_free_str(str);
+}
+
+void check_double_cmd(t_cmd *cmd)
+{
+	char *simple_cmd;
+	int i;
+
+	i = 1;
+	if (ft_count_char_in_str(cmd->arg[0],' ') > 0)
+	{
+		simple_cmd = ft_strdup(cmd->arg[0]);
+		while (cmd->arg[i])
+		{
+			simple_cmd = ft_strjoin(simple_cmd," ");
+			simple_cmd = ft_strjoin(simple_cmd,cmd->arg[i]);
+			i++;
+		}
+		fill_new_cmd_arg(cmd,simple_cmd);
+		free(simple_cmd);
+		// printf("simple_cmd  = %s\n",simple_cmd);
+	}
+}
 
 void	piping_cmd(t_data *mish, int backup[2]) //pipeline
 {
@@ -110,13 +133,15 @@ void	piping_cmd(t_data *mish, int backup[2]) //pipeline
 	cmd = mish->cmd;
 	if (count == 1)
 	{
-		// (check_double_cmd(cmd))
+		check_double_cmd(cmd);
+		// print_cmd(cmd);
 		exec_simple_cmd(mish, cmd, mish->e_lst);
 		return ;
 	}
 	dup_std(backup);
 	while (cmd)
 	{
+		check_double_cmd(cmd);
 		set_pipe_cmd(mish, cmd, backup);
 		cmd = cmd->next;
 	}
