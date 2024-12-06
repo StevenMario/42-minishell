@@ -6,12 +6,17 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/05 19:10:09 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/06 11:15:23 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
 
+void	ft_free_kval(char *k, char *val)
+{
+	free(k);
+	free(val);
+}
 static int	ft_var_is_val(int c)
 {
 	if (ft_isdigit(c) == 1)
@@ -62,36 +67,47 @@ int	ft_if_var_exist(t_env *env, char *k, char *val)
 	}
 	return (0);
 }
+int ft_pre_export(t_data *data,int l)
+{
+	t_var	v;
+
+	if (check_valid_var(data->cmd->arg[l]) == 1)
+	{
+		if (ft_count_char_in_str(data->cmd->arg[l], '=') == 0)
+			return (1);
+		v.i = take_len_bf_char(data->cmd->arg[l], '=');
+		if (v.i == 0)
+		{
+			printf("minishell: export: %s: not a valid identifier\n",
+				data->cmd->arg[l]);
+			return (1);
+		}
+		v.k = ft_substr(data->cmd->arg[l], 0, v.i);
+		v.val = ft_strdup(data->cmd->arg[l] + (v.i + 1));
+		if (!ft_if_var_exist(data->e_lst, v.k, v.val))
+		{
+			v.eenv = ft_double_lstnew_env(v.k, v.val);
+			ft_lstadd_back_env(&data->e_lst, v.eenv);
+			ft_lstclear_env(&v.eenv);
+		}
+		ft_free_kval(v.k, v.val);
+	}
+	return (0);
+}
 
 int	ft_export(t_data *data)
 {
-	int		i;
 	int		l;
-	char	*val;
-	char	*k;
-	t_env	*new_env;
 
 	l = 0;
-	new_env = NULL;
 	if (data->cmd->arg[1])
 	{
 		while (data->cmd->arg[++l])
 		{
 			if (check_valid_var(data->cmd->arg[l]) == 1)
 			{
-				if (ft_count_char_in_str(data->cmd->arg[l], '=') == 0)
+				if (ft_pre_export(data, l) == 1)
 					return (1);
-				i = take_len_bf_char(data->cmd->arg[l], '=');
-				k = ft_substr(data->cmd->arg[l], 0, i);
-				val = ft_strdup(data->cmd->arg[l] + (i + 1));
-				if (!ft_if_var_exist(data->e_lst, k, val))
-				{
-					new_env = ft_double_lstnew_env(k, val);
-					ft_lstadd_back_env(&data->e_lst, new_env);
-					ft_lstclear_env(&new_env);
-				}
-				free(k);
-				free(val);
 			}
 		}
 	}

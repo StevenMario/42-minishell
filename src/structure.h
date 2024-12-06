@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iarantsoa <iarantsoa@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 18:33:05 by iarantsoa        ###   ########.fr       */
+/*   Updated: 2024/12/06 10:51:35 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ typedef struct s_var
 	int		i;
 	char	*val;
 	char	*k;
+	t_env	*eenv;
 }	t_var;
 #endif

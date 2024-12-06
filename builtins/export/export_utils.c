@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:52:00 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 17:44:34 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/06 11:03:31 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,6 @@ int	take_len_bf_char(char *str, char c)
 
 	i = 0;
 	while (str[i] && str[i] != c)
-		i++;
+		i++;		
 	return (i);
 }
