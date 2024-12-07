@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 13:27:29 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/07 20:22:24 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	*check_var(char *str, t_env *e_list)
 	int		count_dollar;
 
 	count_dollar = ft_count_char_in_str(str, '$');
+	res = NULL;
 	while (count_dollar > 0)
 	{
 		var_len = 0;
@@ -74,6 +75,8 @@ char	*check_var(char *str, t_env *e_list)
 			var_len++;
 			j++;
 		}
+		if (res)
+			free(res);
 		res = check_exit_status(fill_res(var_len, check_dollar(str) + 1, str));
 		if (!res)
 			res = fill_expand_value(var_len, j, e_list, str);
@@ -81,6 +84,8 @@ char	*check_var(char *str, t_env *e_list)
 		str = ft_strdup(res);
 		count_dollar--;
 	}
+	printf("str = %s\n",str);
+	printf("res = %s\n",res);
 	free(str);
 	return (res);
 }
