@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/02 09:09:27 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/07 16:05:14 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ char	*fill_temp(char *input, int *i)
 
 	temp = NULL;
 	check = check_redire(input, *i);
-	if (input[*i] == '\'' || input[*i] == '"')
+	if (input[*i] && ( input[*i] == '\'' || input[*i] == '"'))
 	{
 		j = *i;
 		(*i)++;
 		temp = fill_temp_with_quote(i, &j, input);
+		if (input[*i] && input[(*i) + 1])
+			(*i)++;
 	}
 	else if (check == PIPE || check == APPEND || check == INPUT
 		|| check == TRUNC || check == HEREDOC)

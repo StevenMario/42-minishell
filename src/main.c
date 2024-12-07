@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/05 11:44:01 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/07 19:45:06 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,14 @@ void print_cmd(t_cmd *cmd)
 	}
 }
 
+void print_token(t_token *token)
+{
+	while (token)
+	{
+		printf("token = [%s]\n",token->content);
+		token = token->next;
+	}
+}
 
 
 int init_data(t_data *data, char *input,char **env)
@@ -74,10 +82,11 @@ int init_data(t_data *data, char *input,char **env)
 		data->e_lst = fill_env_in_t_env(env);
 	init_token(data,input);
 	assigne_type_token(data);
+	// print_token(data->token);
 	init_cmd(data);
 	herdoc_handler(data);
-
 	piping_cmd(data, backup);
+	// print_cmd(data->cmd);
 	
 	return 1;
 }
