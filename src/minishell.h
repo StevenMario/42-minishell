@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 10:50:22 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/09 10:10:06 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ char		*remove_quotes(char *str);
 int			check_quote(char *str);
 char		is_quote(char c);
 void		clear_data(t_data *data);
+void 	signal_handler(int signal);
+void 	init_signals(void);
 
 #endif

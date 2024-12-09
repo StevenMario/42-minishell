@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:11:23 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/04 10:46:07 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/09 13:14:44 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,15 @@ int	ft_count_cmd(t_data *mish)
 int	get_exit_status(int exit_status)
 {
 	if (WIFEXITED(exit_status))
+	{
 		exit_status = WEXITSTATUS(exit_status);
+	}
 	else if (WIFSIGNALED(exit_status))
 	{
 		exit_status = WTERMSIG(exit_status) + 128;
-		write(1, "\n", 1);
+		write(1, "\n", 2);
+		// if (exit_status == 130)
+		// 	ft_putchar_fd('\n', 2);
 	}
 	return (exit_status);
 }

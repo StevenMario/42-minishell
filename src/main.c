@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/07 19:45:06 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/09 12:29:56 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,11 @@ void exit_ctrl_d(char *input,t_data *data)
 
 void signal_handler(int signal)
 {
+//    printf("signals == %d\n", signal);
    if (signal == SIGINT)
    {
 		get_status = 130;
-		printf("\n");
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("",1);
 		rl_redisplay();
@@ -170,9 +171,9 @@ int main(int argc,char **argv,char **env)
 		printf("[Error].Run without argument !\n");
 	if (!data)
 		data = data_initialized();
-	init_signals();
 	while (1)
 	{
+		init_signals();
 		data__token_cmd_initialized(data);
 		input = readline("minishell$: ");
 		if (input == NULL)

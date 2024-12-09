@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/06 10:49:27 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/09 13:20:30 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+static void	handling_signal_parents(void)
+{
+	signal(SIGINT,SIG_IGN);
+	signal(SIGQUIT,SIG_IGN);
+}
+static void	handling_signal_child(void)
+{
+	// struct sigaction action;
+
+	// memset(&action, 0, sizeof(action));
+	// action.sa_handler = signal_handler;
+	// sigemptyset(&action.sa_mask);
+	// action.sa_flags = 0;
+	// sigaction(SIGINT, &action, NULL);
+	signal(SIGQUIT,SIG_DFL);
+	signal(SIGINT,SIG_DFL);
+	// signal(SIGQUIT,SIG_DFL);
+}
 
 int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 {
@@ -24,8 +43,10 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 			perror("fork");
 			exit(EXIT_FAILURE);
 		}
+		handling_signal_parents();
 		if (cmd->pid == 0)
 		{
+			handling_signal_child();
 			if (cmd->rfile != NULL)
 				ft_browse_redir(cmd);
 			exec_extern_cmd(env, cmd);
@@ -36,7 +57,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 		waitpid(cmd->pid, &mish->exit_status, 0);
 		mish->exit_status = get_exit_status(mish->exit_status);
 	}
-	return (0);
+	return (mish->exit_status);
 }
 
 void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2]) // link_cmd
@@ -49,8 +70,10 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2]) // link_cmd
 		exit(EXIT_FAILURE);
 	}
 	cmd->pid = fork();
+	handling_signal_parents();
 	if (cmd->pid == 0)
 	{
+		handling_signal_child();
 		close_fds(backup);
 		if (cmd->next != NULL)
 			dup2(fds[1], STDOUT_FILENO);
@@ -146,14 +169,21 @@ void	piping_cmd(t_data *mish, int backup[2]) //pipeline
 		cmd = cmd->next;
 	}
 	cmd = mish->cmd;
-	while (cmd)
+	while (cmd->next != NULL)
 	{
-		if (cmd->next == NULL)
-			waitpid(cmd->pid, &mish->exit_status, 0);
-		else
-			waitpid(cmd->pid, NULL, 0);
+		// if (cmd->next == NULL)
+		// 	waitpid(cmd->pid, NULL, 0);
+		// else
+		waitpid(cmd->pid, &mish->exit_status, 0);
 		cmd = cmd->next;
 	}
+	if (WIFEXITED(mish->exit_status))
+	{
+	
+	}
+	else if (WIFSIGNALED(mish->exit_status))
+		write(1, "\n", 2);
+	waitpid(cmd->pid, &mish->exit_status, 0);
 	mish->exit_status = get_exit_status(mish->exit_status);
 	ft_restore_std(backup);
 	close_fds(backup);
