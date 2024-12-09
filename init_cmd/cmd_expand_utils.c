@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:56:39 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/09 14:55:20 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:23:23 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	is_special_char(char c)
 	if (c == '.' || c == '#' || c == '%'
 		|| c == '^' || c == '&' || c == '*'
 		|| c == '+' || c == '=' || c == '-' || c == '}'
-		|| c == '\'' || c == '"' || c == ']'|| c == '$')
+		|| c == '\'' || c == '"' || c == ']'|| c == '$'
+		|| c == ' ')
 		return (1);
 	return (0);
 }
@@ -68,28 +69,22 @@ char	*join_expand_char(char *val, char *pref, char *suf)
 	return (str);
 }
 
-char	*get_var_prefix(char *str)
+char	*get_var_prefix(char *str,int start)
 {
-	int		i;
-	int		j;
-	char	*dest;
+	char *dest;
+	int i;
+	int j;
 
-	dest = NULL;
 	i = 0;
-	if (str && str[i] == '$')
-		return (NULL);
-	j = i;
-	while (str[i] && str[i] != '$')
+	j = 0;
+	dest = NULL;
+	i = start;
+	while (str[start])
 	{
-		if (str[i] == '\'')
-		{
-			i++;
-			while (str[i] && str[i] != '\'')
-				i++;
-		}
-		i++;
-	}
-	dest = ft_substr(str, j, i);
+		start++;
+		j++;
+	}	
+	dest = ft_substr(str,i,j);
 	return (dest);
 }
 

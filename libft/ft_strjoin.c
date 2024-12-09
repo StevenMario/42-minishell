@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/23 10:21:15 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/05/10 13:45:00 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:34:25 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ char	*ft_strjoin(char *s1, char const *s2)
 	ft_strlcpy(str, s1, s1_i + 1);
 	ft_strlcat(str, s2, s2_i + s1_i + 1);
 	free(s1);
+	s1 = NULL;
 	return (str);
 }

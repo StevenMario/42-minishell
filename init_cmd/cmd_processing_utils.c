@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 21:14:37 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/04 13:27:08 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:34:43 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ char	*my_getenv2(char *var_name, t_env *env)
 		tmp = tmp->next;
 	}
 	free(var_name);
+	var_name = NULL;
 	return (NULL);
 }

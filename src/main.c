@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/09 12:29:56 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:48:58 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ t_data *data_initialized(void)
 	data->cmd = NULL;
 	data->env = NULL;
 	data->token = NULL;
+	data->exit_status = 0;
 	return (data);
 }
 void data__token_cmd_initialized(t_data *data)

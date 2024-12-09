@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/09 15:07:05 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:46:53 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,26 @@ char	*fill_res(int len, int j, char *str)
 	return (temp);
 }
 
-char	*fill_expand_value(int var_len, int j, t_env *e_list, char *str,char *value)
-{
-	char	*res;
-	char	*suf;
-	char	*val;
-	int		i;
-	char	*pref;
+// char	*fill_expand_value(int var_len, int j, t_env *e_list, char *str,char *value)
+// {
+// 	char	*res;
+// 	char	*suf;
+// 	char	*val;
+// 	int		i;
+// 	// char	*pref;
 
-	i = j;
-	j = check_dollar(str) + 1;
-	suf = get_var_sufix(str, i);
-	if (!value)
-		val = my_getenv2(fill_res(var_len, j, str), e_list);
-	pref = get_var_prefix(str);
-	if (!value)
-		res = join_expand_char(val, pref, suf);
-	else
-		res = join_expand_char(value, pref, suf);
-	return (res);
-}
+// 	i = j;
+// 	j = check_dollar(str) + 1;
+// 	suf = get_var_sufix(str, i);
+// 	if (!value)
+// 		val = my_getenv2(fill_res(var_len, j, str), e_list);
+// 	// pref = get_var_prefix(str);
+// 	if (!value)
+// 		res = join_expand_char(val, pref, suf);
+// 	else
+// 		res = join_expand_char(value, pref, suf);
+// 	return (res);
+// }
 
 char	*check_exit_status(char *check_status)
 {
@@ -60,72 +60,100 @@ char	*check_exit_status(char *check_status)
 	return (res);
 }
 
-int	take_len_bf_cha2(char *str,int start)
+int	take_len_bf_cha2(char *str, int start)
 {
 	int	i;
 
-	i = start;
-	while (str[i] && !is_special_char(str[i]))
-		i++;		
+	i = 0;
+	while (str[start] && !is_special_char(str[start]))
+	{
+		if (str[start] == '?')
+		{
+			i++;
+			break;
+		}
+		start++;
+		i++;
+	}
 	return (i);
+}
+
+char	*fill_expand_value(char *suf,char *res,char *pref)
+{
+	char *dest;
+
+	if (suf && res)
+		dest = ft_strjoin(suf,res);
+	else if (suf && !res)
+	{
+		dest = ft_strdup(suf);
+		free(suf);
+	}
+	else if (!suf && res)
+	{
+		dest = ft_strdup(res);
+		free(res);
+	}
+	if (pref)
+		dest = ft_strjoin(dest,pref);
+	if (pref)
+		free(pref);
+	return(dest);
 }
 
 char	*check_var(char *str, t_env *e_list)
 {
 	int		j;
 	int		i;
-	// char	*res;
-	// int		var_len;
-	// char	*val;
+	char	*val;
 	int		count_dollar;
 	char	*suf;
-	(void)e_list;
-
+	char	*res;
+	char	*pref;
+	char	*expand_value;
+	
 	count_dollar = ft_count_char_in_str(str, '$');
-	// res = NULL;
-	// val = NULL;
 	j = 0;
 	i = 0;
+	val = NULL;
+	res = NULL;
+	pref = NULL;
 	suf = NULL;
+	expand_value = NULL;
 	while (count_dollar)
 	{
 		while (str && str[j])
 		{
+			// if (str[j] && str[j + 1] && is_special_char(str[j + 1]))
 			if (str[j] == '$' && !is_special_char(str[j + 1]))
 			{
 				suf = ft_substr(str, 0, j);
 				j++;
 				i = take_len_bf_cha2(str ,j);
-				printf("str[i] = %c\n",str[i]);
-				break ;
+				val = ft_substr(str, j, i);
+				if (ft_strcmp(val,"?") == 0)
+				{
+					res = ft_itoa(get_status);
+					free(val);
+				}
+				else
+					res = my_getenv2(val, e_list);
+				pref = get_var_prefix(str,j+i);
+				if (expand_value)
+					free(expand_value);
+				expand_value = fill_expand_value(suf,res,pref);
+				if (res)
+					free(res);
+				free(str);
+				str = ft_strdup(expand_value);
+				j--;
 			}	
 			j++;
 		}
 		count_dollar--;
 	}
-	// while (count_dollar > 0)
-	// {
-	// 	var_len = 0;
-	// 	j = check_dollar(str) + 1;
-	// 	while (str[j] && (str[j] != ' ' && !is_special_char(str[j])
-	// 		&& str[j] != '$'))
-	// 	{
-	// 		var_len++;
-	// 		j++;
-	// 	}
-	// 	if (res)
-	// 		free(res);
-	// 	val = check_exit_status(fill_res(var_len, check_dollar(str) + 1, str));
-	// 	if (val)
-	// 		res = fill_expand_value(var_len, j, e_list, str,val);
-	// 	else
-	// 		res = fill_expand_value(var_len, j, e_list, str,NULL);
-	// 	free(str);
-	// 	str = ft_strdup(res);
-	// 	count_dollar--;
-	// }
-	// free(str);
-	return (suf);
+	free(str);
+	return (expand_value);
 }
 
 void	cmd_expand(t_data *data)
