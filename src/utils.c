@@ -56,7 +56,6 @@ char	*remove_quotes(char *str)
 		if (src[j] != c)
 		{
 			dst[i] = src[j];
-			printf("dst[i] = %c\n",dst[i]);
 			i++;
 		}		
 		j++;

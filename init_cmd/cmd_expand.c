@@ -24,7 +24,7 @@ char	*fill_res(int len, int j, char *str)
 	return (temp);
 }
 
-char	*fill_expand_value(int var_len, int j, t_env *e_list, char *str)
+char	*fill_expand_value(int var_len, int j, t_env *e_list, char *str,char *value)
 {
 	char	*res;
 	char	*suf;
@@ -35,9 +35,13 @@ char	*fill_expand_value(int var_len, int j, t_env *e_list, char *str)
 	i = j;
 	j = check_dollar(str) + 1;
 	suf = get_var_sufix(str, i, j);
-	val = my_getenv2(fill_res(var_len, j, str), e_list);
+	if (!value)
+		val = my_getenv2(fill_res(var_len, j, str), e_list);
 	pref = get_var_prefix(str);
-	res = join_expand_char(val, pref, suf);
+	if (!value)
+		res = join_expand_char(val, pref, suf);
+	else
+		res = join_expand_char(value, pref, suf);
 	return (res);
 }
 
@@ -61,10 +65,12 @@ char	*check_var(char *str, t_env *e_list)
 	int		j;
 	char	*res;
 	int		var_len;
+	char	*val;
 	int		count_dollar;
 
 	count_dollar = ft_count_char_in_str(str, '$');
 	res = NULL;
+	val = NULL;
 	while (count_dollar > 0)
 	{
 		var_len = 0;
@@ -81,9 +87,11 @@ char	*check_var(char *str, t_env *e_list)
 			}
 			if (res)
 				free(res);
-			res = check_exit_status(fill_res(var_len, check_dollar(str) + 1, str));
-			if (!res)
-				res = fill_expand_value(var_len, j, e_list, str);
+			val = check_exit_status(fill_res(var_len, check_dollar(str) + 1, str));
+			if (val)
+				res = fill_expand_value(var_len, j, e_list, str,val);
+			else
+				res = fill_expand_value(var_len, j, e_list, str,NULL);
 		}
 		free(str);
 		str = ft_strdup(res);
