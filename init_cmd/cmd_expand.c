@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/07 20:43:41 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:07:05 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*fill_expand_value(int var_len, int j, t_env *e_list, char *str,char *value
 
 	i = j;
 	j = check_dollar(str) + 1;
-	suf = get_var_sufix(str, i, j);
+	suf = get_var_sufix(str, i);
 	if (!value)
 		val = my_getenv2(fill_res(var_len, j, str), e_list);
 	pref = get_var_prefix(str);
@@ -60,45 +60,72 @@ char	*check_exit_status(char *check_status)
 	return (res);
 }
 
+int	take_len_bf_cha2(char *str,int start)
+{
+	int	i;
+
+	i = start;
+	while (str[i] && !is_special_char(str[i]))
+		i++;		
+	return (i);
+}
+
 char	*check_var(char *str, t_env *e_list)
 {
 	int		j;
-	char	*res;
-	int		var_len;
-	char	*val;
+	int		i;
+	// char	*res;
+	// int		var_len;
+	// char	*val;
 	int		count_dollar;
+	char	*suf;
+	(void)e_list;
 
 	count_dollar = ft_count_char_in_str(str, '$');
-	res = NULL;
-	val = NULL;
-	while (count_dollar > 0)
+	// res = NULL;
+	// val = NULL;
+	j = 0;
+	i = 0;
+	suf = NULL;
+	while (count_dollar)
 	{
-		var_len = 0;
-		j = check_dollar(str) + 1;
-		if (str[j] == '$')
-			res = ft_strdup(str);
-		else
+		while (str && str[j])
 		{
-			while (str[j] && (str[j] != ' ' && !is_special_char(str[j])
-					&& str[j] != '$'))
+			if (str[j] == '$' && !is_special_char(str[j + 1]))
 			{
-				var_len++;
+				suf = ft_substr(str, 0, j);
 				j++;
-			}
-			if (res)
-				free(res);
-			val = check_exit_status(fill_res(var_len, check_dollar(str) + 1, str));
-			if (val)
-				res = fill_expand_value(var_len, j, e_list, str,val);
-			else
-				res = fill_expand_value(var_len, j, e_list, str,NULL);
+				i = take_len_bf_cha2(str ,j);
+				printf("str[i] = %c\n",str[i]);
+				break ;
+			}	
+			j++;
 		}
-		free(str);
-		str = ft_strdup(res);
 		count_dollar--;
 	}
-	free(str);
-	return (res);
+	// while (count_dollar > 0)
+	// {
+	// 	var_len = 0;
+	// 	j = check_dollar(str) + 1;
+	// 	while (str[j] && (str[j] != ' ' && !is_special_char(str[j])
+	// 		&& str[j] != '$'))
+	// 	{
+	// 		var_len++;
+	// 		j++;
+	// 	}
+	// 	if (res)
+	// 		free(res);
+	// 	val = check_exit_status(fill_res(var_len, check_dollar(str) + 1, str));
+	// 	if (val)
+	// 		res = fill_expand_value(var_len, j, e_list, str,val);
+	// 	else
+	// 		res = fill_expand_value(var_len, j, e_list, str,NULL);
+	// 	free(str);
+	// 	str = ft_strdup(res);
+	// 	count_dollar--;
+	// }
+	// free(str);
+	return (suf);
 }
 
 void	cmd_expand(t_data *data)

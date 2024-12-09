@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:56:39 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/07 20:07:58 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:55:20 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	is_special_char(char c)
 	if (c == '.' || c == '#' || c == '%'
 		|| c == '^' || c == '&' || c == '*'
 		|| c == '+' || c == '=' || c == '-' || c == '}'
-		|| c == '\'' || c == '"' || c == ']')
+		|| c == '\'' || c == '"' || c == ']'|| c == '$')
 		return (1);
 	return (0);
 }
@@ -93,17 +93,14 @@ char	*get_var_prefix(char *str)
 	return (dest);
 }
 
-char	*get_var_sufix(char *str, int var_len, int j)
+char	*get_var_sufix(char *str, int var_len)
 {
 	int		i;
 	char	*dest;
 
 	dest = NULL;
 	i = 0;
-	if (str[j] == '{' && str[var_len] == '}')
-		i = var_len + 1;
-	else
-		i = var_len;
+	i = var_len;
 	while (str[var_len])
 		var_len++;
 	dest = ft_substr(str, i, var_len);
