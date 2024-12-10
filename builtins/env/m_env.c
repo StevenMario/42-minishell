@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 20:29:22 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/04 09:23:46 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:10:59 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_env(t_cmd *cmd, t_env *env)
 	}
 	else
 	{
-		printf("Too many arguments.\n");
+		ft_error_writer("env", " :too many arguments\n");
 		return (0);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/09 13:20:30 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:13:46 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,9 +171,9 @@ void	piping_cmd(t_data *mish, int backup[2]) //pipeline
 	cmd = mish->cmd;
 	while (cmd->next != NULL)
 	{
-		// if (cmd->next == NULL)
-		// 	waitpid(cmd->pid, NULL, 0);
-		// else
+	// 	// if (cmd->next == NULL)
+	// 	// 	waitpid(cmd->pid, NULL, 0);
+	// 	// else
 		waitpid(cmd->pid, &mish->exit_status, 0);
 		cmd = cmd->next;
 	}

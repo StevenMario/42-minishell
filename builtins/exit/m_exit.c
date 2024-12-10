@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 07:58:07 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/05 08:36:58 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:35:23 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ static void	handling_exit_error(char *arg, char *m_err, int code_failure)
 {
 	ft_putstr_fd("minishell: exit: ", 2);
 	if (code_failure == 1)
-		ft_putstr_fd(m_err, 2);
-	ft_putstr_fd(arg, 2);
+		ft_putstr_fd(arg, 2);
+	ft_putstr_fd(m_err, 2);
 }
 
 int	ft_exit(t_data *mish, t_cmd *cmd)
 {
 	long long	status;
-	int		i;
-	char	**str;
+	int			i;
+	char		**str;
 
 	status = mish->exit_status;
 	i = 1;
@@ -97,7 +97,7 @@ int	ft_exit(t_data *mish, t_cmd *cmd)
 		else if (count_av(str) > 2)
 		{
 			mish->exit_status = 1;
-			return (handling_exit_error(str[i], ":too many arguments\n", 1), 2);
+			return (handling_exit_error(str[i], ":too many arguments\n", 2), 2);
 		}
 		status = ft_atll(str[i]);
 	}

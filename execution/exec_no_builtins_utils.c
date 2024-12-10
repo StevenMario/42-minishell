@@ -6,12 +6,18 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 08:01:36 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 12:53:05 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:02:14 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
+void ft_error_writer(char *cmd, char *m_err)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(m_err, 2);
+}
 int	ft_env_len(t_env *env)
 {
 	int	i;

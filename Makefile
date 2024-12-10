@@ -69,7 +69,7 @@ gdb: re
 
 leak: re
 	clear
-	valgrind --suppressions=readline.sup --leak-check=full --show-leak-kinds=all ./$(NAME)
+	valgrind --suppressions=readline.sup --leak-check=full --track-fds=yes --show-leak-kinds=all ./$(NAME)
 
 leak\:%: re
 	clear

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/09 21:48:58 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/10 08:31:46 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,10 @@ void exit_ctrl_d(char *input,t_data *data)
 
 void signal_handler(int signal)
 {
-//    printf("signals == %d\n", signal);
    if (signal == SIGINT)
    {
 		get_status = 130;
-		write(1, "\n", 1);
+		write(1, "\n", 2);
 		rl_on_new_line();
 		rl_replace_line("",1);
 		rl_redisplay();

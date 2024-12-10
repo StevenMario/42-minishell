@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/09 12:58:15 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:04:57 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,21 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd)
 		path = ft_test_access(path_spl, cmd->arg[0]);
 	if (path == NULL)
 	{
-		printf("minishell: %s: command not found\n", cmd->arg[0]);
+		ft_error_writer(cmd->arg[0], " :command not found\n");
+		fflush(stderr);
 		ft_free_env2d_pathspl(env_2d, path_spl, path);
 		return (0);
 	}
 
 	if (access(path, X_OK) != 0)
 	{
-		printf("minishell: %s: permission denied\n", cmd->arg[0]);
+		ft_error_writer(cmd->arg[0], " :permission denied\n");
 		ft_free_env2d_pathspl(env_2d, path_spl, path);
 		return (0);
 	}
 	// if (fork() == 0)
 	execve(path, cmd->arg, env_2d);
-	// wait(NULL);
+	//  wait(NULL);
 	ft_free_env2d_pathspl(env_2d, path_spl, path);
 	return (1);
 }

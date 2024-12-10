@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 08:22:46 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:00:49 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	clear_data_without_env(t_data *data);
 char	**split_for_path(t_env *env);
 char	*ft_join_env(char *s1, char *s2);
 void	ft_free_env2d_pathspl(char **env_2d, char **path_spl, char *path);
+void ft_error_writer(char *cmd, char *m_err);
 
 #endif

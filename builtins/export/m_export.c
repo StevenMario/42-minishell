@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/06 11:15:23 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:12:43 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ static int	check_valid_var(char *arg)
 		while (arg[i] && arg[i] != '=')
 		{
 			if (ft_var_is_val(arg[i]) == 0)
+			{
+				printf("Minishell: export: '%s' not a valid identifier\n", arg);
 				return (0);
+			}
+				
 			i++;
 		}
 		return (1);
