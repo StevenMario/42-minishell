@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/10 12:44:48 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:39:47 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	fill_data(t_data *data, char *temp)
 	int i;
 
 	i = -1;
+	expand_val = NULL;
 	trim_temp = ft_strtrim(temp, " \n\t");
 	if (ft_count_char_in_str(trim_temp,'$'))
 		expand_val = check_var(trim_temp, data->e_lst);
@@ -29,7 +30,7 @@ void	fill_data(t_data *data, char *temp)
 		expand_val[1] = NULL;
 	}	
 	free(trim_temp);	
-	while (expand_val[++i])
+	while (expand_val && expand_val[++i])
 	{
 		if (data->token == NULL)
 			data->token = ft_double_lstnew_token(expand_val[i]);

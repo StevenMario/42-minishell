@@ -6,82 +6,11 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/10 15:18:44 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/10 21:55:25 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
-
-char	*check_exit_status(char *check_status)
-{
-	char	*res;
-
-	res = NULL;
-	if (ft_strcmp(check_status, "?") == 0)
-	{
-		res = ft_itoa(get_status);
-		free(check_status);
-	}
-	else
-		return (free(check_status), NULL);
-	return (res);
-}
-
-
-
-int chech_in_quote(char c,int *in_d_quote,int *in_s_quote)
-{
-	if (c == '\'' && !(*in_d_quote))
-	{
-		if (*in_s_quote == 1)
-			*in_s_quote = 0;
-		else
-			*in_s_quote = 1;
-		return (1);
-	}
-	if ((c == '"' && !(*in_s_quote)))
-	{
-		if (*in_d_quote == 1)
-			*in_d_quote = 0;
-		else
-			*in_d_quote = 1;
-		return (1);
-	}
-	return (0);
-}
-
-
-
-char *get_val(char *str,int *i,t_env *e_list)
-{
-	int len;
-	int j;
-	char *val;
-
-	val = NULL;
-	len = 0;
-	j = (*i);
-	while (str[*i] && is_special_char(str[*i]))
-	{
-		if (str[*i] == '?')
-			break;
-		len++;
-		(*i)++;
-	}
-	if (str[*i] == '?')
-	{
-		val = ft_strdup("?");
-		val = check_exit_status(val);
-	}
-	else
-	{
-		val = ft_substr(str,j,len);
-		val = my_getenv2(val,e_list);
-		(*i)--;
-	}
-	return (val);
-}
-
 
 int sould_expand(int i,char *str,int in_s_quote)
 {
@@ -123,12 +52,96 @@ char *fill_res(char *res,int in_d_quote,int in_s_quote,char c,int i,char *str)
 		res = char_append(res,c);
 	return (res);
 }
+int get_len_str(char **str)
+{
+	int i;
+
+	i = 0;
+	while (str && str[i])
+		i++;
+	return (i);
+}
+char **str_append(char **str,char *new_str)
+{
+	char **res;
+	int len;
+	int i;
+
+	i = 0;
+	len = 0;
+	res = NULL;
+	if (str != NULL)
+		len = get_len_str(str);
+	res = malloc(sizeof(char*) * (len + 2));
+	if (str)
+	{
+		while (i < len)
+		{
+			res[i] = ft_strdup(str[i]);
+			i++;
+		}
+	}
+	res[len] = ft_strdup(new_str);
+	res[len + 1] = NULL;
+	return (res);
+}
+
+char **ft_split_expand(char *res)
+{
+	char	**expand_val;
+	int		in_s_quote;
+	int		in_d_quote;
+	char	*temp;
+	int		i;
+
+	i = 0;
+	in_s_quote = 0;
+	in_d_quote = 0;
+	temp = NULL;
+	expand_val = NULL;
+	while (res[i])
+	{
+		if (chech_in_quote(res[i],&in_d_quote,&in_s_quote))
+		{
+		}
+		else if (in_d_quote || in_s_quote)
+			temp = char_append(temp,res[i]);
+		else if (!in_d_quote || !in_s_quote)
+		{
+			if (res[i] == ' ')
+			{
+				expand_val = str_append(expand_val,temp);
+				while (res[i])
+				{
+					printf("res[i] = [%c]\n",res[i]);
+					if (res[i] == ' ')
+						i++;
+					else
+						break;;
+				}
+				free(temp);
+				temp = NULL;
+			}
+			else
+				temp = char_append(temp,res[i]);
+		}
+		if (res[i] == '\0')
+		{
+			printf("miditra qto\n");
+			expand_val = str_append(expand_val,temp);
+			break ;
+		}
+		i++;
+	}
+	i = -1;
+	while (expand_val && expand_val[++i])
+		printf("expand_val = %s\n",expand_val[i]);
+	return (expand_val);
+}
 
 char	**check_var(char *str, t_env *e_list)
 {
 	int		i;
-	int		j;
-	char	**tmp_exp;
 	char	*res;
 	char	*val_exp;
 	char	**expd_val;
@@ -138,10 +151,8 @@ char	**check_var(char *str, t_env *e_list)
 	in_d_quote = 0;
 	in_s_quote = 0;
 	i = 0;
-	j = -1;
 	res = NULL;
 	expd_val = NULL;
-	tmp_exp = NULL;
 	if (ft_count_char_in_str(str,'$'))
 	{	
 		while (str[i])
@@ -157,6 +168,8 @@ char	**check_var(char *str, t_env *e_list)
 					res = ft_strdup(val_exp);
 				else if (val_exp && res)
 					res = ft_strjoin(res,val_exp);
+				if (val_exp)
+					free(val_exp);
 			}
 			else
 				res = fill_res(res,in_d_quote,in_s_quote,str[i], i,str);
@@ -164,10 +177,11 @@ char	**check_var(char *str, t_env *e_list)
 				break ;
 			i++;
 		}
-		printf("res = %s\n",res);
+		expd_val = ft_split_expand(res);
 	}
-	expd_val = malloc(sizeof(char *) * 2);
-	expd_val[0] = ft_strdup(res);
-	expd_val[1] = NULL;
+	// expd_val = malloc(sizeof(char *) * 2);
+	// expd_val[0] = ft_strdup(res);
+	// expd_val[1] = NULL;
+	free(res);
 	return (expd_val);
 }
