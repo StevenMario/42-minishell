@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/28 17:25:07 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/10 09:24:03 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ char	*fill_temp_without_quote(int *i, int *j, char *input)
 
 	quote = 0;
 	temp = NULL;
-	while ((input[*i] != ' ' && input[*i] != '|'
-			&& input[*i] != '>' && input[*i] != '<') && input[*i])
+	while (input[*i] && (input[*i] != ' ' && input[*i] != '|'
+			&& input[*i] != '>' && input[*i] != '<') )
 	{
 		quote = is_quote(input[*i]);
 		if (quote)
@@ -89,7 +89,8 @@ char	*fill_temp_without_quote(int *i, int *j, char *input)
 					break ;
 			}
 		}
-		(*i)++;
+		if (input[*i])
+			(*i)++;
 	}
 	k = *i;
 	k--;

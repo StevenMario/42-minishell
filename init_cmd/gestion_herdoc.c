@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/06 09:22:24 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:00:59 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	exit_status(t_data *data)
 
 char	*expand_variable(char *input, t_data *data)
 {
-	input = check_var(input, data->e_lst);
+	(void)data;
+	// input = check_var(input, data->e_lst);
 	return (input);
 }
 

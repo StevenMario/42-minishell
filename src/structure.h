@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/06 10:51:35 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/10 10:15:36 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,5 @@ typedef struct s_var
 	char	*k;
 	t_env	*eenv;
 }	t_var;
+
 #endif

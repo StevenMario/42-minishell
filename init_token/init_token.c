@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/07 16:05:14 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:44:48 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,27 @@
 void	fill_data(t_data *data, char *temp)
 {
 	char	*trim_temp;
+	char	**expand_val;
+	int i;
 
+	i = -1;
 	trim_temp = ft_strtrim(temp, " \n\t");
-	if (trim_temp != NULL)
+	if (ft_count_char_in_str(trim_temp,'$'))
+		expand_val = check_var(trim_temp, data->e_lst);
+	else
+	{
+		expand_val = malloc(sizeof(char *) * 2);
+		expand_val[0] = ft_strdup(trim_temp);
+		expand_val[1] = NULL;
+	}	
+	free(trim_temp);	
+	while (expand_val[++i])
 	{
 		if (data->token == NULL)
-			data->token = ft_double_lstnew_token(trim_temp);
+			data->token = ft_double_lstnew_token(expand_val[i]);
 		else
 			ft_lstadd_back_token(&data->token,
-				ft_double_lstnew_token(trim_temp));
-		// free(trim_temp);
+				ft_double_lstnew_token(expand_val[i]));
 	}
 }
 
@@ -48,7 +59,8 @@ char	*fill_temp(char *input, int *i)
 		|| check == TRUNC || check == HEREDOC)
 	{
 		temp = fill_temp_with_redire(temp, check, i);
-		(*i)++;
+		if (input[*i] && input[(*i) + 1])
+			(*i)++;
 	}
 	else
 	{

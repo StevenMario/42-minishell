@@ -19,9 +19,8 @@ SRC = 		./src/utils.c\
 			./init_cmd/gestion_herdoc.c\
 			./init_cmd/cmd_processing.c\
 			./init_cmd/cmd_processing_utils.c\
-			./init_cmd/cmd_expand.c\
-			./init_cmd/cmd_expand_rfile.c\
-			./init_cmd/cmd_expand_utils.c\
+			./init_token/expand_token.c\
+			./init_token/expand_utils.c\
 			./builtins/export/m_export.c\
 			./builtins/exit/m_exit.c\
 			./builtins/exit/exit_utils.c\
