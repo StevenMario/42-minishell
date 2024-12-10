@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/10 08:31:46 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:46:58 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,8 @@ int main(int argc,char **argv,char **env)
 		data = data_initialized();
 	while (1)
 	{
+		if (data->exit_status == 131 || data->exit_status == 130)
+			write(1, "\n", 1);
 		init_signals();
 		data__token_cmd_initialized(data);
 		input = readline("minishell$: ");

@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:11:23 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/10 14:40:58 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:05:10 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ int	get_exit_status(int exit_status)
 	else if (WIFSIGNALED(exit_status))
 	{
 		exit_status = WTERMSIG(exit_status) + 128;
-		write(1, "\n", 2);
-		// rl_on_new_line();
+		write(2, "\n", 2);
 	}
 	return (exit_status);
 }

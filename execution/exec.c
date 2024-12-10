@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/10 15:13:46 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:04:52 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,10 +179,11 @@ void	piping_cmd(t_data *mish, int backup[2]) //pipeline
 	}
 	if (WIFEXITED(mish->exit_status))
 	{
-	
 	}
 	else if (WIFSIGNALED(mish->exit_status))
-		write(1, "\n", 2);
+	{
+		write(1, "\n", 1);
+	}
 	waitpid(cmd->pid, &mish->exit_status, 0);
 	mish->exit_status = get_exit_status(mish->exit_status);
 	ft_restore_std(backup);
