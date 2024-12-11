@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:07:43 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/29 08:08:37 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/11 09:38:33 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,7 @@ t_token	*ft_double_lstnew_token(char *content)
 		return (NULL);
 	new_token->prev = NULL;
 	if (content)
-	{
 		new_token->content = ft_strdup(content);
-		free(content);
-	}
 	new_token->next = NULL;
 	return (new_token);
 }

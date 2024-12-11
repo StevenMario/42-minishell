@@ -6,11 +6,33 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/10 21:39:47 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/11 09:43:57 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
+
+char *remove_quote_process(char *str)
+{
+	int i;
+	char *res;
+	int		in_s_quote;
+	int		in_d_quote;
+
+	res = NULL;
+	i = -1;
+	in_d_quote = 0;
+	in_s_quote = 0;
+	while (str[++i])
+	{
+		if (chech_in_quote(str[i],&in_d_quote,&in_s_quote))
+		{
+		}
+		else
+			res = char_append(res,str[i]);
+	}
+	return (res);
+}
 
 void	fill_data(t_data *data, char *temp)
 {
@@ -26,7 +48,7 @@ void	fill_data(t_data *data, char *temp)
 	else
 	{
 		expand_val = malloc(sizeof(char *) * 2);
-		expand_val[0] = ft_strdup(trim_temp);
+		expand_val[0] = remove_quote_process(trim_temp);
 		expand_val[1] = NULL;
 	}	
 	free(trim_temp);	
@@ -38,6 +60,8 @@ void	fill_data(t_data *data, char *temp)
 			ft_lstadd_back_token(&data->token,
 				ft_double_lstnew_token(expand_val[i]));
 	}
+	if (expand_val)
+		ft_free_str(expand_val);
 }
 
 char	*fill_temp(char *input, int *i)
@@ -69,6 +93,15 @@ char	*fill_temp(char *input, int *i)
 		temp = fill_temp_without_quote(i, &j, input);
 	}
 	return (temp);
+}
+
+void print_token(t_token *token)
+{
+	while(token)
+	{
+		printf("token->content = [%s]\n",token->content);
+		token = token->next;
+	}	
 }
 
 void	init_token(t_data *data, char *input)

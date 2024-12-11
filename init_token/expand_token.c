@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/10 21:55:25 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/11 09:25:10 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char *char_append(char *str,char c)
 		ft_strlcpy(res,str,(len + 1));
 	res[len] = c;
 	res[len + 1] = '\0';
+	if (str)
+		free(str);
 	return (res);
 }
 
@@ -83,6 +85,8 @@ char **str_append(char **str,char *new_str)
 	}
 	res[len] = ft_strdup(new_str);
 	res[len + 1] = NULL;
+	if (str)
+		ft_free_str(str);
 	return (res);
 }
 
@@ -111,31 +115,22 @@ char **ft_split_expand(char *res)
 			if (res[i] == ' ')
 			{
 				expand_val = str_append(expand_val,temp);
-				while (res[i])
-				{
-					printf("res[i] = [%c]\n",res[i]);
-					if (res[i] == ' ')
-						i++;
-					else
-						break;;
-				}
+				while (res[i] && res[i] == ' ')
+					i++;
 				free(temp);
 				temp = NULL;
 			}
-			else
-				temp = char_append(temp,res[i]);
+			temp = char_append(temp,res[i]);
 		}
-		if (res[i] == '\0')
+		if (res[i + 1] == '\0')
 		{
-			printf("miditra qto\n");
 			expand_val = str_append(expand_val,temp);
+			free(temp);
 			break ;
 		}
 		i++;
 	}
-	i = -1;
-	while (expand_val && expand_val[++i])
-		printf("expand_val = %s\n",expand_val[i]);
+
 	return (expand_val);
 }
 
@@ -153,6 +148,7 @@ char	**check_var(char *str, t_env *e_list)
 	i = 0;
 	res = NULL;
 	expd_val = NULL;
+	val_exp = NULL;
 	if (ft_count_char_in_str(str,'$'))
 	{	
 		while (str[i])
@@ -164,7 +160,7 @@ char	**check_var(char *str, t_env *e_list)
 				if (str[i] == '$')
 					i++;
 				val_exp = get_val(str,&i,e_list);
-				if (!res)
+				if (!res && val_exp)
 					res = ft_strdup(val_exp);
 				else if (val_exp && res)
 					res = ft_strjoin(res,val_exp);
@@ -177,11 +173,10 @@ char	**check_var(char *str, t_env *e_list)
 				break ;
 			i++;
 		}
-		expd_val = ft_split_expand(res);
+		if (res)
+			expd_val = ft_split_expand(res);
 	}
-	// expd_val = malloc(sizeof(char *) * 2);
-	// expd_val[0] = ft_strdup(res);
-	// expd_val[1] = NULL;
-	free(res);
+	if (res)
+		free(res);
 	return (expd_val);
 }
