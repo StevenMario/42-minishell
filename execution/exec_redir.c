@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:29:10 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/04 10:43:32 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/11 09:15:47 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env)
 	{
 		dup_std(backup);
 		ft_browse_redir(cmd);
-		ft_exec_if_builtins(cmd, mish, env);
+		mish->exit_status = ft_exec_if_builtins(cmd, mish, env);
 		ft_restore_std(backup);
 	}
 	else
-		ft_exec_if_builtins(cmd, mish, env);
+		mish->exit_status = ft_exec_if_builtins(cmd, mish, env);
 }
 
 void	check_type_for_dup2(t_file *redir)

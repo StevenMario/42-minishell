@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/10 16:04:52 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/11 10:27:03 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	handling_signal_parents(void)
 {
 	signal(SIGINT,SIG_IGN);
 	signal(SIGQUIT,SIG_IGN);
+	// signal(SIGPIPE, SIG_IGN);
 }
 static void	handling_signal_child(void)
 {
@@ -63,6 +64,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2]) // link_cmd
 {
 	int	fds[2];
+	int status;
 
 	if (pipe(fds) == -1)
 	{
@@ -78,10 +80,10 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2]) // link_cmd
 		if (cmd->next != NULL)
 			dup2(fds[1], STDOUT_FILENO);
 		close_fds(fds);
-		exec_simple_cmd(mish, cmd, mish->e_lst);
+		status = exec_simple_cmd(mish, cmd, mish->e_lst);
 		clear_data(mish);
 		rl_clear_history();
-		exit(EXIT_SUCCESS);
+		exit(status);
 	}
 	else
 	{
@@ -146,6 +148,20 @@ void check_double_cmd(t_cmd *cmd)
 	}
 }
 
+int	is_signal(t_cmd *cmd)
+{
+	t_cmd *tmp;
+
+	tmp = cmd;
+	while (tmp != NULL && tmp->next != NULL)
+	{
+		if (tmp->status == 130)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 void	piping_cmd(t_data *mish, int backup[2]) //pipeline
 {
 	t_cmd	*cmd;
@@ -159,6 +175,9 @@ void	piping_cmd(t_data *mish, int backup[2]) //pipeline
 		check_double_cmd(cmd);
 		// print_cmd(cmd);
 		exec_simple_cmd(mish, cmd, mish->e_lst);
+		if (mish->exit_status == 130 || mish->exit_status == 131)
+			write(1, "\n", 2);
+	// printf("%d\n", mish->exit_status);
 		return ;
 	}
 	dup_std(backup);
@@ -169,23 +188,36 @@ void	piping_cmd(t_data *mish, int backup[2]) //pipeline
 		cmd = cmd->next;
 	}
 	cmd = mish->cmd;
-	while (cmd->next != NULL)
+	// printf("%d\n", mish->exit_status);
+	while (cmd != NULL)
 	{
-	// 	// if (cmd->next == NULL)
-	// 	// 	waitpid(cmd->pid, NULL, 0);
-	// 	// else
-		waitpid(cmd->pid, &mish->exit_status, 0);
+		// if (cmd->next == NULL)
+		// 	waitpid(cmd->pid, NULL, 0);
+		// else
+		waitpid(cmd->pid, &cmd->status, 0);
+		cmd->status = get_exit_status(cmd->status);
+		if (cmd->next == NULL)
+			mish->exit_status = get_exit_status(cmd->status);
 		cmd = cmd->next;
 	}
-	if (WIFEXITED(mish->exit_status))
-	{
-	}
-	else if (WIFSIGNALED(mish->exit_status))
-	{
-		write(1, "\n", 1);
-	}
-	waitpid(cmd->pid, &mish->exit_status, 0);
-	mish->exit_status = get_exit_status(mish->exit_status);
+	if (mish->exit_status == 130 || mish->exit_status == 131)
+			write(1, "\n", 1);
+	else
+		if (is_signal (mish->cmd) !=0)
+			write (1, "\n", 1);
+	// printf("%d\n", is_signal (mish->cmd));
+	
+
+	// if (WIFEXITED(mish->exit_status))
+	// {
+	// }
+	// else if (WIFSIGNALED(mish->exit_status))
+	// {
+	// 	write(1, "\n", 1);
+	// 	// rl_on_new_line();
+	// }
+	// waitpid(cmd->pid, &mish->exit_status, 0);
+	// mish->exit_status = get_exit_status(mish->exit_status);
 	ft_restore_std(backup);
 	close_fds(backup);
 	clear_data_without_env(mish);

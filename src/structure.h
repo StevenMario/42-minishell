@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/06 10:51:35 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/11 08:24:41 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_cmd
 	char			**arg;
 	t_file			*rfile;
 	pid_t			pid;
+	int				status;
 	struct s_cmd	*next;
 }					t_cmd;
 
