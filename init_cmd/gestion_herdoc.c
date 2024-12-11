@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/10 12:00:59 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/11 09:53:22 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,18 @@ void	exit_status(t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
-char	*expand_variable(char *input, t_data *data)
-{
-	(void)data;
-	// input = check_var(input, data->e_lst);
-	return (input);
-}
-
 void	fill_herdocc_fd(t_file *rfile, t_data *data, int fd[2])
 {
 	char	*input;
+	char	**split_input;
+	int		i;
 	int		flag;
 
 	close(fd[0]);
 	flag = 0;
+	i = -1;
+	input = NULL;
+	split_input = NULL;
 	if (ft_count_char_in_str(rfile->content, '"')
 		|| ft_count_char_in_str(rfile->content, '\''))
 	{
@@ -50,9 +48,18 @@ void	fill_herdocc_fd(t_file *rfile, t_data *data, int fd[2])
 			exit_status(data);
 		}
 		if (ft_count_char_in_str(input, '$') && flag == 0)
-			input = expand_variable(input, data);
-		ft_putendl_fd(input, fd[1]);
-		free(input);
+		{
+			split_input = check_var(input, data->e_lst);
+			while (split_input[++i])
+				ft_putendl_fd(split_input[i], fd[1]);
+			if (split_input)
+				ft_free_str(split_input);
+		}	
+		else
+			ft_putendl_fd(input, fd[1]);
+		if (input)
+			free(input);
+		
 	}
 	
 }

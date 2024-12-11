@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/11 09:43:57 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/11 09:46:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,6 @@ char	*fill_temp(char *input, int *i)
 		temp = fill_temp_without_quote(i, &j, input);
 	}
 	return (temp);
-}
-
-void print_token(t_token *token)
-{
-	while(token)
-	{
-		printf("token->content = [%s]\n",token->content);
-		token = token->next;
-	}	
 }
 
 void	init_token(t_data *data, char *input)
