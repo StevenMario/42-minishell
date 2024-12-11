@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/11 09:53:22 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/11 10:10:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	fill_herdocc_fd(t_file *rfile, t_data *data, int fd[2])
 	if (ft_count_char_in_str(rfile->content, '"')
 		|| ft_count_char_in_str(rfile->content, '\''))
 	{
-		rfile->content = remove_quotes(rfile->content);
+		rfile->content = remove_quote_process(rfile->content);
 		flag = 1;
 	}
 	while (1)

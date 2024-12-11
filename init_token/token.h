@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:55:08 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/11 09:29:44 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/11 10:10:35 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_token	*ft_double_lstnew_token(char *content);
 char	*check_exit_status(char *check_status);
 char *char_append(char *str,char c);
 char *get_val(char *str,int *i,t_env *e_list);
+char *remove_quote_process(char *str);
 int chech_in_quote(char c,int *in_d_quote,int *in_s_quote);
 char	**check_var(char *str, t_env *e_list);
 
