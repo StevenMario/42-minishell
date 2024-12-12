@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 07:29:29 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 09:41:43 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,67 +89,90 @@ char **str_append(char **str,char *new_str)
 		ft_free_str(str);
 	return (res);
 }
-
-char **ft_split_expand(char *res)
-{
-	char	**expand_val;
-	int		in_s_quote;
-	int		in_d_quote;
-	char	*temp;
-	int		i;
-
-	i = 0;
-	in_s_quote = 0;
-	in_d_quote = 0;
-	temp = NULL;
-	expand_val = NULL;
-	while (res[i])
-	{
-		if (chech_in_quote(res[i],&in_d_quote,&in_s_quote))
-		{
-		}
-		else if (in_d_quote || in_s_quote)
-			temp = char_append(temp,res[i]);
-		else if (!in_d_quote || !in_s_quote)
-		{
-			if (res[i] == ' ')
-			{
-				expand_val = str_append(expand_val,temp);
-				while (res[i] && res[i] == ' ')
-					i++;
-				free(temp);
-				temp = NULL;
-			}
-			temp = char_append(temp,res[i]);
-		}
-		if (res[i + 1] == '\0')
-		{
-			expand_val = str_append(expand_val,temp);
-			free(temp);
-			break ;
-		}
-		i++;
-	}
-
-	return (expand_val);
-}
-
 t_pre_expd init_t_expand(void)
 {
 	t_pre_expd expand;
 
 	expand.expd_val = NULL;
 	expand.res = NULL;
-	expand.val_exp = NULL;
 	expand.in_d_quote = 0;
 	expand.in_s_quote = 0;
 	return (expand);
 }
 
-// char *pre_expand(char *str, int *i, t_env *e_list, t_pre_expd expand)
-// {
-	
-// }
+char **skip_space(char *res,int *i,char **res_expd,char **expd_val)
+{
+	char **expand_value;
+
+	expand_value = NULL;
+	expand_value = str_append(expd_val ,*res_expd);
+	while (res[*i] && res[*i] == ' ')
+	{
+		if (res[*i + 1] == '\0')
+			break;
+		(*i)++;
+	}	
+	free(*res_expd);
+	*res_expd = NULL;
+	return (expand_value);
+}
+
+int get_last_expd_value(char ***expd_val,char *res,char *res_expd,int *i)
+{
+	if (res[(*i) + 1] == '\0')
+	{
+		*expd_val = str_append(*expd_val,res_expd);
+		free(res_expd);
+		return (1);
+	}
+	return (0);
+}
+
+char **ft_split_expand(char *res)
+{
+	t_pre_expd expand;
+	int		i;
+
+	expand = init_t_expand();
+	i = 0;
+	while (res[i])
+	{
+		if (chech_in_quote(res[i],&expand.in_d_quote,&expand.in_s_quote))
+		{
+		}
+		else if (expand.in_d_quote || expand.in_s_quote)
+			expand.res = char_append(expand.res,res[i]);
+		else if (!expand.in_d_quote || !expand.in_s_quote)
+		{
+			if (res[i] == ' ')
+				expand.expd_val = skip_space(res,&i,&expand.res,expand.expd_val);
+			expand.res = char_append(expand.res,res[i]);
+		}
+		if (get_last_expd_value(&expand.expd_val,res,expand.res,&i))
+			break ;
+		i++;
+	}
+	return (expand.expd_val);
+}
+
+
+
+char *get_res(char *str,int *i,t_env *e_lst,char *expd_res)
+{
+	char *val_exp;
+
+	val_exp = NULL;
+	if (str[*i] == '$')
+		(*i)++;
+	val_exp = get_val(str,i,e_lst);
+	if (!expd_res && val_exp)
+		expd_res = ft_strdup(val_exp);
+	else if (val_exp && expd_res)
+		expd_res= ft_strjoin(expd_res,val_exp);
+	if (val_exp)
+		free(val_exp);
+	return (expd_res);
+}
 
 char	**check_var(char *str, t_env *e_list)
 {
@@ -158,36 +181,24 @@ char	**check_var(char *str, t_env *e_list)
 
 	i = 0;
 	expand = init_t_expand();
-	if (ft_count_char_in_str(str,'$'))
-	{	
-		while (str[i])
-		{
-			if (chech_in_quote(str[i],&expand.in_d_quote,&expand.in_s_quote))
-				expand.res = fill_res(expand.res,expand.in_d_quote,
-					expand.in_s_quote,str[i], i,str);
-			else if (sould_expand(i,str,expand.in_s_quote))
-			{
-				if (str[i] == '$')
-					i++;
-				expand.val_exp = get_val(str,&i,e_list);
-				if (!expand.res && expand.val_exp)
-					expand.res = ft_strdup(expand.val_exp);
-				else if (expand.val_exp && expand.res)
-					expand.res = ft_strjoin(expand.res,expand.val_exp);
-				if (expand.val_exp)
-					free(expand.val_exp);
-			}
-			else
-				expand.res = fill_res(expand.res,expand.in_d_quote,
-					expand.in_s_quote,str[i], i,str);
-			if (str[i] == '\0')
-				break ;
-			i++;
-		}
-		if (expand.res)
-			expand.expd_val = ft_split_expand(expand.res);
+	while (str[i])
+	{
+		if (chech_in_quote(str[i],&expand.in_d_quote,&expand.in_s_quote))
+			expand.res = fill_res(expand.res,expand.in_d_quote,
+				expand.in_s_quote,str[i], i,str);
+		else if (sould_expand(i,str,expand.in_s_quote))
+			expand.res = get_res(str,&i,e_list,expand.res);
+		else
+			expand.res = fill_res(expand.res,expand.in_d_quote,
+				expand.in_s_quote,str[i], i,str);
+		if (str[i] == '\0')
+			break ;
+		i++;
 	}
 	if (expand.res)
+	{
+		expand.expd_val = ft_split_expand(expand.res);
 		free(expand.res);
+	}	
 	return (expand.expd_val);
 }
