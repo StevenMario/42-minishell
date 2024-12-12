@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 11:44:27 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:05:36 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ char **str_append(char **str,char *new_str)
 	{
 		while (i < len)
 		{
+			
+			printf("str[i] = %s\n",str[i]);
 			res[i] = ft_strdup(str[i]);
 			i++;
 		}
@@ -121,7 +123,8 @@ int get_last_expd_value(char ***expd_val,char *res,char *res_expd,int *i)
 {
 	if (res[(*i) + 1] == '\0')
 	{
-		*expd_val = str_append(*expd_val,res_expd);
+		if (res_expd)
+			*expd_val = str_append(*expd_val,res_expd);
 		free(res_expd);
 		return (1);
 	}
