@@ -6,17 +6,12 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/10 15:12:43 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/12 08:57:04 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
 
-void	ft_free_kval(char *k, char *val)
-{
-	free(k);
-	free(val);
-}
 static int	ft_var_is_val(int c)
 {
 	if (ft_isdigit(c) == 1)
@@ -48,7 +43,6 @@ static int	check_valid_var(char *arg)
 				printf("Minishell: export: '%s' not a valid identifier\n", arg);
 				return (0);
 			}
-				
 			i++;
 		}
 		return (1);
@@ -71,7 +65,8 @@ int	ft_if_var_exist(t_env *env, char *k, char *val)
 	}
 	return (0);
 }
-int ft_pre_export(t_data *data,int l)
+
+int	ft_pre_export(t_data *data, int l)
 {
 	t_var	v;
 
@@ -101,7 +96,7 @@ int ft_pre_export(t_data *data,int l)
 
 int	ft_export(t_data *data)
 {
-	int		l;
+	int	l;
 
 	l = 0;
 	if (data->cmd->arg[1])

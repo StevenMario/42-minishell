@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 18:52:00 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/06 11:03:31 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 08:51:52 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static void	ft_sort_env(t_env **sorted_env)
 {
-	char	*tmp_k;
-	char	*tmp_v;
 	t_env	*sort;
 
 	if (*sorted_env == NULL || (*sorted_env)->next == NULL)
@@ -27,12 +25,7 @@ static void	ft_sort_env(t_env **sorted_env)
 		{
 			if (ft_strcmp(sort->key, sort->next->key) > 0)
 			{
-				tmp_k = sort->next->key;
-				tmp_v = sort->next->value;
-				sort->next->key = sort->key;
-				sort->next->value = sort->value;
-				sort->key = tmp_k;
-				sort->value = tmp_v;
+				ft_swap(sort);
 				sort = *sorted_env;
 			}
 			else
@@ -64,7 +57,6 @@ static t_env	*bubble_sort_env(t_data *data)
 {
 	t_env	*sorted_env;
 
-	// sorted_env = duplicate_env(env);
 	sorted_env = fill_env_in_t_env(data->env);
 	ft_sort_env(&sorted_env);
 	return (sorted_env);
@@ -94,6 +86,6 @@ int	take_len_bf_char(char *str, char c)
 
 	i = 0;
 	while (str[i] && str[i] != c)
-		i++;		
+		i++;
 	return (i);
 }

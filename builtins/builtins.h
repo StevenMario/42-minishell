@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:21:53 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/04 17:28:20 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 08:53:13 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ int		count_av(char **av);
 void	print_exit_and_free(t_data *mish, int status);
 int		ft_exit(t_data *mish, t_cmd *cmd);
 int		take_len_bf_char(char *str, char c);
+void	ft_free_kval(char *k, char *val);
+void	ft_swap(t_env *sort);
 
 #endif

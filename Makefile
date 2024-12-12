@@ -24,6 +24,7 @@ SRC = 		./src/utils.c\
 			./builtins/exit/m_exit.c\
 			./builtins/exit/exit_utils.c\
 			./builtins/export/export_utils.c\
+			./builtins/export/export_utils2.c\
 			./builtins/m_unset.c\
 			./builtins/m_pwd.c\
 			./builtins/m_cd.c\
@@ -32,6 +33,8 @@ SRC = 		./src/utils.c\
 			./execution/exec_builtins.c\
 			./execution/exec.c\
 			./execution/exec_utils.c\
+			./execution/exec_utils2.c\
+			./execution/exec_utils3.c\
 			./execution/exec_redir.c\
 			./src/main.c
 			

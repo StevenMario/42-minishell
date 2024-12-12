@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:29:10 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/11 09:15:47 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/12 07:43:20 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env)
 		ft_browse_redir(cmd);
 		mish->exit_status = ft_exec_if_builtins(cmd, mish, env);
 		ft_restore_std(backup);
+		close_fds(backup);
 	}
 	else
 		mish->exit_status = ft_exec_if_builtins(cmd, mish, env);
