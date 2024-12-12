@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 10:01:44 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:06:23 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@ char *remove_quote_process(char *str)
 	return (res);
 }
 
+char **remove_quote_no_expand(char *trim_temp)
+{
+	char **expand_val;
+
+	expand_val = malloc(sizeof(char *) * 2);
+	if (!expand_val)
+		return (NULL);
+	expand_val[0] = remove_quote_process(trim_temp);
+	expand_val[1] = NULL;
+	return (expand_val);
+}
+
 void	fill_data(t_data *data, char *temp)
 {
 	char	*trim_temp;
@@ -46,11 +58,7 @@ void	fill_data(t_data *data, char *temp)
 	if (ft_count_char_in_str(trim_temp,'$'))
 		expand_val = check_var(trim_temp, data->e_lst);
 	else
-	{
-		expand_val = malloc(sizeof(char *) * 2);
-		expand_val[0] = remove_quote_process(trim_temp);
-		expand_val[1] = NULL;
-	}	
+		expand_val = remove_quote_no_expand(trim_temp);
 	free(trim_temp);
 	while (expand_val && expand_val[++i])
 	{
