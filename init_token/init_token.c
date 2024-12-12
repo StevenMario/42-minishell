@@ -12,10 +12,10 @@
 
 #include "token.h"
 
-char *remove_quote_process(char *str)
+char	*remove_quote_process(char *str)
 {
-	int i;
-	char *res;
+	int		i;
+	char	*res;
 	int		in_s_quote;
 	int		in_d_quote;
 
@@ -25,18 +25,18 @@ char *remove_quote_process(char *str)
 	in_s_quote = 0;
 	while (str[++i])
 	{
-		if (chech_in_quote(str[i],&in_d_quote,&in_s_quote))
+		if (chech_in_quote(str[i], &in_d_quote, &in_s_quote))
 		{
 		}
 		else
-			res = char_append(res,str[i]);
+			res = char_append(res, str[i]);
 	}
 	return (res);
 }
 
-char **remove_quote_no_expand(char *trim_temp)
+char	**remove_quote_no_expand(char *trim_temp)
 {
-	char **expand_val;
+	char	**expand_val;
 
 	expand_val = malloc(sizeof(char *) * 2);
 	if (!expand_val)
@@ -50,32 +50,32 @@ void	fill_data(t_data *data, char *temp)
 {
 	char	*trim_temp;
 	char	**expand_val;
-	int i;
+	int		i;
 
 	i = -1;
 	expand_val = NULL;
 	trim_temp = ft_strtrim(temp, " \n\t");
-	if (ft_count_char_in_str(trim_temp,'$'))
+	if (ft_count_char_in_str(trim_temp, '$'))
 		expand_val = check_var(trim_temp, data->e_lst);
 	else
 		expand_val = remove_quote_no_expand(trim_temp);
 	free(trim_temp);
 	while (expand_val && expand_val[++i])
 	{
-		
 		if (data->token == NULL)
 			data->token = ft_double_lstnew_token(expand_val[i]);
 		else
-			ft_lstadd_back_token(&data->token,ft_double_lstnew_token(expand_val[i]));
+			ft_lstadd_back_token(&data->token,
+				ft_double_lstnew_token(expand_val[i]));
 	}
 	if (expand_val)
 		ft_free_str(expand_val);
 }
 
-int check_redir_type(int check)
+int	check_redir_type(int check)
 {
-	if (check == PIPE || check == APPEND || check == INPUT
-		|| check == TRUNC || check == HEREDOC)
+	if (check == PIPE || check == APPEND || check == INPUT || check == TRUNC
+		|| check == HEREDOC)
 		return (1);
 	return (0);
 }
@@ -88,7 +88,7 @@ char	*fill_temp(char *input, int *i)
 
 	temp = NULL;
 	check = check_redire(input, *i);
-	if (input[*i] && ( input[*i] == '\'' || input[*i] == '"'))
+	if (input[*i] && (input[*i] == '\'' || input[*i] == '"'))
 	{
 		j = *i;
 		(*i)++;
@@ -97,7 +97,7 @@ char	*fill_temp(char *input, int *i)
 			(*i)++;
 	}
 	else if (check_redir_type(check))
-		temp = fill_temp_with_redire(temp, check, i,input);
+		temp = fill_temp_with_redire(temp, check, i, input);
 	else
 	{
 		j = *i;

@@ -24,7 +24,7 @@ void	ft_lstadd_back_token(t_token **lst, t_token *new)
 			temp->next = new;
 			new->prev = temp;
 			new->next = NULL;
-			return  ;
+			return ;
 		}
 		temp = temp->next;
 	}
@@ -32,7 +32,7 @@ void	ft_lstadd_back_token(t_token **lst, t_token *new)
 
 t_token	*ft_double_lstnew_token(char *content)
 {
-	t_token		*new_token;
+	t_token	*new_token;
 
 	new_token = malloc(sizeof(t_token));
 	if (!new_token)

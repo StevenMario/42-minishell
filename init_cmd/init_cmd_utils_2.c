@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 11:13:42 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/04 11:14:57 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:25:20 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,10 @@ t_cmd	*ft_initcmd(void)
 	new_cmd->rfile = NULL;
 	new_cmd->next = NULL;
 	return (new_cmd);
+}
+
+void	ft_free_and_close_fd(char *input, int fd)
+{
+	free(input);
+	close(fd);
 }

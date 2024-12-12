@@ -53,9 +53,7 @@ char	*check_exit_status(char *check_status)
 	return (res);
 }
 
-
-
-int chech_in_quote(char c,int *in_d_quote,int *in_s_quote)
+int	chech_in_quote(char c, int *in_d_quote, int *in_s_quote)
 {
 	if (c == '\'' && !(*in_d_quote))
 	{
@@ -76,7 +74,7 @@ int chech_in_quote(char c,int *in_d_quote,int *in_s_quote)
 	return (0);
 }
 
-char *get_val(char *str,int *i,t_env *e_list)
+char	*get_val(char *str, int *i, t_env *e_list)
 {
 	int len;
 	int j;
@@ -88,7 +86,7 @@ char *get_val(char *str,int *i,t_env *e_list)
 	while (str[*i] && is_special_char(str[*i]))
 	{
 		if (str[*i] == '?')
-			break;
+			break ;
 		len++;
 		(*i)++;
 	}
@@ -99,8 +97,8 @@ char *get_val(char *str,int *i,t_env *e_list)
 	}
 	else
 	{
-		val = ft_substr(str,j,len);
-		val = my_getenv2(val,e_list);
+		val = ft_substr(str, j, len);
+		val = my_getenv2(val, e_list);
 		(*i)--;
 	}
 	return (val);
