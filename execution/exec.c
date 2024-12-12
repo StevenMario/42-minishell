@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/11 10:27:03 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/12 06:48:55 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 		handling_signal_parents();
 		if (cmd->pid == 0)
 		{
+			rl_clear_history();
 			handling_signal_child();
 			if (cmd->rfile != NULL)
 				ft_browse_redir(cmd);
 			exec_extern_cmd(env, cmd);
 			clear_data(mish);
-			rl_clear_history();
 			exit(EXIT_SUCCESS);
 		}
 		waitpid(cmd->pid, &mish->exit_status, 0);
@@ -75,6 +75,7 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2]) // link_cmd
 	handling_signal_parents();
 	if (cmd->pid == 0)
 	{
+		rl_clear_history();
 		handling_signal_child();
 		close_fds(backup);
 		if (cmd->next != NULL)
@@ -82,7 +83,6 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2]) // link_cmd
 		close_fds(fds);
 		status = exec_simple_cmd(mish, cmd, mish->e_lst);
 		clear_data(mish);
-		rl_clear_history();
 		exit(status);
 	}
 	else

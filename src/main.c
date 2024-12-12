@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/11 18:41:19 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 06:52:27 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ int check_pair_quote(char *input)
 
 void exit_ctrl_d(char *input,t_data *data)
 {
+	rl_clear_history();
 	if (data)
 		clear_data(data);
-	rl_clear_history();
 	if (input)
 		free(input);
 	exit(0);
@@ -164,7 +164,7 @@ int main(int argc,char **argv,char **env)
 		input = readline("minishell$: ");
 		if (input == NULL)
 			exit_ctrl_d(input,data);
-		if (input && *input != '\0' && !ft_is_space(input)
+		if (input && *input != '\0'
 			&& !check_pair_quote(input))
 			{
 				add_history(input);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/11 08:24:41 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/12 07:19:46 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,13 @@ typedef struct s_var
 	char	*k;
 	t_env	*eenv;
 }	t_var;
+
+typedef struct s_pre_expd
+{
+	char	*res;
+	char	*val_exp;
+	char	**expd_val;
+	int		in_s_quote;
+	int		in_d_quote;
+}	t_pre_expd;
 #endif

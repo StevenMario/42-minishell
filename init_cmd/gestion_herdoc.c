@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/11 19:04:28 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 07:11:37 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,36 @@ void	exit_status(t_data *data)
 	exit(EXIT_SUCCESS);
 }
 
+void expand_herdocc(char *input, int flag,t_env *e_lst,int fd)
+{
+	char **split_input;
+	int i;
+
+	split_input = NULL;
+	if (ft_count_char_in_str(input, '$') && flag == 0)
+	{
+		split_input = check_var(input, e_lst);
+		i = -1;
+		while (split_input && split_input[++i])
+			ft_putendl_fd(split_input[i], fd);
+		if (split_input)
+			ft_free_str(split_input);
+		split_input = NULL;
+	}	
+	else
+		ft_putendl_fd(input, fd);
+	if (input)
+		free(input);
+}
+
 void	fill_herdocc_fd(t_file *rfile, t_data *data, int fd[2])
 {
 	char	*input;
-	char	**split_input;
-	int		i;
 	int		flag;
 
 	close(fd[0]);
 	flag = 0;
 	input = NULL;
-	split_input = NULL;
 	if (ft_count_char_in_str(rfile->content, '"')
 		|| ft_count_char_in_str(rfile->content, '\''))
 	{
@@ -46,23 +65,8 @@ void	fill_herdocc_fd(t_file *rfile, t_data *data, int fd[2])
 			close(fd[1]);
 			exit_status(data);
 		}
-		if (ft_count_char_in_str(input, '$') && flag == 0)
-		{
-			split_input = check_var(input, data->e_lst);
-			i = -1;
-			while (split_input && split_input[++i])
-				ft_putendl_fd(split_input[i], fd[1]);
-			if (split_input)
-				ft_free_str(split_input);
-			split_input = NULL;
-		}	
-		else
-			ft_putendl_fd(input, fd[1]);
-		if (input)
-			free(input);
-		
+		expand_herdocc(input,flag,data->e_lst,fd[1]);	
 	}
-	
 }
 
 int	create_fd_herdoc(t_data *data, t_file *rfile)
@@ -77,7 +81,10 @@ int	create_fd_herdoc(t_data *data, t_file *rfile)
 	}
 	pid = fork();
 	if (pid == 0)
+	{
+		rl_clear_history();
 		fill_herdocc_fd(rfile, data, fd);
+	}	
 	wait(NULL);
 	close(fd[1]);
 	return (fd[0]);

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/11 18:38:45 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 07:29:29 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,49 +134,60 @@ char **ft_split_expand(char *res)
 	return (expand_val);
 }
 
+t_pre_expd init_t_expand(void)
+{
+	t_pre_expd expand;
+
+	expand.expd_val = NULL;
+	expand.res = NULL;
+	expand.val_exp = NULL;
+	expand.in_d_quote = 0;
+	expand.in_s_quote = 0;
+	return (expand);
+}
+
+// char *pre_expand(char *str, int *i, t_env *e_list, t_pre_expd expand)
+// {
+	
+// }
+
 char	**check_var(char *str, t_env *e_list)
 {
 	int		i;
-	char	*res;
-	char	*val_exp;
-	char	**expd_val;
-	int		in_s_quote;
-	int		in_d_quote;
+	t_pre_expd expand;
 
-	in_d_quote = 0;
-	in_s_quote = 0;
 	i = 0;
-	res = NULL;
-	expd_val = NULL;
-	val_exp = NULL;
+	expand = init_t_expand();
 	if (ft_count_char_in_str(str,'$'))
 	{	
 		while (str[i])
 		{
-			if (chech_in_quote(str[i],&in_d_quote,&in_s_quote))
-				res = fill_res(res,in_d_quote,in_s_quote,str[i], i,str);
-			else if (sould_expand(i,str,in_s_quote))
+			if (chech_in_quote(str[i],&expand.in_d_quote,&expand.in_s_quote))
+				expand.res = fill_res(expand.res,expand.in_d_quote,
+					expand.in_s_quote,str[i], i,str);
+			else if (sould_expand(i,str,expand.in_s_quote))
 			{
 				if (str[i] == '$')
 					i++;
-				val_exp = get_val(str,&i,e_list);
-				if (!res && val_exp)
-					res = ft_strdup(val_exp);
-				else if (val_exp && res)
-					res = ft_strjoin(res,val_exp);
-				if (val_exp)
-					free(val_exp);
+				expand.val_exp = get_val(str,&i,e_list);
+				if (!expand.res && expand.val_exp)
+					expand.res = ft_strdup(expand.val_exp);
+				else if (expand.val_exp && expand.res)
+					expand.res = ft_strjoin(expand.res,expand.val_exp);
+				if (expand.val_exp)
+					free(expand.val_exp);
 			}
 			else
-				res = fill_res(res,in_d_quote,in_s_quote,str[i], i,str);
+				expand.res = fill_res(expand.res,expand.in_d_quote,
+					expand.in_s_quote,str[i], i,str);
 			if (str[i] == '\0')
 				break ;
 			i++;
 		}
-		if (res)
-			expd_val = ft_split_expand(res);
+		if (expand.res)
+			expand.expd_val = ft_split_expand(expand.res);
 	}
-	if (res)
-		free(res);
-	return (expd_val);
+	if (expand.res)
+		free(expand.res);
+	return (expand.expd_val);
 }

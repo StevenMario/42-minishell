@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 12:20:08 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/12 07:15:18 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	new_cmd(t_token *token, t_cmd **cmd)
 	t_cmd	*new_cmd;
 
 	new_cmd = NULL;
-
 	while (token)
 	{
 		if (token->next && (token->type == FILES || token->type == DELIMITER))
@@ -59,7 +58,6 @@ void	new_cmd(t_token *token, t_cmd **cmd)
 		if (token->type == PIPE || !token->next)
 		{
 			ft_add_back_cmd(cmd, new_cmd);
-			// ft_lstclear_cmd(&new_cmd);
 			new_cmd = ft_initcmd();
 			if (!new_cmd)
 				return ;
