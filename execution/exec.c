@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/12 10:18:22 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:48:09 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 {
+	int status;
+
 	if (ft_is_builtin(cmd) == 1)
 		exec_redir_builtin(mish, cmd, env);
 	else
@@ -28,9 +30,9 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 			handling_signal_child();
 			if (cmd->rfile != NULL)
 				ft_browse_redir(cmd);
-			exec_extern_cmd(env, cmd, mish);
+			status = exec_extern_cmd(env, cmd, mish);
 			clear_data(mish);
-			exit(mish->exit_status);
+			exit(status);
 		}
 		waitpid(cmd->pid, &mish->exit_status, 0);
 		mish->exit_status = get_exit_status(mish->exit_status);
