@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/11/28 17:25:07 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 09:59:53 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*fill_temp_without_quote(int *i, int *j, char *input)
 	return (temp);
 }
 
-char	*fill_temp_with_redire(char *temp, int check, int *i)
+char	*fill_temp_with_redire(char *temp, int check, int *i,char *input)
 {
 	if (check == PIPE)
 		temp = ft_strdup("|");
@@ -115,5 +115,7 @@ char	*fill_temp_with_redire(char *temp, int check, int *i)
 		temp = ft_strdup("<");
 	if (check == TRUNC)
 		temp = ft_strdup(">");
+	if (input[*i] && input[(*i) + 1])
+			(*i)++;
 	return (temp);
 }

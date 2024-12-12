@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:55:08 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/11 18:40:15 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:00:14 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		check_redire(char *temp, int i);
 char	*fill_temp(char *input, int *i);
 char	*fill_temp_with_quote(int *i, int *j, char *input);
 char	*fill_temp_without_quote(int *i, int *j, char *input);
-char	*fill_temp_with_redire(char *temp, int check, int *i);
+char	*fill_temp_with_redire(char *temp, int check, int *i,char *input);
 void	ft_is_arg_or_cmd(t_token *temp);
 void	fill_data(t_data *data, char *temp);
 void	init_token(t_data *data, char *input);

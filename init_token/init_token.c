@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/11 18:39:27 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 10:01:44 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	fill_data(t_data *data, char *temp)
 		expand_val[0] = remove_quote_process(trim_temp);
 		expand_val[1] = NULL;
 	}	
-	free(trim_temp);	
+	free(trim_temp);
 	while (expand_val && expand_val[++i])
 	{
 		if (data->token == NULL)
@@ -62,6 +62,14 @@ void	fill_data(t_data *data, char *temp)
 	}
 	if (expand_val)
 		ft_free_str(expand_val);
+}
+
+int check_redir_type(int check)
+{
+	if (check == PIPE || check == APPEND || check == INPUT
+		|| check == TRUNC || check == HEREDOC)
+		return (1);
+	return (0);
 }
 
 char	*fill_temp(char *input, int *i)
@@ -80,13 +88,8 @@ char	*fill_temp(char *input, int *i)
 		if (input[*i] && input[(*i) + 1])
 			(*i)++;
 	}
-	else if (check == PIPE || check == APPEND || check == INPUT
-		|| check == TRUNC || check == HEREDOC)
-	{
-		temp = fill_temp_with_redire(temp, check, i);
-		if (input[*i] && input[(*i) + 1])
-			(*i)++;
-	}
+	else if (check_redir_type(check))
+		temp = fill_temp_with_redire(temp, check, i,input);
 	else
 	{
 		j = *i;
