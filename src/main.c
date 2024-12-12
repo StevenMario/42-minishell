@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/12 06:52:27 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:17:16 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,6 @@ void clear_data(t_data *data)
 		free(data);
 	}
 }
-void print_cmd(t_cmd *cmd)
-{
-	int i;
-	
-	while (cmd)
-	{
-		i = -1;
-		while (cmd->arg[++i])
-		{
-			if (cmd->arg[i])
-				printf("arg = %s\n",cmd->arg[i]);
-		}
-		if (cmd->rfile)
-		{
-			while (cmd->rfile)
-			{
-				if (cmd->rfile->content)
-					printf("[%d]  content = %s\n",cmd->rfile->type,cmd->rfile->content);
-				cmd->rfile = cmd->rfile->next;
-			}
-		}
-		cmd = cmd->next;
-	}
-}
-
 
 int init_data(t_data *data, char *input,char **env)
 {
@@ -102,7 +77,6 @@ void exit_ctrl_d(char *input,t_data *data)
 
 void signal_handler(int signal)
 {
-//    printf("signals == %d\n", signal);
    if (signal == SIGINT)
    {
 		get_status = 130;
@@ -145,6 +119,25 @@ void data__token_cmd_initialized(t_data *data)
 	data->token = NULL;
 }
 
+int check_last_pipe(char *input)
+{
+	char *trim;
+	int len;
+
+	trim = ft_strtrim(input," \n\t");
+	len = ft_strlen(trim);
+	if (trim[len -1] == '|')
+	{
+		if (trim)
+			free(trim);
+		ft_error_writer("[Error]", " :unclosed pipe\n");
+		return (1);
+	}
+	if (trim)
+		free(trim);
+	return (0);
+}
+
 int main(int argc,char **argv,char **env)
 {
 	char *input;
@@ -164,7 +157,7 @@ int main(int argc,char **argv,char **env)
 		input = readline("minishell$: ");
 		if (input == NULL)
 			exit_ctrl_d(input,data);
-		if (input && *input != '\0'
+		if (input && *input != '\0' && !check_last_pipe(input)
 			&& !check_pair_quote(input))
 			{
 				add_history(input);

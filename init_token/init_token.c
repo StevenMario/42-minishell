@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 10:06:23 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:08:02 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ void	fill_data(t_data *data, char *temp)
 	free(trim_temp);
 	while (expand_val && expand_val[++i])
 	{
+		
 		if (data->token == NULL)
 			data->token = ft_double_lstnew_token(expand_val[i]);
 		else
-			ft_lstadd_back_token(&data->token,
-				ft_double_lstnew_token(expand_val[i]));
+			ft_lstadd_back_token(&data->token,ft_double_lstnew_token(expand_val[i]));
 	}
 	if (expand_val)
 		ft_free_str(expand_val);

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:07:43 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/11 18:47:22 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:14:17 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_lstadd_back_token(t_token **lst, t_token *new)
 			temp->next = new;
 			new->prev = temp;
 			new->next = NULL;
-			break ;
+			return  ;
 		}
 		temp = temp->next;
 	}
