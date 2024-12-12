@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:56:39 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 08:23:09 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:19:17 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*check_exit_status(char *check_status)
 	res = NULL;
 	if (ft_strcmp(check_status, "?") == 0)
 	{
-		res = ft_itoa(get_status);
+		res = ft_itoa(g_status);
 		free(check_status);
 	}
 	else

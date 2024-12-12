@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/09 10:10:06 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:19:06 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@
 # include <unistd.h>
 # include <sys/wait.h>
 
-extern int	get_status;
+extern int	g_status;
 
 int			ft_strcmp(char *s1, char *s2);
-void print_cmd(t_cmd *cmd);
 void		new_cmd(t_token *token, t_cmd **cmd);
 char		*remove_quotes(char *str);
 int			check_quote(char *str);
