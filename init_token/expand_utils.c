@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:56:39 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 11:19:17 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 08:41:35 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,23 @@ char	*get_val(char *str, int *i, t_env *e_list)
 	val = NULL;
 	len = 0;
 	j = (*i);
-	while (str[*i] && is_special_char(str[*i]))
+	if (ft_isdigit(str[*i]))
 	{
-		if (str[*i] == '?')
-			break ;
-		len++;
+		val = malloc(sizeof(char) * 2);
+		val[0] = str[*i];
+		val[1] = '\0';
 		(*i)++;
+	}
+	else
+	{
+
+		while (str[*i] && is_special_char(str[*i]))
+		{
+			if (str[*i] == '?')
+				break ;
+			len++;
+			(*i)++;
+		}
 	}
 	if (str[*i] == '?')
 	{

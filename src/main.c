@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/12 11:19:36 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 08:47:42 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,18 +119,20 @@ void data__token_cmd_initialized(t_data *data)
 	data->token = NULL;
 }
 
-int check_last_pipe(char *input)
+int check_valid_input(char *input)
 {
 	char *trim;
 	int len;
 
 	trim = ft_strtrim(input," \n\t");
 	len = ft_strlen(trim);
-	if (trim[len -1] == '|')
+	if ((trim[len -1] == '|' || trim[0] == '|' )
+	|| (trim[len -1] == '<' || trim[0] == '<' )
+	|| (trim[len -1] == '>' || trim[0] == '>' ))
 	{
 		if (trim)
 			free(trim);
-		ft_error_writer("[Error]", " :unclosed pipe\n");
+		ft_error_writer("syntax error near unexpected token", " :pipe or redir\n");
 		return (1);
 	}
 	if (trim)
@@ -157,7 +159,7 @@ int main(int argc,char **argv,char **env)
 		input = readline("minishell$: ");
 		if (input == NULL)
 			exit_ctrl_d(input,data);
-		if (input && *input != '\0' && !check_last_pipe(input)
+		if (input && *input != '\0' && !check_valid_input(input)
 			&& !check_pair_quote(input))
 			{
 				add_history(input);

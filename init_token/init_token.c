@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 11:08:02 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 09:28:33 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,22 @@ char	**remove_quote_no_expand(char *trim_temp)
 {
 	char	**expand_val;
 
-	expand_val = malloc(sizeof(char *) * 2);
-	if (!expand_val)
-		return (NULL);
-	expand_val[0] = remove_quote_process(trim_temp);
-	expand_val[1] = NULL;
+	if (ft_strcmp(trim_temp,"\"\"") == 0 || ft_strcmp(trim_temp,"''") == 0)
+	{
+		expand_val = malloc(sizeof(char *) * 2);
+		if (!expand_val)
+			return (NULL);
+		expand_val[0] = ft_strdup(" ");
+		expand_val[1] = NULL;
+	}
+	else
+	{
+		expand_val = malloc(sizeof(char *) * 2);
+		if (!expand_val)
+			return (NULL);
+		expand_val[0] = remove_quote_process(trim_temp);
+		expand_val[1] = NULL;
+	}
 	return (expand_val);
 }
 
