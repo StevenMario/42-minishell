@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 09:39:47 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 09:54:46 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,11 @@ char	**check_var(char *str, t_env *e_list)
 	while (str[i])
 	{
 		if (chech_in_quote(str[i], &expand.in_d_quote, &expand.in_s_quote))
-			expand.res = fill_res(expand.res, expand.in_d_quote,
-					expand.in_s_quote, str[i], i, str);
+			expand.res = fill_res(expand.res, expand, i, str);
 		else if (sould_expand(i, str, expand.in_s_quote))
 			expand.res = get_res(str, &i, e_list, expand.res);
 		else
-			expand.res = fill_res(expand.res, expand.in_d_quote,
-					expand.in_s_quote, str[i], i, str);
+			expand.res = fill_res(expand.res, expand, i, str);
 		if (str[i] == '\0')
 			break ;
 		i++;

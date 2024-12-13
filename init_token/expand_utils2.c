@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 09:33:25 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 09:43:13 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 09:58:39 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,16 @@ char	*char_append(char *str, char c)
 
 int	is_ingored_dollars(char *str, int i, int in_d_quote, int in_s_quote)
 {
-	if (str[i] && str[i + 1] && (str[i] == '$' && (str[i + 1] == '\'' || str[i
-				+ 1] == '"') && !in_d_quote && !in_s_quote))
+	if (str[i] && str[i + 1] && (str[i] == '$' && (str[i + 1] == '\''
+				|| str[i + 1] == '"') && !in_d_quote && !in_s_quote))
 		return (1);
 	return (0);
 }
 
-char	*fill_res(char *res, int in_d_quote, int in_s_quote, char c, int i,
-		char *str)
+char	*fill_res(char *res, t_pre_expd	expand, int i, char *str)
 {
-	if (!is_ingored_dollars(str, i, in_d_quote, in_s_quote))
-		res = char_append(res, c);
+	if (!is_ingored_dollars(str, i, expand.in_d_quote, expand.in_s_quote))
+		res = char_append(res, str[i]);
 	return (res);
 }
 
