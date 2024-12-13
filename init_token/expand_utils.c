@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 21:56:39 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 08:41:35 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 10:11:17 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,39 @@ int	chech_in_quote(char c, int *in_d_quote, int *in_s_quote)
 	return (0);
 }
 
+char *init_space_val(int i,char *str)
+{
+	char *val;
+
+	val = malloc(sizeof(char) * 2);
+	val[0] = str[i];
+	val[1] = '\0';
+	return (val);
+}
+
+char *get_value_expand(char *str,int *i,int *len)
+{
+	char *val;
+
+	val = NULL;
+	if (ft_isdigit(str[*i]))
+	{
+		val = init_space_val(*i,str);
+		(*i)++;
+	}
+	else
+	{
+		while (str[*i] && is_special_char(str[*i]))
+		{
+			if (str[*i] == '?')
+				break ;
+			(*len)++;
+			(*i)++;
+		}
+	}
+	return (val);
+}
+
 char	*get_val(char *str, int *i, t_env *e_list)
 {
 	int		len;
@@ -83,23 +116,7 @@ char	*get_val(char *str, int *i, t_env *e_list)
 	val = NULL;
 	len = 0;
 	j = (*i);
-	if (ft_isdigit(str[*i]))
-	{
-		val = malloc(sizeof(char) * 2);
-		val[0] = str[*i];
-		val[1] = '\0';
-		(*i)++;
-	}
-	else
-	{
-		while (str[*i] && is_special_char(str[*i]))
-		{
-			if (str[*i] == '?')
-				break ;
-			len++;
-			(*i)++;
-		}
-	}
+	val = get_value_expand(str,i,&len);
 	if (str[*i] == '?')
 	{
 		val = ft_strdup("?");
@@ -107,7 +124,8 @@ char	*get_val(char *str, int *i, t_env *e_list)
 	}
 	else
 	{
-		val = ft_substr(str, j, len);
+		if (!val)
+			val = ft_substr(str, j, len);
 		val = my_getenv2(val, e_list);
 		(*i)--;
 	}
