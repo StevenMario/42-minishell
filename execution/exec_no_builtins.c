@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_no_builtins.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 15:01:34 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:22:35 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,7 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish)
 			path = ft_test_access(path_spl, cmd->arg[0]);
 		if (path == NULL)
 		{
-			ft_error_writer(cmd->arg[0], " :command not found\n");
-			fflush(stderr);
-			ft_free_env2d_pathspl(env_2d, path_spl, path);
+			ft_cmd_nt_found(cmd, env_2d, path_spl, path);
 			return (mish->exit_status = 127);
 		}
 		if (access(path, X_OK) != 0)

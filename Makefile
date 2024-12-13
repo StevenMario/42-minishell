@@ -39,6 +39,7 @@ SRC = 		./src/utils.c\
 			./execution/exec_utils.c\
 			./execution/exec_utils2.c\
 			./execution/exec_utils3.c\
+			./execution/exec_utils4.c\
 			./execution/exec_redir.c\
 			./src/main.c
 			

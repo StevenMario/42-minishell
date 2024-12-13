@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 13:44:23 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:21:28 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ void	ft_exec_mltpl_cmd(t_cmd *cmd, t_data *mish, int backup[2]);
 void	ft_perror(char *m_err);
 void	check_sg_for_nl(t_data *mish);
 void	end_of_exec(t_data *mish, int backup[2]);
-void close_herdocc_fd(t_file *rfile);
+void	close_herdocc_fd(t_file *rfile);
+void ft_cmd_nt_found(t_cmd *cmd, char **env_2d, char **path_spl, char *path);
+void	first_check_for_path(t_cmd *cmd, char *path, char **path_spl);
+char	*ft_test_access(char **path_spl, char *cmd);
+
+
 
 #endif
