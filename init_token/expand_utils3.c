@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 09:38:57 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 10:17:29 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 19:11:41 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char	**str_append(char **str, char *new_str)
 	{
 		while (i < len)
 		{
-			printf("str[i] = %s\n", str[i]);
 			res[i] = ft_strdup(str[i]);
 			i++;
 		}

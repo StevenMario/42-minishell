@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 15:21:28 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 19:13:49 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	check_type_for_dup2(t_file *redir);
 void	check_error_redir(t_file *redir);
 void	ft_open_redir(t_file *redir);
 void	ft_browse_redir(t_cmd *cmd, t_data *data);
+char    *get_path_for_exeve(char *cmd_arg,char *path,char **path_spl);
 int		ft_count_cmd(t_data *mish);
 void	dup_std(int r_fd[2]);
 int		ft_env_len(t_env *env);

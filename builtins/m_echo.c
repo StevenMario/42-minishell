@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:29:31 by irabesan          #+#    #+#             */
-/*   Updated: 2024/11/18 08:47:55 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 19:09:37 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	ft_echo(char **echo)
 	}
 	while (echo[i])
 	{
-		printf("%s", echo[i]);
 		if (echo[i + 1])
 			printf(" ");
 		i++;
