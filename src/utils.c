@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:34:45 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 11:22:36 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 10:43:23 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,28 @@ int	check_quote(char *str)
 	{
 		if (str[i] == '\'' || str[i] == '"')
 			return (1);
+	}
+	return (0);
+}
+
+void data__token_cmd_initialized(t_data *data)
+{
+	data->cmd = NULL;
+	data->env = NULL;
+	data->token = NULL;
+}
+
+int check_pair_quote(char *input)
+{
+	int check_dquote;
+	int check_squote;
+
+	check_dquote = ft_count_char_in_str(input,'"') % 2;
+	check_squote = ft_count_char_in_str(input,'\'') % 2;
+	if (check_dquote != 0 || check_squote != 0)
+	{
+		printf("minishell: unclosed quote detected\n");
+		return (1);
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:55:08 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 09:55:49 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 10:15:33 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ int			sould_expand(int i, char *str, int in_s_quote);
 char		*char_append(char *str, char c);
 int			is_ingored_dollars(char *str, int i, int in_d_quote,
 				int in_s_quote);
-char	*fill_res(char *res, t_pre_expd	expand, int i,char *str);
+char		*fill_res(char *res, t_pre_expd expand, int i, char *str);
 int			get_len_str(char **str);
 char		**str_append(char **str, char *new_str);
 t_pre_expd	init_t_expand(void);
-int	check_redir_type(int check);
+int			check_redir_type(int check);
+int			check_dollar(char *str);
+int			is_special_char(char c);
 
 #endif

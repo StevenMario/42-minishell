@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 09:38:57 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 09:43:23 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 10:17:29 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,30 @@ t_pre_expd	init_t_expand(void)
 	expand.in_d_quote = 0;
 	expand.in_s_quote = 0;
 	return (expand);
+}
+
+int	check_dollar(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == '\'')
+		{
+			i++;
+			while (str[i] && str[i] != '\'')
+				i++;
+		}
+		if (str[i] == '$')
+			return (i);
+	}
+	return (-1);
+}
+
+int	is_special_char(char c)
+{
+	if (ft_isalnum(c) || c == '_' || c == '?')
+		return (1);
+	return (0);
 }

@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 08:47:42 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:08:41 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int g_status;
-
-void init_cmd(t_data *data)
-{
-	data->cmd = NULL;
-	new_cmd(data->token,&data->cmd);
-}
 
 void clear_data(t_data *data)
 {
@@ -34,10 +28,11 @@ void clear_data(t_data *data)
 	}
 }
 
-int init_data(t_data *data, char *input,char **env)
+void init_data(t_data *data, char *input,char **env)
 {
 	int	backup[2];
 	
+	add_history(input);
 	data->token = NULL;
 	data->env = env;
 	if (data && !data->e_lst)
@@ -47,55 +42,6 @@ int init_data(t_data *data, char *input,char **env)
 	init_cmd(data);
 	herdoc_handler(data);
 	piping_cmd(data, backup);
-	
-	return 1;
-}
-int check_pair_quote(char *input)
-{
-	int check_dquote;
-	int check_squote;
-
-	check_dquote = ft_count_char_in_str(input,'"') % 2;
-	check_squote = ft_count_char_in_str(input,'\'') % 2;
-	if (check_dquote != 0 || check_squote != 0)
-	{
-		printf("minishell: unclosed quote detected\n");
-		return (1);
-	}
-	return (0);
-}
-
-void exit_ctrl_d(char *input,t_data *data)
-{
-	rl_clear_history();
-	if (data)
-		clear_data(data);
-	if (input)
-		free(input);
-	exit(0);
-}
-
-void signal_handler(int signal)
-{
-   if (signal == SIGINT)
-   {
-		g_status = 130;
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("",1);
-		rl_redisplay();
-   }
-}
-void init_signals(void)
-{
-	struct sigaction action;
-
-	memset(&action, 0, sizeof(action));
-	action.sa_handler = signal_handler;
-	sigemptyset(&action.sa_mask);
-	action.sa_flags = 0;
-	sigaction(SIGINT, &action, NULL);
-	signal(SIGQUIT,SIG_IGN);
 }
 
 t_data *data_initialized(void)
@@ -111,12 +57,6 @@ t_data *data_initialized(void)
 	data->token = NULL;
 	data->exit_status = 0;
 	return (data);
-}
-void data__token_cmd_initialized(t_data *data)
-{
-	data->cmd = NULL;
-	data->env = NULL;
-	data->token = NULL;
 }
 
 int check_valid_input(char *input)
@@ -140,6 +80,18 @@ int check_valid_input(char *input)
 	return (0);
 }
 
+int	check_error_and_init_data(t_data **data,int argc)
+{
+	if (argc > 1)
+	{
+		ft_error_writer("[Error]", ":Run  minishell without argument !\n");
+		return (1);
+	}
+	if (!*data)
+		*data = data_initialized();
+	return (0);
+}
+
 int main(int argc,char **argv,char **env)
 {
 	char *input;
@@ -148,10 +100,8 @@ int main(int argc,char **argv,char **env)
 	(void)argv;
 	input = NULL;
 	data = NULL;
-	if (argc > 1)
-		printf("[Error].Run without argument !\n");
-	if (!data)
-		data = data_initialized();
+	if (check_error_and_init_data(&data,argc))
+		return (1);
 	while (1)
 	{
 		init_signals();
@@ -161,11 +111,7 @@ int main(int argc,char **argv,char **env)
 			exit_ctrl_d(input,data);
 		if (input && *input != '\0' && !check_valid_input(input)
 			&& !check_pair_quote(input))
-			{
-				add_history(input);
-				if (!init_data(data,input,env))
-					return (1);
-			}
+				init_data(data,input,env);
 		g_status = data->exit_status;
 		clear_data_without_env(data);
 	}

@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:10:14 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 11:24:18 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 10:39:27 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*my_getenv2(char *var_name, t_env *env);
 t_cmd	*ft_initcmd(void);
 void	herdoc_handler(t_data *data);
 t_cmd	*ft_initcmd(void);
+void init_cmd(t_data *data);
 void	ft_free_and_close_fd(char *input, int fd);
 
 #endif

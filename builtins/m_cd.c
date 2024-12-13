@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 09:03:50 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/10 15:08:45 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 10:55:07 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ void	check_error_chdir(char *path)
 
 	sb.st_mode = 0;
 	lstat(path, &sb);
-	if (!S_ISDIR(sb.st_mode))
-		ft_error_writer(path, " :is not a directory\n");
-	else if (!access(path, F_OK))
+	if (access(path, F_OK) == -1)
 		ft_error_writer(path, " :no such file or directory\n");
-	else if (!access(path, X_OK))
+	else if (!S_ISDIR(sb.st_mode))
+		ft_error_writer(path, " :is not a directory\n");
+	else if (access(path, X_OK) == -1)
 		ft_error_writer(path, " :permission denied\n");
 	else
 		return ;
+	if (path)
+			free(path);
 }
 
 int	count_av(char **av)

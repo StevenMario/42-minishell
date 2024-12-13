@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 07:15:18 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 10:39:19 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cmd.h"
+
+void init_cmd(t_data *data)
+{
+	data->cmd = NULL;
+	new_cmd(data->token,&data->cmd);
+}
 
 void	get_cmd(t_token *token, t_cmd *cmd)
 {
