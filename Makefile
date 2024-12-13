@@ -7,6 +7,7 @@ SRC = 		./src/utils.c\
 			./init_token/token_utils.c\
 			./init_token/assigne_type_token.c\
 			./init_token/init_utils.c\
+			./init_token/init_utils2.c\
 			./init_cmd/init_cmd_utils.c\
 			./init_cmd/init_cmd_utils_2.c\
 			./init_cmd/init_cmd.c\
@@ -20,6 +21,8 @@ SRC = 		./src/utils.c\
 			./init_cmd/processing_utils.c\
 			./init_token/expand_token.c\
 			./init_token/expand_utils.c\
+			./init_token/expand_utils2.c\
+			./init_token/expand_utils3.c\
 			./builtins/export/m_export.c\
 			./builtins/exit/m_exit.c\
 			./builtins/exit/exit_utils.c\

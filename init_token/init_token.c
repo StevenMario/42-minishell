@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 09:28:33 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 09:45:12 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**remove_quote_no_expand(char *trim_temp)
 {
 	char	**expand_val;
 
-	if (ft_strcmp(trim_temp,"\"\"") == 0 || ft_strcmp(trim_temp,"''") == 0)
+	if (ft_strcmp(trim_temp, "\"\"") == 0 || ft_strcmp(trim_temp, "''") == 0)
 	{
 		expand_val = malloc(sizeof(char *) * 2);
 		if (!expand_val)
@@ -81,14 +81,6 @@ void	fill_data(t_data *data, char *temp)
 	}
 	if (expand_val)
 		ft_free_str(expand_val);
-}
-
-int	check_redir_type(int check)
-{
-	if (check == PIPE || check == APPEND || check == INPUT || check == TRUNC
-		|| check == HEREDOC)
-		return (1);
-	return (0);
 }
 
 char	*fill_temp(char *input, int *i)

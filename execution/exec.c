@@ -14,7 +14,7 @@
 
 int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 {
-	int status;
+	int	status;
 
 	if (ft_is_builtin(cmd) == 1)
 		exec_redir_builtin(mish, cmd, env);

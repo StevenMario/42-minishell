@@ -76,9 +76,9 @@ int	chech_in_quote(char c, int *in_d_quote, int *in_s_quote)
 
 char	*get_val(char *str, int *i, t_env *e_list)
 {
-	int len;
-	int j;
-	char *val;
+	int		len;
+	int		j;
+	char	*val;
 
 	val = NULL;
 	len = 0;
@@ -92,7 +92,6 @@ char	*get_val(char *str, int *i, t_env *e_list)
 	}
 	else
 	{
-
 		while (str[*i] && is_special_char(str[*i]))
 		{
 			if (str[*i] == '?')

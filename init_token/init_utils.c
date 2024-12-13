@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 09:59:53 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 09:31:29 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char	*stock_char(int *i, int *j, char *input)
 		x++;
 		(*j)++;
 	}
-	// (*i)++;
 	temp[x] = '\0';
 	return (temp);
 }
@@ -61,7 +60,7 @@ char	*fill_temp_with_quote(int *i, int *j, char *input)
 	}
 	while (input && input[*i])
 	{
-		if (check_redire(input,*i + 1) != -1)
+		if (check_redire(input, *i + 1) != -1)
 			break ;
 		(*i)++;
 	}
@@ -77,8 +76,8 @@ char	*fill_temp_without_quote(int *i, int *j, char *input)
 
 	quote = 0;
 	temp = NULL;
-	while ((input[*i] != ' ' && input[*i] != '|'
-			&& input[*i] != '>' && input[*i] != '<') && input[*i])
+	while ((input[*i] != ' ' && input[*i] != '|' && input[*i] != '>'
+			&& input[*i] != '<') && input[*i])
 	{
 		quote = is_quote(input[*i]);
 		if (quote)
@@ -97,7 +96,7 @@ char	*fill_temp_without_quote(int *i, int *j, char *input)
 	return (temp);
 }
 
-char	*fill_temp_with_redire(char *temp, int check, int *i,char *input)
+char	*fill_temp_with_redire(char *temp, int check, int *i, char *input)
 {
 	if (check == PIPE)
 		temp = ft_strdup("|");
@@ -116,6 +115,6 @@ char	*fill_temp_with_redire(char *temp, int check, int *i,char *input)
 	if (check == TRUNC)
 		temp = ft_strdup(">");
 	if (input[*i] && input[(*i) + 1])
-			(*i)++;
+		(*i)++;
 	return (temp);
 }
