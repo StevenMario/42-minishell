@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 19:08:09 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 19:16:49 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,6 @@ char	*ft_test_access(char **path_spl, char *cmd)
 	return (NULL);
 }
 
-char *get_path_for_exeve(char *cmd_arg,char *path,char **path_spl)
-{
-	if (path)
-		free(path);
-	if (ft_strchr(cmd_arg, '/'))
-		path = ft_strdup(cmd_arg);
-	else
-		path = ft_test_access(path_spl, cmd_arg);
-	return (path);
-}
-
 int	exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish)
 {
 	char	**env_2d;
@@ -100,10 +89,6 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish)
 	if (cmd->arg && cmd->arg[0])
 	{
 		path = get_path_for_exeve(cmd->arg[0],path,path_spl);
-		// if (ft_strchr(cmd->arg[0], '/'))
-		// 	path = ft_strdup(cmd->arg[0]);
-		// else
-		// 	path = ft_test_access(path_spl, cmd->arg[0]);
 		if (path == NULL)
 		{
 			ft_cmd_nt_found(cmd, env_2d, path_spl, path);
