@@ -6,11 +6,23 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 10:32:04 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 10:35:21 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:14:06 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	check_error_and_init_data(t_data **data, int argc)
+{
+	if (argc > 1)
+	{
+		ft_error_writer("[Error]", ":Run  minishell without argument !\n");
+		return (1);
+	}
+	if (!*data)
+		*data = data_initialized();
+	return (0);
+}
 
 void	exit_ctrl_d(char *input, t_data *data)
 {
@@ -33,6 +45,7 @@ void	signal_handler(int signal)
 		rl_redisplay();
 	}
 }
+
 void	init_signals(void)
 {
 	struct sigaction	action;

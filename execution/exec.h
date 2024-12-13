@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 10:17:11 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:09:42 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	ft_exec_mltpl_cmd(t_cmd *cmd, t_data *mish, int backup[2]);
 void	ft_perror(char *m_err);
 void	check_sg_for_nl(t_data *mish);
 void	end_of_exec(t_data *mish, int backup[2]);
+void close_herdocc_fd(t_file *rfile);
 
 #endif

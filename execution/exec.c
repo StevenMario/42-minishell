@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/12 11:48:09 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:33:31 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
+
+void close_herdocc_fd(t_file *rfile)
+{
+	while (rfile)
+	{
+		if(rfile->type == HEREDOC)
+			close(rfile->fd);
+		rfile = rfile->next;
+	}
+}
 
 int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 {
@@ -34,6 +44,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 			clear_data(mish);
 			exit(status);
 		}
+		close_herdocc_fd(cmd->rfile);
 		waitpid(cmd->pid, &mish->exit_status, 0);
 		mish->exit_status = get_exit_status(mish->exit_status);
 	}
@@ -98,7 +109,7 @@ void	check_double_cmd(t_cmd *cmd)
 	int		i;
 
 	i = 1;
-	if (ft_count_char_in_str(cmd->arg[0], ' ') > 0)
+	if (cmd->arg && cmd->arg[0] && ft_count_char_in_str(cmd->arg[0], ' ') > 0)
 	{
 		simple_cmd = ft_strdup(cmd->arg[0]);
 		while (cmd->arg[i])

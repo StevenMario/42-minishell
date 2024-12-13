@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 09:03:50 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 10:55:07 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:15:35 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	check_error_chdir(char *path)
 	else
 		return ;
 	if (path)
-			free(path);
+		free(path);
 }
 
 int	count_av(char **av)

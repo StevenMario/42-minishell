@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 11:25:01 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:30:26 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	fill_herdocc_fd(t_file *rfile, t_data *data, int fd[2])
 		}
 		expand_herdocc(input, flag, data->e_lst, fd);
 	}
-	close(fd[1]);
 }
 
 int	create_fd_herdoc(t_data *data, t_file *rfile)
@@ -77,7 +76,7 @@ int	create_fd_herdoc(t_data *data, t_file *rfile)
 
 	if (pipe(fd) == -1)
 	{
-		perror("fork");
+		perror("pipe");
 		return (1);
 	}
 	pid = fork();
@@ -85,6 +84,8 @@ int	create_fd_herdoc(t_data *data, t_file *rfile)
 	{
 		rl_clear_history();
 		fill_herdocc_fd(rfile, data, fd);
+		close(fd[1]);
+		exit(0);
 	}
 	wait(NULL);
 	close(fd[1]);
@@ -103,7 +104,11 @@ void	herdoc_handler(t_data *data)
 		while (tfile_tmp)
 		{
 			if (tfile_tmp->type == HEREDOC)
+			{
 				tfile_tmp->fd = create_fd_herdoc(data, tfile_tmp);
+				if (tfile_tmp->next && tfile_tmp->next->type == HEREDOC)
+					close(tfile_tmp->fd);
+			}
 			tfile_tmp = tfile_tmp->next;
 		}
 		temp = temp->next;

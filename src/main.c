@@ -6,20 +6,20 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 11:08:41 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 11:33:56 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_status;
+int		g_status;
 
-void clear_data(t_data *data)
+void	clear_data(t_data *data)
 {
 	if (data)
 	{
 		if (data->cmd)
-			ft_lstclear_cmd(&data->cmd);	
+			ft_lstclear_cmd(&data->cmd);
 		if (data->token)
 			ft_lstclear_token(&data->token);
 		if (data->e_lst)
@@ -28,25 +28,25 @@ void clear_data(t_data *data)
 	}
 }
 
-void init_data(t_data *data, char *input,char **env)
+void	init_data(t_data *data, char *input, char **env)
 {
 	int	backup[2];
-	
+
 	add_history(input);
 	data->token = NULL;
 	data->env = env;
 	if (data && !data->e_lst)
 		data->e_lst = fill_env_in_t_env(env);
-	init_token(data,input);
+	init_token(data, input);
 	assigne_type_token(data);
 	init_cmd(data);
 	herdoc_handler(data);
 	piping_cmd(data, backup);
 }
 
-t_data *data_initialized(void)
+t_data	*data_initialized(void)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = malloc(sizeof(t_data));
 	if (!data)
@@ -59,20 +59,21 @@ t_data *data_initialized(void)
 	return (data);
 }
 
-int check_valid_input(char *input)
+int	check_valid_input(char *input)
 {
-	char *trim;
-	int len;
+	char	*trim;
+	int		len;
 
-	trim = ft_strtrim(input," \n\t");
+	trim = ft_strtrim(input, " \n\t");
 	len = ft_strlen(trim);
-	if ((trim[len -1] == '|' || trim[0] == '|' )
-	|| (trim[len -1] == '<' || trim[0] == '<' )
-	|| (trim[len -1] == '>' || trim[0] == '>' ))
+	if ((trim && trim[0] && trim[1] && trim[len - 1]) 
+			&& ((trim[len - 1] == '|' || trim[0] == '|') || (trim[len - 1] == '<'
+			|| (trim[0] == '<' && trim[1] != '<')) || (trim[len - 1] == '>' || trim[0] == '>')))
 	{
 		if (trim)
 			free(trim);
-		ft_error_writer("syntax error near unexpected token", " :pipe or redir\n");
+		ft_error_writer("syntax error near unexpected token",
+			" :pipe or redir\n");
 		return (1);
 	}
 	if (trim)
@@ -80,27 +81,15 @@ int check_valid_input(char *input)
 	return (0);
 }
 
-int	check_error_and_init_data(t_data **data,int argc)
+int	main(int argc, char **argv, char **env)
 {
-	if (argc > 1)
-	{
-		ft_error_writer("[Error]", ":Run  minishell without argument !\n");
-		return (1);
-	}
-	if (!*data)
-		*data = data_initialized();
-	return (0);
-}
-
-int main(int argc,char **argv,char **env)
-{
-	char *input;
-	t_data *data;
+	char	*input;
+	t_data	*data;
 
 	(void)argv;
 	input = NULL;
 	data = NULL;
-	if (check_error_and_init_data(&data,argc))
+	if (check_error_and_init_data(&data, argc))
 		return (1);
 	while (1)
 	{
@@ -108,13 +97,13 @@ int main(int argc,char **argv,char **env)
 		data__token_cmd_initialized(data);
 		input = readline("minishell$: ");
 		if (input == NULL)
-			exit_ctrl_d(input,data);
+			exit_ctrl_d(input, data);
 		if (input && *input != '\0' && !check_valid_input(input)
 			&& !check_pair_quote(input))
-				init_data(data,input,env);
+			init_data(data, input, env);
 		g_status = data->exit_status;
 		clear_data_without_env(data);
 	}
 	rl_clear_history();
-    return (0);
+	return (0);
 }

@@ -42,20 +42,20 @@ int	check_quote(char *str)
 	return (0);
 }
 
-void data__token_cmd_initialized(t_data *data)
+void	data__token_cmd_initialized(t_data *data)
 {
 	data->cmd = NULL;
 	data->env = NULL;
 	data->token = NULL;
 }
 
-int check_pair_quote(char *input)
+int	check_pair_quote(char *input)
 {
-	int check_dquote;
-	int check_squote;
+	int	check_dquote;
+	int	check_squote;
 
-	check_dquote = ft_count_char_in_str(input,'"') % 2;
-	check_squote = ft_count_char_in_str(input,'\'') % 2;
+	check_dquote = ft_count_char_in_str(input, '"') % 2;
+	check_squote = ft_count_char_in_str(input, '\'') % 2;
 	if (check_dquote != 0 || check_squote != 0)
 	{
 		printf("minishell: unclosed quote detected\n");
