@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 13:33:31 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:50:33 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 			rl_clear_history();
 			handling_signal_child();
 			if (cmd->rfile != NULL)
-				ft_browse_redir(cmd);
+				ft_browse_redir(cmd, mish);
 			status = exec_extern_cmd(env, cmd, mish);
 			clear_data(mish);
 			exit(status);
@@ -142,7 +142,8 @@ void	piping_cmd(t_data *mish, int backup[2])
 	cmd = mish->cmd;
 	while (cmd != NULL)
 	{
-		waitpid(cmd->pid, &cmd->status, 0);
+		if (cmd->pid != 0)
+			waitpid(cmd->pid, &cmd->status, 0);
 		cmd->status = get_exit_status(cmd->status);
 		if (cmd->next == NULL)
 			mish->exit_status = get_exit_status(cmd->status);

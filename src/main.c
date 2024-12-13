@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 11:33:56 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:42:21 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	clear_data(t_data *data)
 	if (data)
 	{
 		if (data->cmd)
-			ft_lstclear_cmd(&data->cmd);
+			ft_lstclear_cmd(&data->cmd);	
 		if (data->token)
 			ft_lstclear_token(&data->token);
 		if (data->e_lst)

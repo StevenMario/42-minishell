@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 11:13:42 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/12 11:25:20 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:57:37 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_cmd	*ft_initcmd(void)
 	new_cmd->arg = NULL;
 	new_cmd->rfile = NULL;
 	new_cmd->next = NULL;
+	new_cmd->pid = 0;
+	new_cmd->status = 0;
 	return (new_cmd);
 }
 

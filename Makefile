@@ -76,8 +76,4 @@ leak: re
 	clear
 	valgrind --suppressions=readline.txt --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes ./$(NAME)
 
-leak\:%: re
-	clear
-	valgrind --suppressions=$(subst leak:,,$@).sup --leak-check=full --show-leak-kinds=all ./$(NAME)
-
 .PHONY: all clean fclean re

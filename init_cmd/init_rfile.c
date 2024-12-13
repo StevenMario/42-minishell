@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:19:49 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/05 18:51:37 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:41:11 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	ft_add_back_rfile(t_file **rfile, t_file *new_file)
 	while (temp && temp->next)
 		temp = temp->next;
 	if (!temp)
-		*rfile = duplicate_file(new_file);
+		*rfile = new_file;
 	else
-		temp->next = duplicate_file(new_file);
+		temp->next = new_file;
 	temp = NULL;
 }
 
@@ -58,7 +58,7 @@ int	init_file(t_token *token, t_cmd *cmd)
 		else if (token->type == APPEND)
 			temp->type = APPEND;
 		ft_add_back_rfile(&cmd->rfile, temp);
-		ft_lstclear_file(&temp);
+		// ft_lstclear_file(&temp);
 		return (1);
 	}
 	return (0);

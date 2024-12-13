@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_no_builtins.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 08:25:33 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:01:34 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,23 +85,27 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish)
 
 	env_2d = env_to_2d(env);
 	path_spl = split_for_path(env);
-	if (ft_strchr(cmd->arg[0], '/'))
-		path = ft_strdup(cmd->arg[0]);
-	else
-		path = ft_test_access(path_spl, cmd->arg[0]);
-	if (path == NULL)
+	path = NULL;
+	if (cmd->arg && cmd->arg[0])
 	{
-		ft_error_writer(cmd->arg[0], " :command not found\n");
-		fflush(stderr);
-		ft_free_env2d_pathspl(env_2d, path_spl, path);
-		return (mish->exit_status = 127);
+		if (ft_strchr(cmd->arg[0], '/'))
+			path = ft_strdup(cmd->arg[0]);
+		else
+			path = ft_test_access(path_spl, cmd->arg[0]);
+		if (path == NULL)
+		{
+			ft_error_writer(cmd->arg[0], " :command not found\n");
+			fflush(stderr);
+			ft_free_env2d_pathspl(env_2d, path_spl, path);
+			return (mish->exit_status = 127);
+		}
+		if (access(path, X_OK) != 0)
+		{
+			ft_error_writer(cmd->arg[0], " :permission denied\n");
+			ft_free_env2d_pathspl(env_2d, path_spl, path);
+			return (mish->exit_status = 126);
+		}
+		execve(path, cmd->arg, env_2d);
 	}
-	if (access(path, X_OK) != 0)
-	{
-		ft_error_writer(cmd->arg[0], " :permission denied\n");
-		ft_free_env2d_pathspl(env_2d, path_spl, path);
-		return (mish->exit_status = 126);
-	}
-	execve(path, cmd->arg, env_2d);
 	return (ft_free_env2d_pathspl(env_2d, path_spl, path), 0);
 }

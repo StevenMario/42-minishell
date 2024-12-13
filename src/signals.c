@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 10:32:04 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 11:14:06 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:30:10 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,20 @@ int	check_error_and_init_data(t_data **data, int argc)
 
 void	exit_ctrl_d(char *input, t_data *data)
 {
+	int	status;
+
 	rl_clear_history();
+	status = 0;
 	if (data)
+	{
+		status = data->exit_status;	
+		
 		clear_data(data);
+	}
 	if (input)
 		free(input);
-	exit(0);
+	ft_putstr_fd("exit\n", 1);
+	exit(status);
 }
 
 void	signal_handler(int signal)

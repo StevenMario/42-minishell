@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:29:10 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 13:17:48 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 13:45:47 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env)
 	if (cmd->rfile != NULL)
 	{
 		dup_std(backup);
-		ft_browse_redir(cmd);
+		ft_browse_redir(cmd, mish);
 		mish->exit_status = ft_exec_if_builtins(cmd, mish, env);
 		ft_restore_std(backup);
 		close_fds(backup);
@@ -70,7 +70,7 @@ void	ft_open_redir(t_file *redir)
 		return ;
 }
 
-void	ft_browse_redir(t_cmd *cmd)
+void	ft_browse_redir(t_cmd *cmd, t_data *data)
 {
 	t_file	*redir;
 
@@ -81,6 +81,7 @@ void	ft_browse_redir(t_cmd *cmd)
 		if (redir->fd == -1)
 		{
 			check_error_redir(redir);
+			clear_data(data);
 			exit(EXIT_FAILURE);
 		}
 		check_type_for_dup2(redir);

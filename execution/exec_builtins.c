@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:07:29 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 12:00:39 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:52:13 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,24 @@
 
 int	ft_is_builtin(t_cmd *cmd)
 {
-	if (ft_strcmp(cmd->arg[0], "cd") == 0)
-		return (1);
-	else if (ft_strcmp(cmd->arg[0], "export") == 0)
-		return (1);
-	else if (ft_strcmp(cmd->arg[0], "unset") == 0)
-		return (1);
-	else if (ft_strcmp(cmd->arg[0], "pwd") == 0)
-		return (1);
-	else if (ft_strcmp(cmd->arg[0], "env") == 0)
-		return (1);
-	else if (ft_strcmp(cmd->arg[0], "echo") == 0)
-		return (1);
-	else if (ft_strcmp(cmd->arg[0], "exit") == 0)
-		return (1);
-	else
-		return (-1);
+	if (cmd->arg && cmd->arg[0])
+	{
+		if (ft_strcmp(cmd->arg[0], "cd") == 0)
+			return (1);
+		else if (ft_strcmp(cmd->arg[0], "export") == 0)
+			return (1);
+		else if (ft_strcmp(cmd->arg[0], "unset") == 0)
+			return (1);
+		else if (ft_strcmp(cmd->arg[0], "pwd") == 0)
+			return (1);
+		else if (ft_strcmp(cmd->arg[0], "env") == 0)
+			return (1);
+		else if (ft_strcmp(cmd->arg[0], "echo") == 0)
+			return (1);
+		else if (ft_strcmp(cmd->arg[0], "exit") == 0)
+			return (1);
+	}
+	return (-1);
 }
 
 int	ft_exec_if_builtins(t_cmd *cmd, t_data	*mish, t_env *env)

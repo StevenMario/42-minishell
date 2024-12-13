@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:18:13 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 07:14:12 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/13 14:35:01 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ void	ft_lstclear_cmd(t_cmd **lst)
 		if ((*lst)->arg)
 			ft_free_str((*lst)->arg);
 		if ((*lst)->rfile)
+		{
 			ft_lstclear_file(&(*lst)->rfile);
+		}
 		free((*lst));
 		(*lst) = next;
 	}
