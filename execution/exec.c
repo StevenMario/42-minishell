@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/16 07:57:15 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:31:47 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 			handling_signal_child();
 			if (cmd->rfile != NULL)
 				ft_browse_redir(cmd, mish);
+			// printf("Tonga eto\n");
+			clear_fd(mish);
 			status = exec_extern_cmd(env, cmd, mish);
 			clear_data(mish);
 			exit(status);
 		}
-		close_herdocc_fd(cmd->rfile);
+		clear_fd(mish);
 		waitpid(cmd->pid, &mish->exit_status, 0);
 		mish->exit_status = get_exit_status(mish->exit_status);
 	}
@@ -58,7 +60,11 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2])
 		if (cmd->next != NULL)
 			dup2(fds[1], STDOUT_FILENO);
 		close_fds(fds);
-		status = exec_simple_cmd(mish, cmd, mish->e_lst);
+		if (cmd->rfile != NULL)
+			ft_browse_redir(cmd, mish);
+		status = exec_extern_cmd(mish->e_lst, cmd, mish);
+		// status = exec_simple_cmd(mish, cmd, mish->e_lst);
+		clear_fd(mish);
 		clear_data(mish);
 		exit(status);
 	}
@@ -121,13 +127,20 @@ void	piping_cmd(t_data *mish, int backup[2])
 	cmd = NULL;
 	count = ft_count_cmd(mish);
 	cmd = mish->cmd;
-	if (count == 1)
-		return (ft_exec_one_cmd(cmd, mish));
 	dup_std(backup);
-	while (cmd)
+	if (count == 1)
+		ft_exec_one_cmd(cmd, mish);
+	else
 	{
-		ft_exec_mltpl_cmd(cmd, mish, backup);
-		cmd = cmd->next;
+		while (cmd)
+		{
+			// if (/*condition*/)
+			// 	close(backup[0]);
+			ft_exec_mltpl_cmd(cmd, mish, backup);
+			cmd = cmd->next;
+		}
+		printf("\nTafiditra\n");
+		clear_fd(mish);
 	}
 	cmd = mish->cmd;
 	while (cmd != NULL)

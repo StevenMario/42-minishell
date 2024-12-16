@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:29:10 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 13:45:47 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:27:56 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	check_error_redir(t_file *redir)
 		(void)sb;
 		if (access(redir->content, F_OK) == -1)
 			printf("mish: %s: No such file or directory\n", redir->content);
-		if (access(redir->content, W_OK | R_OK | X_OK) == -1)
+		else if (access(redir->content, W_OK | R_OK | X_OK) == -1)
 			printf("mish: %s: Permission denied\n", redir->content);
 	}
 	else

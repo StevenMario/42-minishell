@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 09:48:29 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 14:47:10 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:34:47 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	end_of_exec(t_data *mish, int backup[2])
 	}
 	check_sg_for_nl(mish);
 	ft_restore_std(backup);
+	printf("\nMIditra\n");
 	close_fds(backup);
 	clear_data_without_env(mish);
 }

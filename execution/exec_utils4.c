@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:04:24 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/16 07:57:22 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:42:15 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void	close_herdocc_fd(t_file *rfile)
 	while (rfile)
 	{
 		if (rfile->type == HEREDOC)
+		{
+			// printf("rfile->fd = %d\n",rfile->fd);
 			close(rfile->fd);
+		}	
 		rfile = rfile->next;
 	}
 }

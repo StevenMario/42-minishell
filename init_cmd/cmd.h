@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:10:14 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 15:21:21 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/16 13:45:42 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void	ft_lstclear_file(t_file **lst);
 t_file	*duplicate_file(t_file *file);
 char	*my_getenv2(char *var_name, t_env *env);
 t_cmd	*ft_initcmd(void);
-void	herdoc_handler(t_data *data);
+int		herdoc_handler(t_data *data);
 t_cmd	*ft_initcmd(void);
 void	init_cmd(t_data *data);
 void	ft_free_and_close_fd(char *input, int fd);
+void	clear_fd(t_data *data);
 
 #endif

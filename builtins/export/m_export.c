@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/12 08:57:04 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/16 08:36:50 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	ft_pre_export(t_data *data, int l)
 	if (check_valid_var(data->cmd->arg[l]) == 1)
 	{
 		if (ft_count_char_in_str(data->cmd->arg[l], '=') == 0)
-			return (1);
+			return (0);
 		v.i = take_len_bf_char(data->cmd->arg[l], '=');
 		if (v.i == 0)
 		{
@@ -108,6 +108,8 @@ int	ft_export(t_data *data)
 				if (ft_pre_export(data, l) == 1)
 					return (1);
 			}
+			else
+				return (1);
 		}
 	}
 	else

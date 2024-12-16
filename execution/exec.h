@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/16 07:57:35 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/16 09:57:32 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	ft_cmd_nt_found(t_cmd *cmd, char **env_2d, char **path_spl, char *path);
 void	first_check_for_path(t_cmd *cmd, char *path, char **path_spl);
 char	*ft_test_access(char **path_spl, char *cmd);
 void	close_herdocc_fd(t_file *rfile);
+void	clear_signals(t_data *mish);
 
 #endif

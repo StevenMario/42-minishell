@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 13:30:26 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:46:30 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,28 @@ void	exit_status(t_data *data)
 	clear_data(data);
 	exit(EXIT_SUCCESS);
 }
+
+void sig_heredoc(int signum)
+{
+	if (signum == SIGINT)
+ 	{
+		g_status = SIGINT;
+		close (STDIN_FILENO);
+	}
+}
+
+void signal_heredoc_handler()
+{
+    struct sigaction action;
+
+	memset(&action, 0, sizeof(action));
+	action.sa_handler = sig_heredoc;
+	sigemptyset(&action.sa_mask);
+	action.sa_flags = 0;
+	sigaction(SIGINT, &action, NULL);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 
 void	expand_herdocc(char *input, int flag, t_env *e_lst, int *fd)
 {
@@ -46,7 +68,6 @@ void	fill_herdocc_fd(t_file *rfile, t_data *data, int fd[2])
 	char	*input;
 	int		flag;
 
-	close(fd[0]);
 	flag = 0;
 	input = NULL;
 	if (ft_count_char_in_str(rfile->content, '"')
@@ -58,41 +79,80 @@ void	fill_herdocc_fd(t_file *rfile, t_data *data, int fd[2])
 	while (1)
 	{
 		input = readline(">>");
-		if (input == NULL)
-			exit_status(data);
-		if (ft_strcmp(input, rfile->content) == 0)
+    	if (g_status == SIGINT)
+			break;
+		if (input == NULL || ft_strcmp(input, rfile->content) == 0)
 		{
 			ft_free_and_close_fd(input, fd[1]);
+			close_herdocc_fd(data->cmd->rfile);
 			exit_status(data);
 		}
 		expand_herdocc(input, flag, data->e_lst, fd);
 	}
 }
 
+void clear_fd(t_data *data)
+{
+	t_cmd *cmd;
+	t_file *rfile;
+
+	cmd = data->cmd;
+	rfile = data->cmd->rfile;
+	while (cmd)
+	{
+		close_herdocc_fd(rfile);
+		cmd = cmd->next;
+	}
+}
+
 int	create_fd_herdoc(t_data *data, t_file *rfile)
 {
+	// int	ret;
 	int	pid;
 	int	fd[2];
 
+	// ret = 0;
 	if (pipe(fd) == -1)
 	{
 		perror("pipe");
 		return (1);
 	}
 	pid = fork();
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 	if (pid == 0)
 	{
+		close(fd[0]);
 		rl_clear_history();
+		signal(SIGINT, sig_heredoc);
+		signal(SIGQUIT, SIG_IGN);
 		fill_herdocc_fd(rfile, data, fd);
+		if (g_status == SIGINT)
+		{
+			clear_fd(data);
+			close(fd[1]);
+			clear_data(data);
+			exit(130);
+		}
+		close_herdocc_fd(data->cmd->rfile);
 		close(fd[1]);
 		exit(0);
 	}
-	wait(NULL);
+	waitpid(pid, &data->exit_status, 0);
+	data->exit_status = get_exit_status(data->exit_status);
+	if (data->exit_status == 130)
+	{
+		close_fds(fd);
+		return (-1);
+	}	
 	close(fd[1]);
+	// dup2(fd[0], ret);
+	// close(fd[0]);
+	// return (ret);
 	return (fd[0]);
 }
 
-void	herdoc_handler(t_data *data)
+int	herdoc_handler(t_data *data)
 {
 	t_cmd	*temp;
 	t_file	*tfile_tmp;
@@ -106,11 +166,19 @@ void	herdoc_handler(t_data *data)
 			if (tfile_tmp->type == HEREDOC)
 			{
 				tfile_tmp->fd = create_fd_herdoc(data, tfile_tmp);
+				if (tfile_tmp->fd == -1)
+					return (1);
 				if (tfile_tmp->next && tfile_tmp->next->type == HEREDOC)
 					close(tfile_tmp->fd);
+				// if (tfile_tmp->next)
+				// 	close(tfile_tmp->fd);
+				// close(tfile_tmp->fd);
 			}
+			// if (!tfile_tmp->next)
+			// 	close(tfile_tmp->fd);
 			tfile_tmp = tfile_tmp->next;
 		}
 		temp = temp->next;
 	}
+	return (0);
 }

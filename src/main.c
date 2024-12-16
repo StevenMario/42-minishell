@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 14:42:21 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:20:38 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,13 @@ void	init_data(t_data *data, char *input, char **env)
 	init_token(data, input);
 	assigne_type_token(data);
 	init_cmd(data);
-	herdoc_handler(data);
+	if (herdoc_handler(data) == 1)
+	{
+		ft_putendl_fd("", 1);
+		// clear_fd(data);
+		clear_data_without_env(data);
+		return ;
+	}	
 	piping_cmd(data, backup);
 }
 
