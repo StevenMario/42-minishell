@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/16 16:31:47 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/16 19:25:07 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 			handling_signal_child();
 			if (cmd->rfile != NULL)
 				ft_browse_redir(cmd, mish);
-			// printf("Tonga eto\n");
-			clear_fd(mish);
 			status = exec_extern_cmd(env, cmd, mish);
+			printf("mclear\n");
+			clear_fd(mish);
 			clear_data(mish);
 			exit(status);
 		}
@@ -99,25 +99,25 @@ void	fill_new_cmd_arg(t_cmd *cmd, char *simple_cmd)
 	ft_free_str(str);
 }
 
-void	check_double_cmd(t_cmd *cmd)
-{
-	char	*simple_cmd;
-	int		i;
+// void	check_double_cmd(t_cmd *cmd)
+// {
+// 	char	*simple_cmd;
+// 	int		i;
 
-	i = 1;
-	if (cmd->arg && cmd->arg[0] && ft_count_char_in_str(cmd->arg[0], ' ') > 0)
-	{
-		simple_cmd = ft_strdup(cmd->arg[0]);
-		while (cmd->arg[i])
-		{
-			simple_cmd = ft_strjoin(simple_cmd, " ");
-			simple_cmd = ft_strjoin(simple_cmd, cmd->arg[i]);
-			i++;
-		}
-		fill_new_cmd_arg(cmd, simple_cmd);
-		free(simple_cmd);
-	}
-}
+// 	i = 1;
+// 	if (cmd->arg && cmd->arg[0] && ft_count_char_in_str(cmd->arg[0], ' ') > 0)
+// 	{
+// 		simple_cmd = ft_strdup(cmd->arg[0]);
+// 		while (cmd->arg[i])
+// 		{
+// 			simple_cmd = ft_strjoin(simple_cmd, " ");
+// 			simple_cmd = ft_strjoin(simple_cmd, cmd->arg[i]);
+// 			i++;
+// 		}
+// 		fill_new_cmd_arg(cmd, simple_cmd);
+// 		free(simple_cmd);
+// 	}
+// }
 
 void	piping_cmd(t_data *mish, int backup[2])
 {
@@ -134,12 +134,9 @@ void	piping_cmd(t_data *mish, int backup[2])
 	{
 		while (cmd)
 		{
-			// if (/*condition*/)
-			// 	close(backup[0]);
 			ft_exec_mltpl_cmd(cmd, mish, backup);
 			cmd = cmd->next;
 		}
-		printf("\nTafiditra\n");
 		clear_fd(mish);
 	}
 	cmd = mish->cmd;
