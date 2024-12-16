@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gestion_herdoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/16 16:46:30 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/16 20:38:25 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,12 +170,7 @@ int	herdoc_handler(t_data *data)
 					return (1);
 				if (tfile_tmp->next && tfile_tmp->next->type == HEREDOC)
 					close(tfile_tmp->fd);
-				// if (tfile_tmp->next)
-				// 	close(tfile_tmp->fd);
-				// close(tfile_tmp->fd);
 			}
-			// if (!tfile_tmp->next)
-			// 	close(tfile_tmp->fd);
 			tfile_tmp = tfile_tmp->next;
 		}
 		temp = temp->next;

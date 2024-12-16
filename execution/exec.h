@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/16 09:57:32 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/16 21:04:41 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	close_fds(int fd[2]);
 int		exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish);
 int		get_exit_status(int exit_status);
 int		ft_exec_if_builtins(t_cmd *cmd, t_data *mish, t_env *env);
-int		exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env);
+int		exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env,int backup[2]);
 int		ft_is_builtin(t_cmd *cmd);
 void	piping_cmd(t_data *mish, int backup[2]);
 void	clear_data_without_env(t_data *data);
@@ -43,9 +43,8 @@ void	handling_signal_child(void);
 int		is_signal(t_cmd *cmd);
 void	check_double_cmd(t_cmd *cmd);
 void	clear_data_without_env(t_data *data);
-int		exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env);
 void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2]);
-void	ft_exec_one_cmd(t_cmd *cmd, t_data *mish);
+void	ft_exec_one_cmd(t_cmd *cmd, t_data *mish,int backup[2]);
 void	ft_exec_mltpl_cmd(t_cmd *cmd, t_data *mish, int backup[2]);
 void	ft_perror(char *m_err);
 void	check_sg_for_nl(t_data *mish);

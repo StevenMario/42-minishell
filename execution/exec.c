@@ -6,16 +6,17 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/16 19:25:07 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/16 21:15:53 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
+int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env,int backup[2])
 {
 	int	status;
-
+	
+	close_fds(backup);
 	if (ft_is_builtin(cmd) == 1)
 		exec_redir_builtin(mish, cmd, env);
 	else
@@ -30,9 +31,8 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 			handling_signal_child();
 			if (cmd->rfile != NULL)
 				ft_browse_redir(cmd, mish);
-			status = exec_extern_cmd(env, cmd, mish);
-			printf("mclear\n");
 			clear_fd(mish);
+			status = exec_extern_cmd(env, cmd, mish);
 			clear_data(mish);
 			exit(status);
 		}
@@ -58,13 +58,18 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2])
 		rl_clear_history();
 		handling_signal_child();
 		if (cmd->next != NULL)
+		{
 			dup2(fds[1], STDOUT_FILENO);
+		}	
+			printf("cmd->rfile = %s\n",cmd->rfile->content);
 		close_fds(fds);
 		if (cmd->rfile != NULL)
+		{
 			ft_browse_redir(cmd, mish);
+		}	
+		clear_fd(mish);
 		status = exec_extern_cmd(mish->e_lst, cmd, mish);
 		// status = exec_simple_cmd(mish, cmd, mish->e_lst);
-		clear_fd(mish);
 		clear_data(mish);
 		exit(status);
 	}
@@ -129,11 +134,12 @@ void	piping_cmd(t_data *mish, int backup[2])
 	cmd = mish->cmd;
 	dup_std(backup);
 	if (count == 1)
-		ft_exec_one_cmd(cmd, mish);
+		ft_exec_one_cmd(cmd, mish,backup);
 	else
 	{
 		while (cmd)
 		{
+			// printf("cmd->rfile = %s\n",cmd->rfile->content);
 			ft_exec_mltpl_cmd(cmd, mish, backup);
 			cmd = cmd->next;
 		}
