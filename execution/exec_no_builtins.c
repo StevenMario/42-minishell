@@ -88,7 +88,7 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish)
 	path = NULL;
 	if (cmd->arg && cmd->arg[0])
 	{
-		path = get_path_for_exeve(cmd->arg[0],path,path_spl);
+		path = get_path_for_exeve(cmd->arg[0], path, path_spl);
 		if (path == NULL)
 		{
 			ft_cmd_nt_found(cmd, env_2d, path_spl, path);

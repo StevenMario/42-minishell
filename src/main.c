@@ -19,7 +19,7 @@ void	clear_data(t_data *data)
 	if (data)
 	{
 		if (data->cmd)
-			ft_lstclear_cmd(&data->cmd);	
+			ft_lstclear_cmd(&data->cmd);
 		if (data->token)
 			ft_lstclear_token(&data->token);
 		if (data->e_lst)
@@ -66,9 +66,10 @@ int	check_valid_input(char *input)
 
 	trim = ft_strtrim(input, " \n\t");
 	len = ft_strlen(trim);
-	if ((trim && trim[0] && trim[1] && trim[len - 1]) 
-			&& ((trim[len - 1] == '|' || trim[0] == '|') || (trim[len - 1] == '<'
-			|| (trim[0] == '<' && trim[1] != '<')) || (trim[len - 1] == '>' || trim[0] == '>')))
+	if ((trim && trim[0] && trim[1] && trim[len - 1]) && ((trim[len - 1] == '|'
+				|| trim[0] == '|') || (trim[len - 1] == '<' || (trim[0] == '<'
+					&& trim[1] != '<')) || (trim[len - 1] == '>'
+				|| trim[0] == '>')))
 	{
 		if (trim)
 			free(trim);

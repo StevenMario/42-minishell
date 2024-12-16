@@ -34,14 +34,14 @@ int	ft_is_builtin(t_cmd *cmd)
 	return (-1);
 }
 
-int	ft_exec_if_builtins(t_cmd *cmd, t_data	*mish, t_env *env)
+int	ft_exec_if_builtins(t_cmd *cmd, t_data *mish, t_env *env)
 {
 	int	status;
 
 	status = 0;
 	if (cmd && cmd->arg)
 	{
-			if (ft_strcmp(cmd->arg[0], "cd") == 0)
+		if (ft_strcmp(cmd->arg[0], "cd") == 0)
 			status = ft_cd(cmd, env);
 		else if (ft_strcmp(cmd->arg[0], "export") == 0)
 			status = ft_export(mish);

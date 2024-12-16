@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 14:50:33 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/16 07:57:15 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-void close_herdocc_fd(t_file *rfile)
-{
-	while (rfile)
-	{
-		if(rfile->type == HEREDOC)
-			close(rfile->fd);
-		rfile = rfile->next;
-	}
-}
 
 int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env)
 {

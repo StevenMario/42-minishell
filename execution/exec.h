@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 19:13:49 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/16 07:57:35 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	check_type_for_dup2(t_file *redir);
 void	check_error_redir(t_file *redir);
 void	ft_open_redir(t_file *redir);
 void	ft_browse_redir(t_cmd *cmd, t_data *data);
-char    *get_path_for_exeve(char *cmd_arg,char *path,char **path_spl);
+char	*get_path_for_exeve(char *cmd_arg, char *path, char **path_spl);
 int		ft_count_cmd(t_data *mish);
 void	dup_std(int r_fd[2]);
 int		ft_env_len(t_env *env);
@@ -51,10 +51,9 @@ void	ft_perror(char *m_err);
 void	check_sg_for_nl(t_data *mish);
 void	end_of_exec(t_data *mish, int backup[2]);
 void	close_herdocc_fd(t_file *rfile);
-void ft_cmd_nt_found(t_cmd *cmd, char **env_2d, char **path_spl, char *path);
+void	ft_cmd_nt_found(t_cmd *cmd, char **env_2d, char **path_spl, char *path);
 void	first_check_for_path(t_cmd *cmd, char *path, char **path_spl);
 char	*ft_test_access(char **path_spl, char *cmd);
-
-
+void	close_herdocc_fd(t_file *rfile);
 
 #endif

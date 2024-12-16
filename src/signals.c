@@ -32,8 +32,7 @@ void	exit_ctrl_d(char *input, t_data *data)
 	status = 0;
 	if (data)
 	{
-		status = data->exit_status;	
-		
+		status = data->exit_status;
 		clear_data(data);
 	}
 	if (input)

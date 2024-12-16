@@ -37,7 +37,7 @@ void	check_sg_for_nl(t_data *mish)
 void	end_of_exec(t_data *mish, int backup[2])
 {
 	t_cmd	*cmd;
-	t_file *rfile;
+	t_file	*rfile;
 
 	cmd = mish->cmd;
 	rfile = mish->cmd->rfile;
