@@ -3,44 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_no_builtins.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/17 15:31:07 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:42:10 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-char	*double_join_env(char *s1, char *s2)
-{
-	char	*r1;
-
-	if (!s1)
-		return (NULL);
-	r1 = ft_join_env(s1, "=");
-	if (!r1)
-		return (NULL);
-	r1 = ft_strjoin(r1, s2);
-	if (!r1)
-		return (NULL);
-	return (r1);
-}
-
-char	*double_join_env1(char *s1, char *s2)
-{
-	char	*r1;
-
-	if (!s1)
-		return (NULL);
-	r1 = ft_join_env(s1, "/");
-	if (!r1)
-		return (NULL);
-	r1 = ft_strjoin(r1, s2);
-	if (!r1)
-		return (NULL);
-	return (r1);
-}
 
 char	**env_to_2d(t_env *env)
 {
@@ -77,7 +47,7 @@ char	*ft_test_access(char **path_spl, char *cmd)
 	return (NULL);
 }
 
-int	check_error_execve(t_cmd *cmd, t_exv   exv, t_data *mish)
+int	check_error_execve(t_cmd *cmd, t_exv exv, t_data *mish)
 {
 	struct stat	sb;
 
@@ -91,66 +61,49 @@ int	check_error_execve(t_cmd *cmd, t_exv   exv, t_data *mish)
 	else if (S_ISDIR(sb.st_mode))
 	{
 		ft_error_writer(exv.path, " :Is a directory\n");
-		return(mish->exit_status = 126);
+		return (mish->exit_status = 126);
 	}
 	else if (access(exv.path, F_OK) == -1)
 	{
 		ft_error_writer(exv.path, " :no such file or directory\n");
-		return(mish->exit_status = 127);
+		return (mish->exit_status = 127);
 	}
 	else if (access(exv.path, X_OK) == -1)
 	{
 		ft_error_writer(exv.path, " :permission denied\n");
-		return(mish->exit_status = 127);
+		return (mish->exit_status = 127);
 	}
 	return (0);
 }
 
-void  init_exv(t_exv *exv)
+t_exv	init_exv(void)
 {
-	exv->env_2d = NULL;
-	exv->path_spl = NULL;
-	exv->path = NULL;
+	t_exv	exv;
+
+	exv.env_2d = NULL;
+	exv.path_spl = NULL;
+	exv.path = NULL;
+	return (exv);
 }
+
 int	exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish)
 {
-	// char	**env_2d;
-	// char	**path_spl;
-	// char	*path;
-	t_exv   exv;
+	t_exv	exv;
 	int		int_status;
 
-	init_exv(&exv);
+	exv = init_exv();
 	exv.env_2d = env_to_2d(env);
 	exv.path_spl = split_for_path(env);
 	if (cmd->arg && cmd->arg[0])
 	{
 		exv.path = get_path_for_exeve(cmd->arg[0], exv.path, exv.path_spl);
-		// if (exv.path == NULL)
-		// {
-		// 	ft_cmd_nt_found(cmd, exv.env_2d, exv.path_spl, exv.path);
-		// 	return (mish->exit_status = 127);
-		// }
-		// if (access(exv.path, F_OK) != 0)
-		
-		// 	ft_error_writer(cmd->arg[0], " :no such file or directory\n");
-		// 	ft_free_env2d_pathspl(exv.env_2d, exv.path_spl, exv.path);
-		// 	return (mish->exit_status = 127);
-		// }
-		// if (access(exv.path, X_OK) != 0)
-		// {
-		// 	ft_error_writer(cmd->arg[0], " :permission denied\n");
-		// 	ft_free_env2d_pathspl(exv.env_2d, exv.path_spl, exv.path);
-		// 	return (mish->exit_status = 126);
-		// }
 		int_status = check_error_execve(cmd, exv, mish);
 		if (int_status != 0)
 		{
 			ft_free_env2d_pathspl(exv.env_2d, exv.path_spl, exv.path);
 			return (int_status);
-		}	
+		}
 		execve(exv.path, cmd->arg, exv.env_2d);
-	
 	}
 	return (ft_free_env2d_pathspl(exv.env_2d, exv.path_spl, exv.path), 0);
 }

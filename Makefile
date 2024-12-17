@@ -11,6 +11,7 @@ SRC = 		./src/utils.c\
 			./init_token/init_utils2.c\
 			./init_cmd/init_cmd_utils.c\
 			./init_cmd/init_cmd_utils_2.c\
+			./init_cmd/init_cmd_utils_3.c\
 			./init_cmd/init_cmd.c\
 			./init_cmd/init_rfile.c\
 			./init_cmd/init_rfile_utils.c\
@@ -40,6 +41,7 @@ SRC = 		./src/utils.c\
 			./execution/exec_utils2.c\
 			./execution/exec_utils3.c\
 			./execution/exec_utils4.c\
+			./execution/exec_utils5.c\
 			./execution/exec_redir.c\
 			./src/main.c
 			

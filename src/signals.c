@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 10:32:04 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 14:30:10 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:10:02 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,18 @@ void	init_signals(void)
 	action.sa_flags = 0;
 	sigaction(SIGINT, &action, NULL);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	clear_data(t_data *data)
+{
+	if (data)
+	{
+		if (data->cmd)
+			ft_lstclear_cmd(&data->cmd);
+		if (data->token)
+			ft_lstclear_token(&data->token);
+		if (data->e_lst)
+			ft_lstclear_env(&data->e_lst);
+		free(data);
+	}
 }

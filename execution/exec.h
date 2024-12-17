@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/16 21:04:41 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:41:22 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	close_fds(int fd[2]);
 int		exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish);
 int		get_exit_status(int exit_status);
 int		ft_exec_if_builtins(t_cmd *cmd, t_data *mish, t_env *env);
-int		exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env,int backup[2]);
+int		exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env, int backup[2]);
 int		ft_is_builtin(t_cmd *cmd);
 void	piping_cmd(t_data *mish, int backup[2]);
 void	clear_data_without_env(t_data *data);
@@ -44,8 +44,7 @@ int		is_signal(t_cmd *cmd);
 void	check_double_cmd(t_cmd *cmd);
 void	clear_data_without_env(t_data *data);
 void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2]);
-void	ft_exec_one_cmd(t_cmd *cmd, t_data *mish,int backup[2]);
-void	ft_exec_mltpl_cmd(t_cmd *cmd, t_data *mish, int backup[2]);
+void	ft_exec_one_cmd(t_cmd *cmd, t_data *mish, int backup[2]);
 void	ft_perror(char *m_err);
 void	check_sg_for_nl(t_data *mish);
 void	end_of_exec(t_data *mish, int backup[2]);
@@ -55,5 +54,10 @@ void	first_check_for_path(t_cmd *cmd, char *path, char **path_spl);
 char	*ft_test_access(char **path_spl, char *cmd);
 void	close_herdocc_fd(t_file *rfile);
 void	clear_signals(t_data *mish);
+void	ft_pre_execv(t_cmd *cmd, t_data *mish, int status, t_env *env);
+void	ft_exit_w_st(t_data *mish, int status);
+void	loop_exec_pcmd(int backup[2], t_data *mish);
+char	*double_join_env(char *s1, char *s2);
+char	*double_join_env1(char *s1, char *s2);
 
 #endif

@@ -3,25 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 09:48:29 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 07:46:56 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:34:16 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	ft_exec_one_cmd(t_cmd *cmd, t_data *mish,int backup[2])
+void	ft_exec_one_cmd(t_cmd *cmd, t_data *mish, int backup[2])
 {
-	exec_simple_cmd(mish, cmd, mish->e_lst,backup);
+	exec_simple_cmd(mish, cmd, mish->e_lst, backup);
 	if (mish->exit_status == 130 || mish->exit_status == 131)
 		write(1, "\n", 2);
-}
-
-void	ft_exec_mltpl_cmd(t_cmd *cmd, t_data *mish, int backup[2])
-{
-	set_pipe_cmd(mish, cmd, backup);
 }
 
 void	check_sg_for_nl(t_data *mish)
@@ -34,26 +29,20 @@ void	check_sg_for_nl(t_data *mish)
 
 void	end_of_exec(t_data *mish, int backup[2])
 {
-	// t_cmd	*cmd;
-	// t_file	*rfile;
-
-	// cmd = mish->cmd;
-	// rfile = mish->cmd->rfile;
-	// if (mish->cmd->arg == NULL)
-	// {
-	// 	while (cmd)
-	// 	{
-	// 		while (rfile)
-	// 		{
-	// 			if (rfile->type == HEREDOC)
-	// 				close(rfile->fd);
-	// 			rfile = rfile->next;
-	// 		}
-	// 		cmd = cmd->next;
-	// 	}
-	// }
 	check_sg_for_nl(mish);
 	ft_restore_std(backup);
 	close_fds(backup);
 	clear_data_without_env(mish);
+}
+
+void	loop_exec_pcmd(int backup[2], t_data *mish)
+{
+	t_cmd	*cmd;
+
+	cmd = mish->cmd;
+	while (cmd)
+	{
+		set_pipe_cmd(mish, cmd, backup);
+		cmd = cmd->next;
+	}
 }

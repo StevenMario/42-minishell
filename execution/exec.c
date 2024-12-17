@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 12:20:19 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:35:49 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env,int backup[2])
+int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env, int backup[2])
 {
 	int	status;
-	
+
+	status = 0;
 	close_fds(backup);
 	if (ft_is_builtin(cmd) == 1)
 		exec_redir_builtin(mish, cmd, env);
@@ -26,17 +27,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env,int backup[2])
 			ft_perror("fork");
 		handling_signal_parents();
 		if (cmd->pid == 0)
-		{
-			rl_clear_history();
-			handling_signal_child();
-			if (cmd->rfile != NULL)
-				ft_browse_redir(cmd, mish);
-			clear_fd(mish);
-			status = exec_extern_cmd(env, cmd, mish);
-			clear_data(mish);
-			exit(status);
-		}
-		// close_herdocc_fd(cmd->rfile);
+			ft_pre_execv(cmd, mish, status, env);
 		clear_fd(mish);
 		waitpid(cmd->pid, &mish->exit_status, 0);
 		mish->exit_status = get_exit_status(mish->exit_status);
@@ -51,19 +42,12 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2])
 
 	if (pipe(fds) == -1)
 		ft_perror("pipe");
-
 	if (cmd->rfile != NULL)
 		ft_browse_redir(cmd, mish);
-	// clear_fd(mish);
 	cmd->pid = fork();
 	handling_signal_parents();
 	if (cmd->pid == 0)
 	{
-		// printf("%d--> %s\n", getpid(), cmd->arg[0]);
-		// printf("\n======================\n");
-		// clear_fd(mish);
-		// close_herdocc_fd(cmd->rfile);
-		// printf("\n======================\n");
 		close_fds(backup);
 		rl_clear_history();
 		handling_signal_child();
@@ -71,12 +55,10 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2])
 			dup2(fds[1], STDOUT_FILENO);
 		close_fds(fds);
 		status = exec_simple_cmd(mish, cmd, mish->e_lst, backup);
-		clear_data(mish);
-		exit(status);
+		ft_exit_w_st(mish, status);
 	}
 	else
 	{
-		// clear_fd(mish);
 		dup2(fds[0], STDIN_FILENO);
 		close_fds(fds);
 	}
@@ -106,46 +88,18 @@ void	fill_new_cmd_arg(t_cmd *cmd, char *simple_cmd)
 	ft_free_str(str);
 }
 
-// void	check_double_cmd(t_cmd *cmd)
-// {
-// 	char	*simple_cmd;
-// 	int		i;
-
-// 	i = 1;
-// 	if (cmd->arg && cmd->arg[0] && ft_count_char_in_str(cmd->arg[0], ' ') > 0)
-// 	{
-// 		simple_cmd = ft_strdup(cmd->arg[0]);
-// 		while (cmd->arg[i])
-// 		{
-// 			simple_cmd = ft_strjoin(simple_cmd, " ");
-// 			simple_cmd = ft_strjoin(simple_cmd, cmd->arg[i]);
-// 			i++;
-// 		}
-// 		fill_new_cmd_arg(cmd, simple_cmd);
-// 		free(simple_cmd);
-// 	}
-// }
-
 void	piping_cmd(t_data *mish, int backup[2])
 {
 	t_cmd	*cmd;
 	int		count;
 
-	cmd = NULL;
 	count = ft_count_cmd(mish);
 	cmd = mish->cmd;
 	dup_std(backup);
 	if (count == 1)
-		return (ft_exec_one_cmd(cmd, mish,backup));
+		return (ft_exec_one_cmd(cmd, mish, backup));
 	else
-	{
-		while (cmd)
-		{
-			ft_exec_mltpl_cmd(cmd, mish, backup);
-			cmd = cmd->next;
-		}
-		// clear_fd(mish);
-	}
+		loop_exec_pcmd(backup, mish);
 	cmd = mish->cmd;
 	while (cmd != NULL)
 	{

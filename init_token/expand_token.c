@@ -107,7 +107,7 @@ char	**check_var(char *str, t_env *e_list)
 	}
 	if (expand.res)
 	{
-		expand.res_trim = ft_strtrim(expand.res," ");
+		expand.res_trim = ft_strtrim(expand.res, " ");
 		free(expand.res);
 		expand.expd_val = ft_split_expand(expand.res_trim);
 		free(expand.res_trim);

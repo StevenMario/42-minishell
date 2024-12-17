@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 07:58:07 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/12 11:39:43 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:56:41 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static long long	ft_atll(char *arg)
 		res = (res * 10) + (*arg - '0');
 		arg++;
 	}
-	return (res * sign);
+	return ((res * sign) % 256);
 }
 
 static int	ft_arg_is_overlong(char *arg) // 1=isn't overlong, 0=is overlong

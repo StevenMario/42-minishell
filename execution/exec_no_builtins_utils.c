@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 08:01:36 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/12 09:07:15 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:18:27 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,18 @@ char	*ft_join_env(char *s1, char *s2)
 void	ft_free_env2d_pathspl(char **env_2d, char **path_spl, char *path)
 {
 	if (env_2d)
+	{
 		ft_free_str(env_2d);
+		env_2d = NULL;
+	}
 	if (path_spl)
+	{
 		ft_free_str(path_spl);
+		path_spl = NULL;
+	}
 	if (path)
+	{
 		free(path);
+		path = NULL;
+	}
 }

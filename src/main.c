@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 14:15:39 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:10:21 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,18 @@
 
 int		g_status;
 
-void	clear_data(t_data *data)
-{
-	if (data)
-	{
-		if (data->cmd)
-			ft_lstclear_cmd(&data->cmd);
-		if (data->token)
-			ft_lstclear_token(&data->token);
-		if (data->e_lst)
-			ft_lstclear_env(&data->e_lst);
-		free(data);
-	}
-}
-void print_token(t_token *token)
+void	print_token(t_token *token)
 {
 	while (token)
 	{
-		printf("token = %s\n",token->content);
+		printf("token = %s\n", token->content);
 		token = token->next;
 	}
 }
 
 int	check_last_token(t_token *token)
 {
-	t_token *temp;
+	t_token	*temp;
 
 	temp = token;
 	while (temp && temp->next)
@@ -47,7 +34,7 @@ int	check_last_token(t_token *token)
 	{
 		ft_error_writer("syntax error near unexpected token",
 			" :pipe or redir\n");
-		return(1);
+		return (1);
 	}
 	return (0);
 }
@@ -62,13 +49,11 @@ void	init_data(t_data *data, char *input, char **env)
 	if (data && !data->e_lst)
 		data->e_lst = fill_env_in_t_env(env);
 	init_token(data, input);
-	// print_token(data->token);
 	assigne_type_token(data);
 	init_cmd(data);
 	if (herdoc_handler(data) == 1)
 	{
 		ft_putendl_fd("", 1);
-		// clear_fd(data);
 		clear_data_without_env(data);
 		return ;
 	}
@@ -95,7 +80,6 @@ t_data	*data_initialized(void)
 	data->exit_status = 0;
 	return (data);
 }
-
 
 int	main(int argc, char **argv, char **env)
 {

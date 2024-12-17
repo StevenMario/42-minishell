@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:42:11 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 09:31:29 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:05:42 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	*fill_temp_with_redire(char *temp, int check, int *i, char *input)
 		temp = ft_strdup("<");
 	if (check == TRUNC)
 		temp = ft_strdup(">");
-	if (input[*i] && input[(*i) + 1])
+	if (input[*i])
 		(*i)++;
 	return (temp);
 }

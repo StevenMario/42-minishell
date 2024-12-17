@@ -6,15 +6,15 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:10:14 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/16 13:45:42 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/17 17:00:19 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CMD_H
 # define CMD_H
 
-# include "../src/minishell.h"
 # include "../init_token/token.h"
+# include "../src/minishell.h"
 
 int		get_nb_arg(t_token *token);
 int		check_dollar(char *str);
@@ -35,5 +35,10 @@ t_cmd	*ft_initcmd(void);
 void	init_cmd(t_data *data);
 void	ft_free_and_close_fd(char *input, int fd);
 void	clear_fd(t_data *data);
+void	exit_status(t_data *data);
+void	sig_heredoc(int signum);
+void	ft_clear_sigint(t_data *data, int fd);
+void	fill_herdocc_fd(t_file *rfile, t_data *data, int fd[2]);
+void	ft_pre_herdoc(t_data *data, t_file *rfile, int fd[2]);
 
 #endif
