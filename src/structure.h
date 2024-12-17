@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/17 13:03:15 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:09:06 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,12 @@ typedef struct s_pre_expd
 	int		in_d_quote;
 	char	*res_trim;
 }	t_pre_expd;
+
+typedef struct s_exv
+{
+	char	**env_2d;
+	char	**path_spl;
+	char	*path;/* data */
+}	t_exv;
+
 #endif

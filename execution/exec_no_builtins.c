@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/17 14:45:22 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 15:31:07 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,37 +77,80 @@ char	*ft_test_access(char **path_spl, char *cmd)
 	return (NULL);
 }
 
+int	check_error_execve(t_cmd *cmd, t_exv   exv, t_data *mish)
+{
+	struct stat	sb;
+
+	sb.st_mode = 0;
+	lstat(exv.path, &sb);
+	if (exv.path == NULL)
+	{
+		ft_cmd_nt_found(cmd, exv.env_2d, exv.path_spl, exv.path);
+		return (mish->exit_status = 127);
+	}
+	else if (S_ISDIR(sb.st_mode))
+	{
+		ft_error_writer(exv.path, " :Is a directory\n");
+		return(mish->exit_status = 126);
+	}
+	else if (access(exv.path, F_OK) == -1)
+	{
+		ft_error_writer(exv.path, " :no such file or directory\n");
+		return(mish->exit_status = 127);
+	}
+	else if (access(exv.path, X_OK) == -1)
+	{
+		ft_error_writer(exv.path, " :permission denied\n");
+		return(mish->exit_status = 127);
+	}
+	return (0);
+}
+
+void  init_exv(t_exv *exv)
+{
+	exv->env_2d = NULL;
+	exv->path_spl = NULL;
+	exv->path = NULL;
+}
 int	exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish)
 {
-	char	**env_2d;
-	char	**path_spl;
-	char	*path;
+	// char	**env_2d;
+	// char	**path_spl;
+	// char	*path;
+	t_exv   exv;
+	int		int_status;
 
-	env_2d = env_to_2d(env);
-	path_spl = split_for_path(env);
-	path = NULL;
+	init_exv(&exv);
+	exv.env_2d = env_to_2d(env);
+	exv.path_spl = split_for_path(env);
 	if (cmd->arg && cmd->arg[0])
 	{
-		path = get_path_for_exeve(cmd->arg[0], path, path_spl);
-		if (path == NULL)
+		exv.path = get_path_for_exeve(cmd->arg[0], exv.path, exv.path_spl);
+		// if (exv.path == NULL)
+		// {
+		// 	ft_cmd_nt_found(cmd, exv.env_2d, exv.path_spl, exv.path);
+		// 	return (mish->exit_status = 127);
+		// }
+		// if (access(exv.path, F_OK) != 0)
+		
+		// 	ft_error_writer(cmd->arg[0], " :no such file or directory\n");
+		// 	ft_free_env2d_pathspl(exv.env_2d, exv.path_spl, exv.path);
+		// 	return (mish->exit_status = 127);
+		// }
+		// if (access(exv.path, X_OK) != 0)
+		// {
+		// 	ft_error_writer(cmd->arg[0], " :permission denied\n");
+		// 	ft_free_env2d_pathspl(exv.env_2d, exv.path_spl, exv.path);
+		// 	return (mish->exit_status = 126);
+		// }
+		int_status = check_error_execve(cmd, exv, mish);
+		if (int_status != 0)
 		{
-			ft_cmd_nt_found(cmd, env_2d, path_spl, path);
-			return (mish->exit_status = 127);
-		}
-		if (access(path, F_OK) != 0)
-		{
-			ft_error_writer(cmd->arg[0], " :no such file or directory\n");
-			ft_free_env2d_pathspl(env_2d, path_spl, path);
-			return (mish->exit_status = 127);
-		}
-		if (access(path, X_OK) != 0)
-		{
-			ft_error_writer(cmd->arg[0], " :permission denied\n");
-			ft_free_env2d_pathspl(env_2d, path_spl, path);
-			return (mish->exit_status = 126);
-		}
-		execve(path, cmd->arg, env_2d);
+			ft_free_env2d_pathspl(exv.env_2d, exv.path_spl, exv.path);
+			return (int_status);
+		}	
+		execve(exv.path, cmd->arg, exv.env_2d);
 	
 	}
-	return (ft_free_env2d_pathspl(env_2d, path_spl, path), 0);
+	return (ft_free_env2d_pathspl(exv.env_2d, exv.path_spl, exv.path), 0);
 }
