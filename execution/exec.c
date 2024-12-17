@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 10:39:21 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 11:09:28 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2])
 		if (cmd->next != NULL)
 			dup2(fds[1], STDOUT_FILENO);
 		close_fds(fds);
-		status = exec_extern_cmd(mish->e_lst, cmd, mish);
+		status = exec_simple_cmd(mish, cmd, mish->e_lst, backup);
 		clear_data(mish);
 		exit(status);
 	}
