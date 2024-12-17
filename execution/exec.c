@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 09:44:13 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 10:39:21 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,18 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env,int backup[2])
 		if (cmd->pid == -1)
 			ft_perror("fork");
 		handling_signal_parents();
-		if (cmd->rfile != NULL)
-			ft_browse_redir(cmd, mish);
-		clear_fd(mish);
 		if (cmd->pid == 0)
 		{
-			// clear_fd(mish);
 			rl_clear_history();
 			handling_signal_child();
-		
+			if (cmd->rfile != NULL)
+				ft_browse_redir(cmd, mish);
+			clear_fd(mish);
 			status = exec_extern_cmd(env, cmd, mish);
 			clear_data(mish);
 			exit(status);
 		}
-		// clear_fd(mish);
+		clear_fd(mish);
 		waitpid(cmd->pid, &mish->exit_status, 0);
 		mish->exit_status = get_exit_status(mish->exit_status);
 	}

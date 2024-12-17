@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/17 10:08:39 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 10:28:26 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int	create_fd_herdoc(t_data *data, t_file *rfile)
 	signal(SIGINT, SIG_IGN);
 	if (pid == 0)
 	{
+		// printf("%d--> %s\n", getpid(), rfile->content);
 		close(fd[0]);
 		rl_clear_history();
 		signal(SIGINT, sig_heredoc);
