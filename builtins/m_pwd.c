@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:54:36 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 11:21:28 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 12:38:47 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 int	ft_pwd(t_env *env)
 {
 	char	env_cwd[1024];
+	char	*home;
 
-	(void)env;
+	// (void)env;
+	home = NULL;
 	getcwd(env_cwd, 1024);
-	printf ("%s\n", env_cwd);
-	
+	if ((access(env_cwd, F_OK) == 0))
+		printf ("%s\n", env_cwd);
 	return (0);
 }
