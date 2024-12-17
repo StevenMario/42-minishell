@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/16 20:38:25 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 10:08:39 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	fill_herdocc_fd(t_file *rfile, t_data *data, int fd[2])
 			break;
 		if (input == NULL || ft_strcmp(input, rfile->content) == 0)
 		{
-			ft_free_and_close_fd(input, fd[1]);
+			clear_fd(data);
+			ft_free_and_close_fd(input,fd[1]);
 			close_herdocc_fd(data->cmd->rfile);
 			exit_status(data);
 		}
@@ -97,9 +98,10 @@ void clear_fd(t_data *data)
 	t_file *rfile;
 
 	cmd = data->cmd;
-	rfile = data->cmd->rfile;
 	while (cmd)
 	{
+		rfile = cmd->rfile;
+		// printf("cmd->arg[0] = %s\n",cmd->arg[0]);
 		close_herdocc_fd(rfile);
 		cmd = cmd->next;
 	}
@@ -107,11 +109,9 @@ void clear_fd(t_data *data)
 
 int	create_fd_herdoc(t_data *data, t_file *rfile)
 {
-	// int	ret;
 	int	pid;
 	int	fd[2];
 
-	// ret = 0;
 	if (pipe(fd) == -1)
 	{
 		perror("pipe");
@@ -134,8 +134,8 @@ int	create_fd_herdoc(t_data *data, t_file *rfile)
 			clear_data(data);
 			exit(130);
 		}
-		close_herdocc_fd(data->cmd->rfile);
 		close(fd[1]);
+		close_herdocc_fd(data->cmd->rfile);
 		exit(0);
 	}
 	waitpid(pid, &data->exit_status, 0);
@@ -146,9 +146,6 @@ int	create_fd_herdoc(t_data *data, t_file *rfile)
 		return (-1);
 	}	
 	close(fd[1]);
-	// dup2(fd[0], ret);
-	// close(fd[0]);
-	// return (ret);
 	return (fd[0]);
 }
 

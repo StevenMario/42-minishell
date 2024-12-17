@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/16 19:53:26 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 07:45:46 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish)
 			return (mish->exit_status = 126);
 		}
 		execve(path, cmd->arg, env_2d);
+	
 	}
 	return (ft_free_env2d_pathspl(env_2d, path_spl, path), 0);
 }

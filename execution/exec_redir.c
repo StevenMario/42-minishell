@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:29:10 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/16 21:04:18 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 09:30:06 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,12 @@ void	ft_browse_redir(t_cmd *cmd, t_data *data)
 			exit(EXIT_FAILURE);
 		}
 		check_type_for_dup2(redir);
+
+		// printf("++++++++++++\n");
+		// printf("redire->content = %s\n",redir->content);
 		close(redir->fd);
+		// printf("++++++++++++\n");
+
 		redir = redir->next;
 	}
 }
