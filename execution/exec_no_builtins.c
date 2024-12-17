@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/17 07:45:46 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:45:22 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,12 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish)
 		if (path == NULL)
 		{
 			ft_cmd_nt_found(cmd, env_2d, path_spl, path);
+			return (mish->exit_status = 127);
+		}
+		if (access(path, F_OK) != 0)
+		{
+			ft_error_writer(cmd->arg[0], " :no such file or directory\n");
+			ft_free_env2d_pathspl(env_2d, path_spl, path);
 			return (mish->exit_status = 127);
 		}
 		if (access(path, X_OK) != 0)
