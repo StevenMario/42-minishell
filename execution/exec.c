@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 11:09:28 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 12:20:19 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	exec_simple_cmd(t_data *mish, t_cmd *cmd, t_env *env,int backup[2])
 			clear_data(mish);
 			exit(status);
 		}
+		// close_herdocc_fd(cmd->rfile);
 		clear_fd(mish);
 		waitpid(cmd->pid, &mish->exit_status, 0);
 		mish->exit_status = get_exit_status(mish->exit_status);
@@ -135,7 +136,7 @@ void	piping_cmd(t_data *mish, int backup[2])
 	cmd = mish->cmd;
 	dup_std(backup);
 	if (count == 1)
-		ft_exec_one_cmd(cmd, mish,backup);
+		return (ft_exec_one_cmd(cmd, mish,backup));
 	else
 	{
 		while (cmd)
