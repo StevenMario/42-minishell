@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 09:45:12 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:03:09 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ void	fill_data(t_data *data, char *temp)
 		if (data->token == NULL)
 			data->token = ft_double_lstnew_token(expand_val[i]);
 		else
-			ft_lstadd_back_token(&data->token,
-				ft_double_lstnew_token(expand_val[i]));
+			ft_lstadd_back_token(&data->token,ft_double_lstnew_token(expand_val[i]));
 	}
 	if (expand_val)
 		ft_free_str(expand_val);
@@ -100,7 +99,11 @@ char	*fill_temp(char *input, int *i)
 			(*i)++;
 	}
 	else if (check_redir_type(check))
+	{
 		temp = fill_temp_with_redire(temp, check, i, input);
+		if (input[*i])
+			(*i)++;
+	}	
 	else
 	{
 		j = *i;

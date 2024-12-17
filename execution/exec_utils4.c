@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:04:24 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 09:28:42 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:17:05 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	close_herdocc_fd(t_file *rfile)
 	{
 		if (rfile->type == HEREDOC)
 		{
-			// printf("rfile->fd = %s\n",rfile->content);
-			close(rfile->fd);
+			if (rfile->fd)
+				close(rfile->fd);
 		}	
 		rfile = rfile->next;
 	}

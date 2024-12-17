@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/16 15:20:38 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/17 14:15:39 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,30 @@ void	clear_data(t_data *data)
 		free(data);
 	}
 }
+void print_token(t_token *token)
+{
+	while (token)
+	{
+		printf("token = %s\n",token->content);
+		token = token->next;
+	}
+}
+
+int	check_last_token(t_token *token)
+{
+	t_token *temp;
+
+	temp = token;
+	while (temp && temp->next)
+		temp = temp->next;
+	if (check_redir_type(temp->type) == 1)
+	{
+		ft_error_writer("syntax error near unexpected token",
+			" :pipe or redir\n");
+		return(1);
+	}
+	return (0);
+}
 
 void	init_data(t_data *data, char *input, char **env)
 {
@@ -38,6 +62,7 @@ void	init_data(t_data *data, char *input, char **env)
 	if (data && !data->e_lst)
 		data->e_lst = fill_env_in_t_env(env);
 	init_token(data, input);
+	// print_token(data->token);
 	assigne_type_token(data);
 	init_cmd(data);
 	if (herdoc_handler(data) == 1)
@@ -46,7 +71,13 @@ void	init_data(t_data *data, char *input, char **env)
 		// clear_fd(data);
 		clear_data_without_env(data);
 		return ;
-	}	
+	}
+	if (check_last_token(data->token) == 1)
+	{
+		clear_fd(data);
+		clear_data_without_env(data);
+		return ;
+	}
 	piping_cmd(data, backup);
 }
 
@@ -65,28 +96,6 @@ t_data	*data_initialized(void)
 	return (data);
 }
 
-int	check_valid_input(char *input)
-{
-	char	*trim;
-	int		len;
-
-	trim = ft_strtrim(input, " \n\t");
-	len = ft_strlen(trim);
-	if ((trim && trim[0] && trim[1] && trim[len - 1]) && ((trim[len - 1] == '|'
-				|| trim[0] == '|') || (trim[len - 1] == '<' || (trim[0] == '<'
-					&& trim[1] != '<')) || (trim[len - 1] == '>'
-				|| trim[0] == '>')))
-	{
-		if (trim)
-			free(trim);
-		ft_error_writer("syntax error near unexpected token",
-			" :pipe or redir\n");
-		return (1);
-	}
-	if (trim)
-		free(trim);
-	return (0);
-}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -105,8 +114,7 @@ int	main(int argc, char **argv, char **env)
 		input = readline("minishell$: ");
 		if (input == NULL)
 			exit_ctrl_d(input, data);
-		if (input && *input != '\0' && !check_valid_input(input)
-			&& !check_pair_quote(input))
+		if (input && *input != '\0' && !check_pair_quote(input))
 			init_data(data, input, env);
 		g_status = data->exit_status;
 		clear_data_without_env(data);

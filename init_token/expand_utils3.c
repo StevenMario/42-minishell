@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 09:38:57 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 19:11:41 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:03:37 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_pre_expd	init_t_expand(void)
 
 	expand.expd_val = NULL;
 	expand.res = NULL;
+	expand.res_trim = NULL;
 	expand.in_d_quote = 0;
 	expand.in_s_quote = 0;
 	return (expand);
