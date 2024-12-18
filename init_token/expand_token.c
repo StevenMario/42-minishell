@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 20:09:06 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:25:50 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	**ft_split_expand(char *res)
 	{
 		if (chech_in_quote(res[i], &expand.in_d_quote, &expand.in_s_quote))
 		{
-			expand.res = char_append(expand.res, res[i]);
+			// expand.reechos = char_append(expand.res, res[i]);
 		}
 		else if (expand.in_d_quote || expand.in_s_quote)
 			expand.res = char_append(expand.res, res[i]);
@@ -78,6 +78,8 @@ char	*get_res(char *str, int *i, t_env *e_lst, char *expd_res)
 	if (str[*i] == '$')
 		(*i)++;
 	val_exp = get_val(str, i, e_lst);
+	val_exp = add_d_quote(val_exp);
+	printf("val_exp = %s\n",val_exp);
 	if (!expd_res && val_exp)
 		expd_res = ft_strdup(val_exp);
 	else if (val_exp && expd_res)
@@ -87,22 +89,18 @@ char	*get_res(char *str, int *i, t_env *e_lst, char *expd_res)
 	return (expd_res);
 }
 
-char **add_d_quote(char **str)
+char *add_d_quote(char *str)
 {
 	char *tmp;
-	int i;
 
-	i = -1;
 	tmp = NULL;
-	while (str[++i])
-	{
-		tmp = ft_join_env("\"",str[i]);
-		tmp = ft_strjoin(tmp, "\"");
-		free(str[i]);
-		str[i] = ft_strdup(tmp);
-	}
+	tmp = ft_join_env("\"",str);
+	tmp = ft_strjoin(tmp, "\"");
+	free(str);
+	str = ft_strdup(tmp);
 	return (str);
 }
+
 
 char	**check_var(char *str, t_env *e_list)
 {
@@ -139,8 +137,8 @@ char	**check_var(char *str, t_env *e_list)
 		// expand.res_trim = ft_strdup(tmp);
 		// }
 		printf("expand res = %s\n",expand.res_trim);
+		// expand.expd_val = add_d_quote(expand.expd_val);
 		expand.expd_val = ft_split_expand(expand.res_trim);
-		expand.expd_val = add_d_quote(expand.expd_val);
 
 		free(expand.res_trim);
 	}

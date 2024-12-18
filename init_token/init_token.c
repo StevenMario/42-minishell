@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 19:52:45 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:13:09 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ void	fill_data(t_data *data, char *temp)
 	if (ft_count_char_in_str(trim_temp, '$'))
 	{
 		expand_val = check_var(trim_temp, data->e_lst);
-				i = -1;
+		i = -1;
 		while (expand_val[++i])
 			printf("expand.expd_val = [%s]\n",expand_val[0]);
-		expand_val = remove_quote_expand_val(expand_val);
+		// expand_val = remove_quote_expand_val(expand_val);
 	}
 	else
 		expand_val = remove_quote_no_expand(trim_temp);

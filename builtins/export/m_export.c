@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   m_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/16 08:36:50 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:02:51 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtins.h"
 
-static int	ft_var_is_val(int c)
+int	ft_var_is_val(int c)
 {
 	if (ft_isdigit(c) == 1)
 		return (1);

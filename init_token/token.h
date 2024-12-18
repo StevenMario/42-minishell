@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:55:08 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 10:15:33 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:26:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char		*fill_temp_with_redire(char *temp, int check, int *i, char *input);
 void		ft_is_arg_or_cmd(t_token *temp);
 void		fill_data(t_data *data, char *temp);
 void		init_token(t_data *data, char *input);
+char *add_d_quote(char *str);
 void		assigne_type_token(t_data *data);
 void		ft_lstadd_back_token(t_token **lst, t_token *new);
 void		ft_lstclear_token(t_token **lst);
