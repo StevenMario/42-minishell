@@ -3,16 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/18 15:15:02 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:33:32 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int		g_status;
+
+int check_valid_token(char *content,int i)
+{
+	if ((content && content[i] && content[i + 1] && content[i + 2])
+		&& ((content[i] == '>' && content[i + 1] == '>' && content[i + 2] == '>')
+		|| (content[i] == '<' && content[i + 1] == '<' && content[i + 2] == '<')
+		|| (content[i] == '<' && content[i + 1] == '>')
+		|| (content[i] == '>' && content[i + 1] == '<')))
+	{
+		ft_error_writer("syntax error near unexpected token",
+			" :pipe or redir\n");
+		return (1);
+	}	
+	return(0);
+}
+
+int loop_check_valid_token(char *str)
+{
+	int i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (check_valid_token(str,i))
+		{
+			free(str);
+			return (1);
+		}
+	}
+	return (0);
+}
 
 int	check_last_token(t_token *token)
 {
@@ -36,7 +67,6 @@ void	init_data(t_data *data, char *input, char **env)
 {
 	int	backup[2];
 
-	add_history(input);
 	data->token = NULL;
 	data->env = env;
 	if (data && !data->e_lst)
@@ -89,9 +119,11 @@ int	main(int argc, char **argv, char **env)
 		init_signals();
 		data__token_cmd_initialized(data);
 		input = readline("minishell$: ");
+		add_history(input);
 		if (input == NULL)
 			exit_ctrl_d(input, data);
-		if (input && *input != '\0' && !check_pair_quote(input))
+		if (input && *input != '\0' && !check_pair_quote(input)
+		&& !loop_check_valid_token(input))
 			init_data(data, input, env);
 		g_status = data->exit_status;
 		clear_data_without_env(data);

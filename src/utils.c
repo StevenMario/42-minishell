@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 10:34:45 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 13:51:56 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:37:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	check_pair_quote(char *input)
 	if (check_dquote != 0 || check_squote != 0)
 	{
 		printf("minishell: unclosed quote detected\n");
+		free(input);
 		return (1);
 	}
 	return (0);

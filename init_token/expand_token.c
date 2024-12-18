@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 17:18:20 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:09:06 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ char	**ft_split_expand(char *res)
 	t_pre_expd	expand;
 	int			i;
 
-	printf("expand.res_trim = [%s]\n",res);
-		expand = init_t_expand();
+	expand = init_t_expand();
 	i = 0;
 	while (res[i])
 	{
 		if (chech_in_quote(res[i], &expand.in_d_quote, &expand.in_s_quote))
 		{
+			expand.res = char_append(expand.res, res[i]);
 		}
 		else if (expand.in_d_quote || expand.in_s_quote)
 			expand.res = char_append(expand.res, res[i]);
@@ -108,10 +108,10 @@ char	**check_var(char *str, t_env *e_list)
 {
 	int			i;
 	t_pre_expd	expand;
-	char	**tmp;
+	// char	**tmp;
 
 	i = 0;
-	tmp = NULL;
+	// tmp = NULL;
 	expand = init_t_expand();
 	while (str[i])
 	{
@@ -138,9 +138,10 @@ char	**check_var(char *str, t_env *e_list)
 		// free(expand.res_trim);
 		// expand.res_trim = ft_strdup(tmp);
 		// }
-		// printf("expand.res_trim = [%s]\n",expand.res_trim);
+		printf("expand res = %s\n",expand.res_trim);
 		expand.expd_val = ft_split_expand(expand.res_trim);
-		// expand.expd_val = add_d_quote(expand.expd_val);
+		expand.expd_val = add_d_quote(expand.expd_val);
+
 		free(expand.res_trim);
 	}
 	return (expand.expd_val);
