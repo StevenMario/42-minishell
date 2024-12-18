@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 21:25:50 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 21:34:57 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ char	*get_res(char *str, int *i, t_env *e_lst, char *expd_res)
 	if (str[*i] == '$')
 		(*i)++;
 	val_exp = get_val(str, i, e_lst);
-	val_exp = add_d_quote(val_exp);
-	printf("val_exp = %s\n",val_exp);
+	if (val_exp)
+		val_exp = add_d_quote(val_exp);
 	if (!expd_res && val_exp)
 		expd_res = ft_strdup(val_exp);
 	else if (val_exp && expd_res)
@@ -98,6 +98,7 @@ char *add_d_quote(char *str)
 	tmp = ft_strjoin(tmp, "\"");
 	free(str);
 	str = ft_strdup(tmp);
+	free(tmp);
 	return (str);
 }
 
@@ -106,10 +107,8 @@ char	**check_var(char *str, t_env *e_list)
 {
 	int			i;
 	t_pre_expd	expand;
-	// char	**tmp;
 
 	i = 0;
-	// tmp = NULL;
 	expand = init_t_expand();
 	while (str[i])
 	{
@@ -125,21 +124,9 @@ char	**check_var(char *str, t_env *e_list)
 	}
 	if (expand.res)
 	{
-		
 		expand.res_trim = ft_strtrim(expand.res, " ");
 		free(expand.res);
-		// if (!ft_count_char_in_str(expand.res_trim,'=')
-		// 	&& expand.res_trim[0] != '"')
-		// {
-		// tmp = ft_join_env("\"",expand.res_trim);
-		// tmp = ft_strjoin(tmp, "\"");
-		// free(expand.res_trim);
-		// expand.res_trim = ft_strdup(tmp);
-		// }
-		printf("expand res = %s\n",expand.res_trim);
-		// expand.expd_val = add_d_quote(expand.expd_val);
 		expand.expd_val = ft_split_expand(expand.res_trim);
-
 		free(expand.res_trim);
 	}
 	return (expand.expd_val);
