@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 09:48:29 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 16:34:16 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 10:20:46 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	loop_exec_pcmd(int backup[2], t_data *mish)
 
 	cmd = mish->cmd;
 	while (cmd)
-	{
+	{		
 		set_pipe_cmd(mish, cmd, backup);
 		cmd = cmd->next;
 	}

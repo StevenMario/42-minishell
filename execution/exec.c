@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 16:35:49 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:12:12 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2])
 
 	if (pipe(fds) == -1)
 		ft_perror("pipe");
-	if (cmd->rfile != NULL)
-		ft_browse_redir(cmd, mish);
+	// if (cmd->rfile != NULL)
+	// 	ft_browse_redir(cmd, mish);
 	cmd->pid = fork();
 	handling_signal_parents();
 	if (cmd->pid == 0)
@@ -51,6 +51,11 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2])
 		close_fds(backup);
 		rl_clear_history();
 		handling_signal_child();
+		// printf("pid = %d ,cmd->[0] = %s\n",getpid(), cmd->arg[0]);
+		if (cmd->rfile != NULL)
+		{
+			ft_browse_redir2(cmd, mish,fds);
+		}	
 		if (cmd->next != NULL)
 			dup2(fds[1], STDOUT_FILENO);
 		close_fds(fds);
@@ -64,29 +69,29 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2])
 	}
 }
 
-void	fill_new_cmd_arg(t_cmd *cmd, char *simple_cmd)
-{
-	char	**str;
-	int		len;
-	int		i;
+// void	fill_new_cmd_arg(t_cmd *cmd, char *simple_cmd)
+// {
+// 	char	**str;
+// 	int		len;
+// 	int		i;
 
-	(void)cmd;
-	i = -1;
-	str = NULL;
-	len = 0;
-	str = ft_split(simple_cmd, ' ');
-	if (cmd->arg)
-		ft_free_str(cmd->arg);
-	while (str[len])
-		len++;
-	cmd->arg = malloc(sizeof(char *) * (len + 1));
-	cmd->arg[len] = NULL;
-	while (str[++i])
-	{
-		cmd->arg[i] = ft_strdup(str[i]);
-	}
-	ft_free_str(str);
-}
+// 	(void)cmd;
+// 	i = -1;
+// 	str = NULL;
+// 	len = 0;
+// 	str = ft_split(simple_cmd, ' ');
+// 	if (cmd->arg)
+// 		ft_free_str(cmd->arg);
+// 	while (str[len])
+// 		len++;
+// 	cmd->arg = malloc(sizeof(char *) * (len + 1));
+// 	cmd->arg[len] = NULL;
+// 	while (str[++i])
+// 	{
+// 		cmd->arg[i] = ft_strdup(str[i]);
+// 	}
+// 	ft_free_str(str);
+// }
 
 void	piping_cmd(t_data *mish, int backup[2])
 {
@@ -100,6 +105,7 @@ void	piping_cmd(t_data *mish, int backup[2])
 		return (ft_exec_one_cmd(cmd, mish, backup));
 	else
 		loop_exec_pcmd(backup, mish);
+	clear_fd(mish);
 	cmd = mish->cmd;
 	while (cmd != NULL)
 	{
@@ -110,5 +116,6 @@ void	piping_cmd(t_data *mish, int backup[2])
 			mish->exit_status = get_exit_status(cmd->status);
 		cmd = cmd->next;
 	}
+	// printf
 	end_of_exec(mish, backup);
 }

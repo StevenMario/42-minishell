@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 07:58:07 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 14:56:41 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:42:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	ft_exit(t_data *mish, t_cmd *cmd)
 		else if (count_av(str) > 2)
 		{
 			mish->exit_status = 1;
-			return (handling_exit_error(str[i], ":too many arguments\n", 2), 2);
+			return (handling_exit_error(str[i], ":too many arguments\n", 2), 1);
 		}
 		status = ft_atll(str[i]);
 	}

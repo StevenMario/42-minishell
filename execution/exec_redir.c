@@ -3,29 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:29:10 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 15:44:35 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 10:46:49 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env)
+int	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env)
 {
 	int	backup[2];
 
 	if (cmd->rfile != NULL)
 	{
 		dup_std(backup);
-		ft_browse_redir(cmd, mish);
+		if (ft_browse_builtins(cmd, mish) == 1)
+		{
+			close_fds(backup);
+			return (1);
+		}	
 		mish->exit_status = ft_exec_if_builtins(cmd, mish, env);
 		ft_restore_std(backup);
 		close_fds(backup);
 	}
 	else
 		mish->exit_status = ft_exec_if_builtins(cmd, mish, env);
+	return (0);
 }
 
 void	check_type_for_dup2(t_file *redir)
@@ -44,16 +49,19 @@ void	check_error_redir(t_file *redir)
 	{
 		(void)sb;
 		if (access(redir->content, F_OK) == -1)
-			printf("mish: %s: No such file or directory\n", redir->content);
+			printf("mish: %s:No such file or directory\n", redir->content);
 		else if (access(redir->content, W_OK | R_OK | X_OK) == -1)
 			printf("mish: %s: Permission denied\n", redir->content);
 	}
 	else
 	{
 		lstat(redir->content, &sb);
-		if (S_ISDIR(sb.st_mode))
+		if (access(redir->content, F_OK) == -1)
+			ft_error_writer(redir->content, " :no such file or directory\n");
+			// printf("mish: %s:No such file or directory\n", redir->content);
+		else if (S_ISDIR(sb.st_mode))
 			printf("mish: %s: is a directory\n", redir->content);
-		if (access(redir->content, W_OK | R_OK | X_OK) == -1)
+		else if (access(redir->content, W_OK | R_OK | X_OK) == -1)
 			printf("mish: %s: Permission denied\n", redir->content);
 	}
 }
@@ -68,24 +76,4 @@ void	ft_open_redir(t_file *redir)
 		redir->fd = open(redir->content, O_RDONLY);
 	else
 		return ;
-}
-
-void	ft_browse_redir(t_cmd *cmd, t_data *data)
-{
-	t_file	*redir;
-
-	redir = cmd->rfile;
-	while (redir)
-	{
-		ft_open_redir(redir);
-		if (redir->fd == -1)
-		{
-			check_error_redir(redir);
-			clear_data(data);
-			exit(EXIT_FAILURE);
-		}
-		check_type_for_dup2(redir);
-		close(redir->fd);
-		redir = redir->next;
-	}
 }

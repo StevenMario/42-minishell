@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:06:15 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/17 15:00:16 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 08:32:19 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@ void	print_exit_and_free(t_data *mish, int status)
 {
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	clear_data(mish);
-	printf("status = %d\n", status);
 	exit(status);
 }

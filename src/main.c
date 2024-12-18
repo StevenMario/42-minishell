@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 17:10:21 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 11:50:15 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	check_last_token(t_token *token)
 	t_token	*temp;
 
 	temp = token;
+	if (!token)
+		return (1);
 	while (temp && temp->next)
 		temp = temp->next;
 	if (check_redir_type(temp->type) == 1)
