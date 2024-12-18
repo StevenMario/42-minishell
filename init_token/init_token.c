@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 12:02:47 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:12:55 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,23 @@ char	**remove_quote_no_expand(char *trim_temp)
 	return (expand_val);
 }
 
+char **remove_quote_expand_val(char **str)
+{
+	int i;
+	char *tmp;
+
+	i = -1;
+	while (str[++i])
+	{
+		tmp = NULL;
+		tmp = remove_quote_process(str[i]);
+		free(str[i]);
+		str[i] = ft_strdup(tmp);
+		free(tmp);
+	}
+	return (str);
+}
+
 void	fill_data(t_data *data, char *temp)
 {
 	char	*trim_temp;
@@ -56,7 +73,10 @@ void	fill_data(t_data *data, char *temp)
 	expand_val = NULL;
 	trim_temp = ft_strtrim(temp, " \n\t");
 	if (ft_count_char_in_str(trim_temp, '$'))
+	{
 		expand_val = check_var(trim_temp, data->e_lst);
+		expand_val = remove_quote_expand_val(expand_val);
+	}
 	else
 		expand_val = remove_quote_no_expand(trim_temp);
 	free(trim_temp);
