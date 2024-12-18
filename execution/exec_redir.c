@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:29:10 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/18 12:31:39 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:12:34 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@ int	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env)
 
 void	check_type_for_dup2(t_file *redir)
 {
-	printf("eto = %s\n", redir->content);
-	if (redir->type == TRUNC || redir->type == APPEND)
-		dup2(redir->fd, STDOUT_FILENO);
-	else
+	if (redir->type == INPUT || redir->type == HEREDOC)
 		dup2(redir->fd, STDIN_FILENO);
+	else
+		dup2(redir->fd, STDOUT_FILENO);
 }
 
 void	check_error_redir(t_file *redir)
@@ -50,19 +49,19 @@ void	check_error_redir(t_file *redir)
 	{
 		(void)sb;
 		if (access(redir->content, F_OK) == -1)
-			printf("mish: %s:No such file or directory\n", redir->content);
+			perror(redir->content);
 		else if (access(redir->content, W_OK | R_OK | X_OK) == -1)
-			printf("mish: %s: Permission denied\n", redir->content);
+			perror(redir->content);
 	}
 	else
 	{
 		lstat(redir->content, &sb);
 		if (access(redir->content, F_OK) == -1)
-			ft_error_writer(redir->content, " :no such file or directory\n");
+			perror(redir->content);
 		else if (S_ISDIR(sb.st_mode))
-			printf("mish: %s: is a directory\n", redir->content);
+			perror(redir->content);
 		else if (access(redir->content, W_OK | R_OK | X_OK) == -1)
-			printf("mish: %s: Permission denied\n", redir->content);
+			perror(redir->content);
 	}
 }
 

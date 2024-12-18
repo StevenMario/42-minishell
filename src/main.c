@@ -3,25 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/18 11:50:15 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:15:02 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int		g_status;
-
-void	print_token(t_token *token)
-{
-	while (token)
-	{
-		printf("token = %s\n", token->content);
-		token = token->next;
-	}
-}
 
 int	check_last_token(t_token *token)
 {
