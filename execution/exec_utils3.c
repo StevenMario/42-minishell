@@ -41,7 +41,7 @@ void	loop_exec_pcmd(int backup[2], t_data *mish)
 
 	cmd = mish->cmd;
 	while (cmd)
-	{		
+	{
 		set_pipe_cmd(mish, cmd, backup);
 		cmd = cmd->next;
 	}

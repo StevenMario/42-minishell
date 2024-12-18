@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:29:10 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/18 10:46:49 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:31:39 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env)
 		{
 			close_fds(backup);
 			return (1);
-		}	
+		}
 		mish->exit_status = ft_exec_if_builtins(cmd, mish, env);
 		ft_restore_std(backup);
 		close_fds(backup);
@@ -35,6 +35,7 @@ int	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env)
 
 void	check_type_for_dup2(t_file *redir)
 {
+	printf("eto = %s\n", redir->content);
 	if (redir->type == TRUNC || redir->type == APPEND)
 		dup2(redir->fd, STDOUT_FILENO);
 	else
@@ -58,7 +59,6 @@ void	check_error_redir(t_file *redir)
 		lstat(redir->content, &sb);
 		if (access(redir->content, F_OK) == -1)
 			ft_error_writer(redir->content, " :no such file or directory\n");
-			// printf("mish: %s:No such file or directory\n", redir->content);
 		else if (S_ISDIR(sb.st_mode))
 			printf("mish: %s: is a directory\n", redir->content);
 		else if (access(redir->content, W_OK | R_OK | X_OK) == -1)

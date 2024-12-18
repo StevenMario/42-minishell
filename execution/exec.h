@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 10:16:03 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:00:59 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include "../src/minishell.h"
 # include "../src/structure.h"
 
-int	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env);
+int		exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env);
 void	check_type_for_dup2(t_file *redir);
 void	check_error_redir(t_file *redir);
 void	ft_open_redir(t_file *redir);
-void	ft_browse_redir2(t_cmd *cmd, t_data *data,int fds[2]);
-int     ft_browse_builtins(t_cmd *cmd, t_data *data);
+void	ft_browse_redir2(t_cmd *cmd, t_data *data, int fds[2]);
+int		ft_browse_builtins(t_cmd *cmd, t_data *data);
 void	ft_browse_redir(t_cmd *cmd, t_data *data);
 char	*get_path_for_exeve(char *cmd_arg, char *path, char **path_spl);
 int		ft_count_cmd(t_data *mish);
@@ -61,5 +61,6 @@ void	ft_exit_w_st(t_data *mish, int status);
 void	loop_exec_pcmd(int backup[2], t_data *mish);
 char	*double_join_env(char *s1, char *s2);
 char	*double_join_env1(char *s1, char *s2);
+int		check_arg_point(t_exv exv, t_cmd *cmd);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 08:37:33 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:02:47 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,11 @@ char	**remove_quote_no_expand(char *trim_temp)
 {
 	char	**expand_val;
 
-	// if (ft_strcmp(trim_temp, "\"\"") == 0 || ft_strcmp(trim_temp, "''") == 0)
-	// {
-	// 	expand_val = malloc(sizeof(char *) * 2);
-	// 	if (!expand_val)
-	// 		return (NULL);
-	// 	expand_val[0] = ft_strdup(" ");
-	// 	expand_val[1] = NULL;
-	// }
-	// else
-	// {
-		expand_val = malloc(sizeof(char *) * 2);
-		if (!expand_val)
-			return (NULL);
-		expand_val[0] = remove_quote_process(trim_temp);
-		expand_val[1] = NULL;
-	// }
+	expand_val = malloc(sizeof(char *) * 2);
+	if (!expand_val)
+		return (NULL);
+	expand_val[0] = remove_quote_process(trim_temp);
+	expand_val[1] = NULL;
 	return (expand_val);
 }
 

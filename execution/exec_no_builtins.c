@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_no_builtins.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 10:30:46 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 12:00:26 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,23 +86,6 @@ t_exv	init_exv(void)
 	return (exv);
 }
 
-int check_arg_point(t_exv	exv, t_cmd *cmd)
-{
-	if (ft_strcmp(cmd->arg[0],".") == 0
-	&& !cmd->arg[1])
-	{
-		ft_error_writer(cmd->arg[0], " :filename argument required\n");
-		return (ft_free_env2d_pathspl(exv.env_2d, exv.path_spl, exv.path),2);
-	}
-	else if ((ft_strcmp(cmd->arg[0],".") == 0
-	&& cmd->arg[1]))
-	{
-		ft_error_writer(cmd->arg[1], " :file not found\n");
-		return (ft_free_env2d_pathspl(exv.env_2d, exv.path_spl, exv.path),1);
-	}
-	return (0);
-}
-
 int	exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish)
 {
 	t_exv	exv;
@@ -114,7 +97,7 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish)
 	if (cmd->arg && cmd->arg[0])
 	{
 		exv.path = get_path_for_exeve(cmd->arg[0], exv.path, exv.path_spl);
-		int_status = check_arg_point(exv,cmd);
+		int_status = check_arg_point(exv, cmd);
 		if (int_status != 0)
 			return (int_status);
 		else
