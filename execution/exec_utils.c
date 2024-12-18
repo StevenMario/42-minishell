@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 20:11:23 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/18 11:34:40 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:39:28 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,18 @@ int	ft_count_cmd(t_data *mish)
 
 int	get_exit_status(int exit_status)
 {
+	int	termsig;
+
+	termsig = 0;
 	if (WIFEXITED(exit_status))
 		exit_status = WEXITSTATUS(exit_status);
-	else if (WIFSIGNALED(exit_status) && exit_status != 1)
-		exit_status = WTERMSIG(exit_status) + 128;
+	else if (WIFSIGNALED(exit_status))
+	{
+		termsig = WTERMSIG(exit_status);
+		if (termsig == 2 || termsig == 3)
+			exit_status = termsig + 128;
+		else
+			exit_status = termsig;
+	}	
 	return (exit_status);
 }
