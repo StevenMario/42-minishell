@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 07:58:07 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/18 11:42:00 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:53:17 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ static int	ft_arg_is_overlong(char *arg) // 1=isn't overlong, 0=is overlong
 	return (1);
 }
 
-static void	handling_exit_error(char *arg, char *m_err, int code_failure)
+void	handling_exit_error(char *arg, char *m_err, int code_failure)
 {
+	ft_putstr_fd("exit\n", 2);
 	ft_putstr_fd("minishell: exit: ", 2);
 	if (code_failure == 1)
 		ft_putstr_fd(arg, 2);
@@ -82,23 +83,21 @@ int	ft_exit(t_data *mish, t_cmd *cmd)
 	long long	status;
 	int			i;
 	char		**str;
+	char		*strim;
 
 	status = mish->exit_status;
+	strim = NULL;
 	i = 1;
 	if (cmd->arg[i] != NULL)
 	{
 		str = cmd->arg;
-		if (ft_arg_is_nbr(str[i]) == 1 || ft_arg_is_overlong(str[i]) == 0)
-		{
-			handling_exit_error(str[i], ": numeric argument required\n", 1);
-			clear_data(mish);
-			exit(2);
-		}
+		strim = ft_strtrim(str[i], " \t");
+		if (ft_arg_is_nbr(strim) == 1 || ft_arg_is_overlong(strim) == 0)
+			ft_do_error(strim, str[i], mish);
 		else if (count_av(str) > 2)
-		{
-			mish->exit_status = 1;
-			return (handling_exit_error(str[i], ":too many arguments\n", 2), 1);
-		}
+			ft_do_error2(mish, str[i]);
+		if (strim)
+			free(strim);
 		status = ft_atll(str[i]);
 	}
 	if (count_av((cmd->arg)) == 2 || count_av((cmd->arg)) == 1)

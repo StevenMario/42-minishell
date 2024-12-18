@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:21:53 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/12 08:53:13 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:52:29 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	print_exit_and_free(t_data *mish, int status);
 int		ft_exit(t_data *mish, t_cmd *cmd);
 int		take_len_bf_char(char *str, char c);
 void	ft_free_kval(char *k, char *val);
-void	ft_swap(t_env *sort);
+void	ft_swap(t_env *sort);void ft_do_error(char *strim, char *arg, t_data *mish);
+void	handling_exit_error(char *arg, char *m_err, int code_failure);
+int	ft_do_error2(t_data *mish, char *arg);
 
 #endif
