@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 17:07:41 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:18:20 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ char	**check_var(char *str, t_env *e_list)
 		// }
 		// printf("expand.res_trim = [%s]\n",expand.res_trim);
 		expand.expd_val = ft_split_expand(expand.res_trim);
-		expand.expd_val = add_d_quote(expand.expd_val);
+		// expand.expd_val = add_d_quote(expand.expd_val);
 		free(expand.res_trim);
 	}
 	return (expand.expd_val);
