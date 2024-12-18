@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 12:27:09 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/18 15:13:07 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 20:45:43 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	set_pipe_cmd(t_data *mish, t_cmd *cmd, int backup[2])
 			dup2(fds[1], STDOUT_FILENO);
 		close_fds(fds);
 		status = exec_simple_cmd(mish, cmd, mish->e_lst, backup);
+		clear_fd(mish);
 		ft_exit_w_st(mish, status);
 	}
 	else
