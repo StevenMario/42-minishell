@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 12:00:26 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:29:30 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	*ft_test_access(char **path_spl, char *cmd)
 	int		i;
 
 	i = -1;
+	if (path_spl == NULL)
+		return (NULL);
 	while (path_spl[++i])
 	{
 		join_path = double_join_env1(path_spl[i], cmd);

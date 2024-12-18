@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:29:31 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/13 19:16:30 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/18 15:32:21 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static int	iof_flag(char *echo)
 
 	i = 0;
 	if (echo[0] != '-')
+		return (0);
+	if (echo[1] != 'n')
 		return (0);
 	i++;
 	while (echo[i])
