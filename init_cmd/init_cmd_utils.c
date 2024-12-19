@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:18:13 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 14:35:01 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:01:08 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	get_nb_arg(t_token *token)
 	nb_token = 0;
 	while (token && token->type != PIPE)
 	{
-		if (token->type == ARG || token->type == CMD)
+		if (token->content
+			&& (token->type == ARG || token->type == CMD))
 			nb_token++;
 		token = token->next;
 	}

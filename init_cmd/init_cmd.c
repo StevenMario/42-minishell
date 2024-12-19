@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/19 19:41:05 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 20:03:33 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ void	get_cmd(t_token *token, t_cmd *cmd)
 				if (!cmd->arg)
 					return ;
 				cmd->arg[get_nb_arg(token)] = NULL;
-				printf("get_nb_arg(token) = %d\n",get_nb_arg(token));
 			}
 			cmd->arg[i] = ft_strdup(token->content);
-			printf("cmd->arg[i] = %s   i = [%d]\n",cmd->arg[i],i);
 			i++;
 		}
 		else
