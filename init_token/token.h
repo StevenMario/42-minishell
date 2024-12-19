@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 10:55:08 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/19 08:28:09 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/19 21:20:00 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char		*add_d_quote(char *str);
 void		assigne_type_token(t_data *data);
 void		ft_lstadd_back_token(t_token **lst, t_token *new);
 void		ft_lstclear_token(t_token **lst);
-t_token		*ft_double_lstnew_token(char *content);
+t_token	*ft_double_lstnew_token(char *content,int status);
 char		*check_exit_status(char *check_status);
 char		*char_append(char *str, char c);
 char		*get_val(char *str, int *i, t_env *e_list);

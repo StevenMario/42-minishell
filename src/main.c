@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/19 19:18:58 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 21:25:29 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ void	init_data(t_data *data, char *input, char **env)
 		data->e_lst = fill_env_in_t_env(env);
 	init_token(data, input);
 	assigne_type_token(data);  
-	process_token(data->token);
-	// print_token(data->token);
+	// process_token(data->token);
+	print_token(data->token);
 	init_cmd(data);
 	if (herdoc_handler(data) == 1)
 	{
