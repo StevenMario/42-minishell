@@ -1,4 +1,0 @@
-token = > token->type = 5
-token = | token->type = 2
-token = echo token->type = 0
-token = wtf token->type = 1
