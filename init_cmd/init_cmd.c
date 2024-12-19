@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/13 11:16:35 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:07:25 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	get_cmd(t_token *token, t_cmd *cmd)
 
 	if (token && token->type != PIPE)
 	{
-		if (token->type == ARG || token->type == CMD)
+		if (token->type == ARG || token->type == CMD || 
+		(check_redir_type(token->type) && token->in_quote == 1))
 		{
 			if (!cmd->arg)
 			{

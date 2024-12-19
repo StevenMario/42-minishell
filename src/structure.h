@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/19 09:27:31 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:40:02 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_file
 {
 	char			*content;
 	int				type;
+	int				in_quote;
 	int				fd;
 	struct s_file	*next;
 }					t_file;
@@ -47,6 +48,7 @@ typedef struct s_token
 {
 	char			*content;
 	int				type;
+	int				in_quote;
 	struct s_token	*prev;
 	struct s_token	*next;
 }					t_token;

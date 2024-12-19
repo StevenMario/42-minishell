@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gestion_herdoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/19 08:24:10 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:45:37 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,8 @@ void	expand_herdocc(char *input, int flag, t_env *e_lst, int *fd)
 void	fill_herdocc_fd(t_file *rfile, t_data *data, int fd[2])
 {
 	char	*input;
-	int		flag;
 
-	flag = 0;
 	input = NULL;
-	if (ft_count_char_in_str(rfile->content, '"')
-		|| ft_count_char_in_str(rfile->content, '\''))
-	{
-		rfile->content = remove_quote_process(rfile->content);
-		flag = 1;
-	}
 	while (1)
 	{
 		input = readline(">>");
@@ -72,7 +64,7 @@ void	fill_herdocc_fd(t_file *rfile, t_data *data, int fd[2])
 			close_herdocc_fd(data->cmd->rfile);
 			exit_status(data);
 		}
-		expand_herdocc(input, flag, data->e_lst, fd);
+		expand_herdocc(input, rfile->in_quote, data->e_lst, fd);
 	}
 }
 

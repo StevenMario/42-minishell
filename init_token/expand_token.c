@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/19 08:27:19 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:33:15 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	**ft_split_expand(char *res)
 	{
 		if (chech_in_quote(res[i], &expand.in_d_quote, &expand.in_s_quote))
 		{
+			expand.res = char_append(expand.res, res[i]);
 		}
 		else if (expand.in_d_quote || expand.in_s_quote)
 			expand.res = char_append(expand.res, res[i]);

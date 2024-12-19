@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_rfile.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 19:19:49 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/16 08:02:48 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:42:08 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ int	init_file(t_token *token, t_cmd *cmd)
 	{
 		temp = ft_init_file();
 		temp->content = ft_strdup(token->next->content);
+		if (token->next->in_quote == 1)
+			temp->in_quote = 1;
+		else
+			temp->in_quote = 0;
 		if (token->type == INPUT)
 			temp->type = INPUT;
 		else if (token->type == HEREDOC)
