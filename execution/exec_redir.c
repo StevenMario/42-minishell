@@ -6,26 +6,31 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:29:10 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/19 12:11:51 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:16:25 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env)
+int	exec_redir_builtin(t_data *mish, t_cmd *cmd, t_env *env)
 {
 	int	backup[2];
 
 	if (cmd->rfile != NULL)
 	{
 		dup_std(backup);
-		ft_browse_redir(cmd, mish);
+		if (ft_browse_builtins(cmd, mish) == 1)
+		{
+			close_fds(backup);
+			return (1);
+		}
 		mish->exit_status = ft_exec_if_builtins(cmd, mish, env);
 		ft_restore_std(backup);
 		close_fds(backup);
 	}
 	else
 		mish->exit_status = ft_exec_if_builtins(cmd, mish, env);
+	return (0);
 }
 
 void	check_type_for_dup2(t_file *redir)
