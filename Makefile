@@ -3,6 +3,7 @@ CC = cc -g
 LIBFT_N = libft.a
 CFLAGS = -Wall -Werror -Wextra
 SRC = 		./src/utils.c\
+			./src/utils2.c\
 			./src/signals.c\
 			./init_token/init_token.c\
 			./init_token/token_utils.c\

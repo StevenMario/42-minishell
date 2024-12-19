@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gestion_herdoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 09:59:58 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 20:41:18 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 08:24:10 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ int	create_fd_herdoc(t_data *data, t_file *rfile)
 	handling_signal_parents();
 	if (pid == 0)
 	{
-		
 		close(fd[0]);
 		ft_pre_herdoc(data, rfile, fd);
 		exit(0);
@@ -102,8 +101,7 @@ int	create_fd_herdoc(t_data *data, t_file *rfile)
 		close_fds(fd);
 		return (-1);
 	}
-	close(fd[1]);
-	return (fd[0]);
+	return (close(fd[1]), fd[0]);
 }
 
 int	herdoc_handler(t_data *data)

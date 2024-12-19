@@ -3,47 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/18 20:33:32 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 09:05:06 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int		g_status;
-
-int check_valid_token(char *content,int i)
-{
-	if ((content && content[i] && content[i + 1] && content[i + 2])
-		&& ((content[i] == '>' && content[i + 1] == '>' && content[i + 2] == '>')
-		|| (content[i] == '<' && content[i + 1] == '<' && content[i + 2] == '<')
-		|| (content[i] == '<' && content[i + 1] == '>')
-		|| (content[i] == '>' && content[i + 1] == '<')))
-	{
-		ft_error_writer("syntax error near unexpected token",
-			" :pipe or redir\n");
-		return (1);
-	}	
-	return(0);
-}
-
-int loop_check_valid_token(char *str)
-{
-	int i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (check_valid_token(str,i))
-		{
-			free(str);
-			return (1);
-		}
-	}
-	return (0);
-}
 
 int	check_last_token(t_token *token)
 {
@@ -123,7 +92,7 @@ int	main(int argc, char **argv, char **env)
 		if (input == NULL)
 			exit_ctrl_d(input, data);
 		if (input && *input != '\0' && !check_pair_quote(input)
-		&& !loop_check_valid_token(input))
+			&& !loop_check_valid_token(input, &data->exit_status))
 			init_data(data, input, env);
 		g_status = data->exit_status;
 		clear_data_without_env(data);

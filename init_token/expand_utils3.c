@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 09:38:57 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/17 13:03:37 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 08:27:35 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,17 @@ int	is_special_char(char c)
 	if (ft_isalnum(c) || c == '_' || c == '?')
 		return (1);
 	return (0);
+}
+
+char	*add_d_quote(char *str)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	tmp = ft_join_env("\"", str);
+	tmp = ft_strjoin(tmp, "\"");
+	free(str);
+	str = ft_strdup(tmp);
+	free(tmp);
+	return (str);
 }

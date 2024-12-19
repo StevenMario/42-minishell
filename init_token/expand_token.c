@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 21:34:57 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 08:27:19 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	**ft_split_expand(char *res)
 	{
 		if (chech_in_quote(res[i], &expand.in_d_quote, &expand.in_s_quote))
 		{
-			// expand.reechos = char_append(expand.res, res[i]);
 		}
 		else if (expand.in_d_quote || expand.in_s_quote)
 			expand.res = char_append(expand.res, res[i]);
@@ -88,20 +87,6 @@ char	*get_res(char *str, int *i, t_env *e_lst, char *expd_res)
 		free(val_exp);
 	return (expd_res);
 }
-
-char *add_d_quote(char *str)
-{
-	char *tmp;
-
-	tmp = NULL;
-	tmp = ft_join_env("\"",str);
-	tmp = ft_strjoin(tmp, "\"");
-	free(str);
-	str = ft_strdup(tmp);
-	free(tmp);
-	return (str);
-}
-
 
 char	**check_var(char *str, t_env *e_list)
 {

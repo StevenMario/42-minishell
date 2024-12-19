@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_pwd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/08 13:54:36 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/18 19:34:30 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 08:17:29 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int	ft_pwd(t_env *env)
 {
 	char	env_cwd[1024];
-	// char	*home;
 
 	(void)env;
-	// home = NULL;
 	getcwd(env_cwd, 1024);
 	if ((access(env_cwd, F_OK) == 0))
 		printf ("%s\n", env_cwd);

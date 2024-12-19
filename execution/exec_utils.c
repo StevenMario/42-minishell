@@ -59,6 +59,6 @@ int	get_exit_status(int exit_status)
 			exit_status = termsig + 128;
 		else
 			exit_status = termsig;
-	}	
+	}
 	return (exit_status);
 }

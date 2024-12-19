@@ -52,12 +52,10 @@ void	fill_data(t_data *data, char *temp)
 	char	**expand_val;
 	int		i;
 
-
 	expand_val = NULL;
 	trim_temp = ft_strtrim(temp, " \n\t");
 	if (ft_count_char_in_str(trim_temp, '$'))
 		expand_val = check_var(trim_temp, data->e_lst);
-
 	else
 		expand_val = remove_quote_no_expand(trim_temp);
 	free(trim_temp);

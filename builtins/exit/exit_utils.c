@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 16:06:15 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/18 16:52:50 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/19 08:18:08 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_exit_and_free(t_data *mish, int status)
 	exit(status);
 }
 
-void ft_do_error(char *strim, char *arg, t_data *mish)
+void	ft_do_error(char *strim, char *arg, t_data *mish)
 {
 	handling_exit_error(arg, ": numeric argument required\n", 1);
 	clear_data(mish);
