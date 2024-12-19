@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 08:14:13 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/19 13:07:37 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:45:55 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	check_valid_token(char *content, int i)
 	}
 	return (0);
 }
+
+
 
 int	loop_check_valid_token(char *str, int *exit_status)
 {

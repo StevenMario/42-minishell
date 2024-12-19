@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 10:32:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/19 13:07:25 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:27:31 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	new_cmd(t_token *token, t_cmd **cmd)
 	new_cmd = NULL;
 	while (token)
 	{
+		
 		if (token->next && (token->type == FILES || token->type == DELIMITER))
 			token = token->next;
 		if (new_cmd == NULL)

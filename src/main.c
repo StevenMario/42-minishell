@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/19 13:46:06 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:09:49 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,6 @@ int	check_last_token(t_token *token)
 	return (0);
 }
 
-void print_token(t_token *token)
-{
-	t_token *tmp;
-
-	tmp = token;
-	while (tmp)
-	{
-		printf("tmp->content = %s   || in_q = %d\n",tmp->content,tmp->in_quote);
-		tmp = tmp->next;
-	}
-}
 
 void process_token(t_token *token)
 {
@@ -72,7 +61,7 @@ void	init_data(t_data *data, char *input, char **env)
 		data->e_lst = fill_env_in_t_env(env);
 	init_token(data, input);
 	process_token(data->token);
-	// print_token(data->token);
+
 	assigne_type_token(data);
 	init_cmd(data);
 	if (herdoc_handler(data) == 1)
@@ -123,8 +112,7 @@ int	main(int argc, char **argv, char **env)
 		add_history(input);
 		if (input == NULL)
 			exit_ctrl_d(input, data);
-		if (input && *input != '\0' && !check_pair_quote(input)
-			&& !loop_check_valid_token(input, &data->exit_status))
+		if (input && *input != '\0' && !check_pair_quote(input))
 			init_data(data, input, env);
 		g_status = data->exit_status;
 		clear_data_without_env(data);
