@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 13:00:35 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 15:29:30 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:49:18 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,7 @@ int	check_error_execve(t_cmd *cmd, t_exv exv, t_data *mish)
 		return (mish->exit_status = 126);
 	}
 	else if (access(exv.path, F_OK) == -1)
-	{
-		ft_error_writer(exv.path, " :no such file or directory\n");
-		return (mish->exit_status = 127);
-	}
+		return (mish->exit_status = check_errno(exv.path));
 	else if (access(exv.path, X_OK) == -1)
 	{
 		ft_error_writer(exv.path, " :permission denied\n");
@@ -98,7 +95,10 @@ int	exec_extern_cmd(t_env *env, t_cmd *cmd, t_data *mish)
 	exv.path_spl = split_for_path(env);
 	if (cmd->arg && cmd->arg[0])
 	{
-		exv.path = get_path_for_exeve(cmd->arg[0], exv.path, exv.path_spl);
+		if (exv.path_spl == NULL)
+			exv.path = ft_path_n(env, cmd->arg[0]);
+		else
+			exv.path = get_path_for_exeve(cmd->arg[0], exv.path, exv.path_spl);
 		int_status = check_arg_point(exv, cmd);
 		if (int_status != 0)
 			return (int_status);

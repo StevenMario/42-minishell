@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 07:53:06 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 12:00:59 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:49:13 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,7 @@ void	loop_exec_pcmd(int backup[2], t_data *mish);
 char	*double_join_env(char *s1, char *s2);
 char	*double_join_env1(char *s1, char *s2);
 int		check_arg_point(t_exv exv, t_cmd *cmd);
+char	*ft_path_n(t_env *env, char *cmd);
+int		check_errno(char *path);
 
 #endif

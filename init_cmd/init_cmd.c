@@ -24,8 +24,8 @@ void	get_cmd(t_token *token, t_cmd *cmd)
 
 	if (token && token->type != PIPE)
 	{
-		if (token->type == ARG || token->type == CMD || 
-		(check_redir_type(token->type) && token->in_quote == 1))
+		if (token->type == ARG || token->type == CMD
+			|| (check_redir_type(token->type) && token->in_quote == 1))
 		{
 			if (!cmd->arg)
 			{
@@ -53,7 +53,6 @@ void	new_cmd(t_token *token, t_cmd **cmd)
 	new_cmd = NULL;
 	while (token)
 	{
-		
 		if (token->next && (token->type == FILES || token->type == DELIMITER))
 			token = token->next;
 		if (new_cmd == NULL)

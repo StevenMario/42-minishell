@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 07:58:07 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/18 16:53:17 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:20:53 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ static int	ft_arg_is_overlong(char *arg) // 1=isn't overlong, 0=is overlong
 		return (0);
 	if (ft_arg_is_nbr(arg) == 0 && ft_strcmp(arg, "9223372036854775807") > 0)
 		return (0);
-	if (ft_arg_is_nbr(arg) == 0 && ft_strcmp(arg, "-9223372036854775808") > 0)
+	if (ft_arg_is_nbr(arg) == 0 && arg[0] == '-'
+		&& ft_strcmp(arg, "-9223372036854775808") > 0)
 		return (0);
 	return (1);
 }

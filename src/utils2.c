@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 08:14:13 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/19 14:45:55 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:54:34 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,3 @@ int	check_valid_token(char *content, int i)
 	}
 	return (0);
 }
-
-
-
-int	loop_check_valid_token(char *str, int *exit_status)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (check_valid_token(str, i) == 1)
-		{
-			free(str);
-			*exit_status = 2;
-			return (1);
-		}
-	}
-	return (0);
-}
-
-// int  check_in_quote(char *str)
-// {
-// 	int len;
-
-// 	len = ft_strlen(str);
-// 	if (str)
-// 	{
-// 		if ((str[0] == '"' && str[len - 1] == '"')
-// 		|| (str[0] == '\'' && str[len - 1] == '\''))
-// 			return (1);
-// 	}
-// }

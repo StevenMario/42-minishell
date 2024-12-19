@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/19 15:09:49 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:53:46 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	check_last_token(t_token *token)
 		return (1);
 	while (temp && temp->next)
 		temp = temp->next;
-	// printf("temp->content = %s\n",temp->content);
 	if (check_redir_type(temp->type) == 1 && temp->in_quote == 0)
 	{
 		ft_error_writer("syntax error near unexpected token",
@@ -33,11 +32,10 @@ int	check_last_token(t_token *token)
 	return (0);
 }
 
-
-void process_token(t_token *token)
+void	process_token(t_token *token)
 {
-	t_token *tmp;
-	char 	*str;
+	t_token	*tmp;
+	char	*str;
 
 	tmp = token;
 	str = NULL;
@@ -61,7 +59,6 @@ void	init_data(t_data *data, char *input, char **env)
 		data->e_lst = fill_env_in_t_env(env);
 	init_token(data, input);
 	process_token(data->token);
-
 	assigne_type_token(data);
 	init_cmd(data);
 	if (herdoc_handler(data) == 1)

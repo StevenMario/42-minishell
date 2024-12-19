@@ -40,8 +40,8 @@ t_token	*ft_double_lstnew_token(char *content)
 	new_token->prev = NULL;
 	if (content)
 		new_token->content = ft_strdup(content);
-	if (ft_count_char_in_str(content,'"')
-		|| ft_count_char_in_str(content,'\''))
+	if (ft_count_char_in_str(content, '"') || ft_count_char_in_str(content,
+			'\''))
 		new_token->in_quote = 1;
 	else
 		new_token->in_quote = 0;

@@ -6,7 +6,7 @@
 /*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 09:33:52 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/19 08:51:32 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:54:41 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <errno.h>
 
 extern int	g_status;
 
@@ -44,6 +45,5 @@ void		init_signals(void);
 void		data__token_cmd_initialized(t_data *data);
 int			check_pair_quote(char *input);
 int			check_error_and_init_data(t_data **data, int argc);
-int			loop_check_valid_token(char *str, int *exit_status);
 
 #endif
