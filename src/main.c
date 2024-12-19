@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:07:37 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/19 15:53:46 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:18:58 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,30 @@ void	process_token(t_token *token)
 	str = NULL;
 	while (tmp)
 	{
-		str = remove_quote_process(tmp->content);
-		free(tmp->content);
+		if ((ft_strcmp(tmp->content,"''") == 0
+			&& (tmp->next && tmp->next->type == ARG)) 
+			||(ft_strcmp(tmp->content,"\"\"") == 0
+			&& (tmp->next && tmp->next->type == ARG)))
+			str = ft_strdup(" ");
+		else
+			str = remove_quote_process(tmp->content);
+		if (tmp->content)
+			free(tmp->content);
 		tmp->content = ft_strdup(str);
-		free(str);
+		if (str)
+			free(str);
+		tmp = tmp->next;
+	}
+}
+
+void print_token(t_token *token)
+{
+	t_token *tmp;
+
+	tmp = token;
+	while (tmp)
+	{
+		printf("token = %s token->type = %d\n",tmp->content,tmp->type);
 		tmp = tmp->next;
 	}
 }
@@ -58,8 +78,9 @@ void	init_data(t_data *data, char *input, char **env)
 	if (data && !data->e_lst)
 		data->e_lst = fill_env_in_t_env(env);
 	init_token(data, input);
+	assigne_type_token(data);  
 	process_token(data->token);
-	assigne_type_token(data);
+	// print_token(data->token);
 	init_cmd(data);
 	if (herdoc_handler(data) == 1)
 	{
