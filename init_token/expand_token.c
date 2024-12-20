@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/19 21:05:01 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/20 10:08:43 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char **join_expd_val(char **expd_val)
 	int i;
 
 	i = 0;
-	while (expd_val[i])
+	while ( expd_val && expd_val[i])
 		i++;
 	if (i > 2)
 	{

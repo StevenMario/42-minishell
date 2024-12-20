@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   browse_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 10:06:00 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/18 15:13:49 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:46:58 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,11 @@ int	check_arg_point(t_exv exv, t_cmd *cmd)
 	{
 		ft_error_writer(cmd->arg[1], " :file not found\n");
 		return (ft_free_env2d_pathspl(exv.env_2d, exv.path_spl, exv.path), 1);
+	}
+	else if ((ft_strcmp(cmd->arg[0], "..") == 0))
+	{
+		ft_error_writer(cmd->arg[0], " :command not found\n");
+		return (ft_free_env2d_pathspl(exv.env_2d, exv.path_spl, exv.path), 127);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/19 21:20:35 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:21:14 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,35 @@ char	**remove_quote_no_expand(char *trim_temp)
 	return (expand_val);
 }
 
+int check_last_token_is_herrdoc(t_token *token)
+{
+	t_token  *tmp;
+
+	tmp = token;
+	while (tmp && tmp->next)
+		tmp = tmp->next;
+	if (tmp && tmp->content && ft_strcmp(tmp->content,"<<") == 0)
+		return (1);
+	return (0);
+}
+
 void	fill_data(t_data *data, char *temp)
 {
 	char	*trim_temp;
 	char	**expand_val;
 	int		i;
-	int status;
+	int		is_expand;
+	int		status;
 
 	status = 0;
-	expand_val = NULL;
+	is_expand = 0;
+	expand_val = NULL; 
 	trim_temp = ft_strtrim(temp, " \n\t");
-	if (ft_count_char_in_str(trim_temp, '$'))
+	if (ft_count_char_in_str(trim_temp, '$') && !check_last_token_is_herrdoc(data->token))
+	{
 		expand_val = check_var(trim_temp, data->e_lst);
+		is_expand = 1;
+	}
 	else
 	{
 		expand_val = remove_quote_no_expand(trim_temp);
@@ -70,12 +87,11 @@ void	fill_data(t_data *data, char *temp)
 	i = -1;
 	while (expand_val && expand_val[++i])
 	{
-		// printf("expand_val[i] = %s\n",expand_val[i]);
 		if (data->token == NULL)
-			data->token = ft_double_lstnew_token(expand_val[i],status);
+			data->token = ft_double_lstnew_token(expand_val[i],status,is_expand);
 		else
 			ft_lstadd_back_token(&data->token,
-				ft_double_lstnew_token(expand_val[i],status));
+				ft_double_lstnew_token(expand_val[i],status,is_expand));
 	}
 	if (expand_val)
 		ft_free_str(expand_val);

@@ -6,7 +6,7 @@
 /*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:07:43 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/19 21:19:44 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/20 09:34:14 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_lstadd_back_token(t_token **lst, t_token *new)
 	}
 }
 
-t_token	*ft_double_lstnew_token(char *content,int status)
+t_token	*ft_double_lstnew_token(char *content,int status,int is_expand)
 {
 	t_token	*new_token;
 
@@ -44,7 +44,8 @@ t_token	*ft_double_lstnew_token(char *content,int status)
 	// 		'\''))
 	// 	new_token->in_quote = 1;
 	// else
-		new_token->in_quote = status;
+	new_token->in_quote = status;
+	new_token->is_expand = is_expand;
 	new_token->next = NULL;
 	return (new_token);
 }

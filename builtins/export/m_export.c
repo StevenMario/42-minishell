@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_export.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 19:23:50 by iarantsoa         #+#    #+#             */
-/*   Updated: 2024/12/19 12:49:07 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/20 13:49:55 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,10 @@ int	ft_pre_export(t_data *data, int l)
 int	ft_export(t_data *data)
 {
 	int	l;
+	int status;
 
 	l = 0;
+	status = 0;
 	if (data->cmd->arg[1])
 	{
 		while (data->cmd->arg[++l])
@@ -109,11 +111,10 @@ int	ft_export(t_data *data)
 					return (1);
 			}
 			else
-			{
-			}
+				status = 1;
 		}
 	}
 	else
 		ft_print_dx(data);
-	return (0);
+	return (status);
 }

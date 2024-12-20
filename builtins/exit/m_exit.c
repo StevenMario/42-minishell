@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 07:58:07 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/19 12:20:53 by irabesan         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:05:17 by mrambelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,17 @@ int	ft_exit(t_data *mish, t_cmd *cmd)
 	if (cmd->arg[i] != NULL)
 	{
 		str = cmd->arg;
-		strim = ft_strtrim(str[i], " \t");
+		// printf("str[i] = [%s]\n",str[i]);
+		// printf("ft_is_space(str[i]) = %d\n",ft_is_space(str[i]));
+		if (ft_count_char_in_str(str[i], ' ') == (int)ft_strlen(str[i]))
+			strim = ft_strdup(str[i]);
+		else
+			strim = ft_strtrim(str[i], " \n\t");
+		printf("strim = [%s]\n",strim);
 		if (ft_arg_is_nbr(strim) == 1 || ft_arg_is_overlong(strim) == 0)
 			ft_do_error(strim, str[i], mish);
 		else if (count_av(str) > 2)
-			ft_do_error2(mish, str[i]);
+			return(ft_do_error2(mish, str[i]), 1);
 		if (strim)
 			free(strim);
 		status = ft_atll(str[i]);
