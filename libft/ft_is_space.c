@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_space.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 13:07:59 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/20 15:04:37 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:25:09 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_is_space(char *str)
 		if (str[i] != ' ' || str[i] != '\t' || str[i] != '\n')
 			return (0);
 		i++;
-
 	}
 	return (1);
 }

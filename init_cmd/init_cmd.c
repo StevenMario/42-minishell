@@ -18,7 +18,7 @@ void	init_cmd(t_data *data)
 	new_cmd(data->token, &data->cmd);
 }
 
-void check_null_content(t_token **token)
+void	check_null_content(t_token **token)
 {
 	if (*token && !(*token)->content)
 	{

@@ -40,5 +40,5 @@ void	sig_heredoc(int signum);
 void	ft_clear_sigint(t_data *data, int fd);
 void	fill_herdocc_fd(t_file *rfile, t_data *data, int fd[2]);
 void	ft_pre_herdoc(t_data *data, t_file *rfile, int fd[2]);
-void check_null_content(t_token **token);
+void	check_null_content(t_token **token);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_exit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 07:58:07 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/20 15:05:17 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:43:52 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static long long	ft_atll(char *arg)
 	return ((res * sign) % 256);
 }
 
-static int	ft_arg_is_overlong(char *arg) // 1=isn't overlong, 0=is overlong
+static int	ft_arg_is_overlong(char *arg)
 {
 	char	*tmp;
 
@@ -64,8 +64,8 @@ static int	ft_arg_is_overlong(char *arg) // 1=isn't overlong, 0=is overlong
 		return (0);
 	if (ft_arg_is_nbr(arg) == 0 && ft_strcmp(arg, "9223372036854775807") > 0)
 		return (0);
-	if (ft_arg_is_nbr(arg) == 0 && arg[0] == '-'
-		&& ft_strcmp(arg, "-9223372036854775808") > 0)
+	if (ft_arg_is_nbr(arg) == 0 && arg[0] == '-' && ft_strcmp(arg,
+			"-9223372036854775808") > 0)
 		return (0);
 	return (1);
 }
@@ -92,17 +92,11 @@ int	ft_exit(t_data *mish, t_cmd *cmd)
 	if (cmd->arg[i] != NULL)
 	{
 		str = cmd->arg;
-		// printf("str[i] = [%s]\n",str[i]);
-		// printf("ft_is_space(str[i]) = %d\n",ft_is_space(str[i]));
-		if (ft_count_char_in_str(str[i], ' ') == (int)ft_strlen(str[i]))
-			strim = ft_strdup(str[i]);
-		else
-			strim = ft_strtrim(str[i], " \n\t");
-		printf("strim = [%s]\n",strim);
+		strim = set_strim(str[i]);
 		if (ft_arg_is_nbr(strim) == 1 || ft_arg_is_overlong(strim) == 0)
 			ft_do_error(strim, str[i], mish);
 		else if (count_av(str) > 2)
-			return(ft_do_error2(mish, str[i]), 1);
+			return (ft_do_error2(mish, str[i]), 1);
 		if (strim)
 			free(strim);
 		status = ft_atll(str[i]);

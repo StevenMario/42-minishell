@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:07:43 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/20 09:34:14 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:15:55 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_lstadd_back_token(t_token **lst, t_token *new)
 	}
 }
 
-t_token	*ft_double_lstnew_token(char *content,int status,int is_expand)
+t_token	*ft_double_lstnew_token(char *content, int status, int is_expand)
 {
 	t_token	*new_token;
 
@@ -40,10 +40,6 @@ t_token	*ft_double_lstnew_token(char *content,int status,int is_expand)
 	new_token->prev = NULL;
 	if (content)
 		new_token->content = ft_strdup(content);
-	// if (ft_count_char_in_str(content, '"') || ft_count_char_in_str(content,
-	// 		'\''))
-	// 	new_token->in_quote = 1;
-	// else
 	new_token->in_quote = status;
 	new_token->is_expand = is_expand;
 	new_token->next = NULL;

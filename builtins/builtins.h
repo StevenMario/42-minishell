@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:21:53 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:12 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:38:45 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_free_kval(char *k, char *val);
 void	ft_swap(t_env *sort);
 void	ft_do_error(char *strim, char *arg, t_data *mish);
 void	handling_exit_error(char *arg, char *m_err, int code_failure);
-int	ft_do_error2(t_data *mish, char *arg);
+int		ft_do_error2(t_data *mish, char *arg);
+char	*set_strim(char *strim);
 
 #endif

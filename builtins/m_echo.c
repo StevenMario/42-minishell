@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_echo.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 11:29:31 by irabesan          #+#    #+#             */
-/*   Updated: 2024/12/19 19:32:22 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:34:42 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,11 @@ int	ft_echo(char **echo)
 
 	i = 1;
 	option = 0;
-	// if (echo)
-		// printf("echo[i] = %s\n",echo[0]);
-	// else
-	// 	printf("Tsisi inoinna ato eh\n");
 	while (echo && echo[i] && iof_flag(echo[i]) == 1)
 	{
 		option = 1;
 		i++;
 	}
-	// i = 1;
 	while (echo[i])
 	{
 		printf("%s", echo[i]);

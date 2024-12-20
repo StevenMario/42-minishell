@@ -97,7 +97,7 @@ int	ft_pre_export(t_data *data, int l)
 int	ft_export(t_data *data)
 {
 	int	l;
-	int status;
+	int	status;
 
 	l = 0;
 	status = 0;

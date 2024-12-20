@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 18:45:24 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/20 12:21:14 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:22:21 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "token.h"
-
-char	*remove_quote_process(char *str)
-{
-	int		i;
-	char	*res;
-	int		in_s_quote;
-	int		in_d_quote;
-
-	res = NULL;
-	i = -1;
-	in_d_quote = 0;
-	in_s_quote = 0;
-	while (str[++i])
-	{
-		if (chech_in_quote(str[i], &in_d_quote, &in_s_quote))
-		{
-		}
-		else
-			res = char_append(res, str[i]);
-	}
-	return (res);
-}
 
 char	**remove_quote_no_expand(char *trim_temp)
 {
@@ -41,60 +19,48 @@ char	**remove_quote_no_expand(char *trim_temp)
 	expand_val = malloc(sizeof(char *) * 2);
 	if (!expand_val)
 		return (NULL);
-	// expand_val[0] = ft_strdup(trim_temp);
 	expand_val[0] = remove_quote_process(trim_temp);
 	expand_val[1] = NULL;
 	return (expand_val);
 }
 
-int check_last_token_is_herrdoc(t_token *token)
+int	check_last_token_is_herrdoc(t_token *token)
 {
-	t_token  *tmp;
+	t_token	*tmp;
 
 	tmp = token;
 	while (tmp && tmp->next)
 		tmp = tmp->next;
-	if (tmp && tmp->content && ft_strcmp(tmp->content,"<<") == 0)
+	if (tmp && tmp->content && ft_strcmp(tmp->content, "<<") == 0)
 		return (1);
 	return (0);
 }
 
 void	fill_data(t_data *data, char *temp)
 {
-	char	*trim_temp;
-	char	**expand_val;
-	int		i;
-	int		is_expand;
-	int		status;
+	t_tk	tk;
 
-	status = 0;
-	is_expand = 0;
-	expand_val = NULL; 
-	trim_temp = ft_strtrim(temp, " \n\t");
-	if (ft_count_char_in_str(trim_temp, '$') && !check_last_token_is_herrdoc(data->token))
+	tk.status = 0;
+	tk.is_expand = 0;
+	tk.expand_val = NULL;
+	tk.trim_temp = ft_strtrim(temp, " \n\t");
+	if (ft_count_char_in_str(tk.trim_temp, '$')
+		&& !check_last_token_is_herrdoc(data->token))
 	{
-		expand_val = check_var(trim_temp, data->e_lst);
-		is_expand = 1;
+		tk.expand_val = check_var(tk.trim_temp, data->e_lst);
+		tk.is_expand = 1;
 	}
 	else
 	{
-		expand_val = remove_quote_no_expand(trim_temp);
-		if (ft_count_char_in_str(trim_temp,'\'') > 0
-		|| ft_count_char_in_str(trim_temp,'"') > 0)
-			status = 1;
-	}	
-	free(trim_temp);
-	i = -1;
-	while (expand_val && expand_val[++i])
-	{
-		if (data->token == NULL)
-			data->token = ft_double_lstnew_token(expand_val[i],status,is_expand);
-		else
-			ft_lstadd_back_token(&data->token,
-				ft_double_lstnew_token(expand_val[i],status,is_expand));
+		tk.expand_val = remove_quote_no_expand(tk.trim_temp);
+		if (ft_count_char_in_str(tk.trim_temp, '\'') > 0
+			|| ft_count_char_in_str(tk.trim_temp, '"') > 0)
+			tk.status = 1;
 	}
-	if (expand_val)
-		ft_free_str(expand_val);
+	free(tk.trim_temp);
+	add_token(data, tk);
+	if (tk.expand_val)
+		ft_free_str(tk.expand_val);
 }
 
 char	*fill_temp(char *input, int *i)
@@ -146,4 +112,5 @@ void	init_token(t_data *data, char *input)
 	}
 	free(input_temp);
 	free(input);
+	assigne_type_token(data);
 }

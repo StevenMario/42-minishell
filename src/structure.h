@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 12:20:56 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/20 10:45:01 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:05:13 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,11 @@ typedef struct s_exv
 	char	*path_n[2];
 }	t_exv;
 
+typedef struct s_tk
+{
+	char	*trim_temp;
+	char	**expand_val;
+	int		is_expand;
+	int		status;
+}	t_tk;
 #endif

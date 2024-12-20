@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrambelo <mrambelo@student.42antananari    +#+  +:+       +#+        */
+/*   By: irabesan <irabesan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 11:25:26 by mrambelo          #+#    #+#             */
-/*   Updated: 2024/12/20 10:08:43 by mrambelo         ###   ########.fr       */
+/*   Updated: 2024/12/20 16:00:07 by irabesan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,25 @@ int	get_last_expd_value(char ***expd_val, char *res, char *res_expd, int *i)
 	return (0);
 }
 
-char **join_expd_val(char **expd_val)
+char	**join_expd_val(char **expd_val)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while ( expd_val && expd_val[i])
+	while (expd_val && expd_val[i])
 		i++;
 	if (i > 2)
 	{
 		i = 1;
 		while (expd_val[++i])
 		{
-			// printf("expd_val[i] = %s\n",expd_val[i]);
-			expd_val[1] = ft_strjoin(expd_val[1]," ");
-			expd_val[1] = ft_strjoin(expd_val[1],expd_val[i]);
-			if(expd_val[i])
+			expd_val[1] = ft_strjoin(expd_val[1], " ");
+			expd_val[1] = ft_strjoin(expd_val[1], expd_val[i]);
+			if (expd_val[i])
 				free(expd_val[i]);
 		}
 		expd_val[2] = NULL;
 	}
-	// printf("i = %d\n",i);
 	return (expd_val);
 }
 
@@ -76,7 +74,6 @@ char	**ft_split_expand(char *res)
 	{
 		if (chech_in_quote(res[i], &expand.in_d_quote, &expand.in_s_quote))
 		{
-			// expand.res = char_append(expand.res, res[i]);
 		}
 		else if (expand.in_d_quote || expand.in_s_quote)
 			expand.res = char_append(expand.res, res[i]);
@@ -92,29 +89,7 @@ char	**ft_split_expand(char *res)
 		i++;
 	}
 	join_expd_val(expand.expd_val);
-	// i = -1;
-	// while (expand.expd_val[++i])
-	// 	printf("expand.expd_val[i] = %s\n",expand.expd_val[i]);
 	return (expand.expd_val);
-}
-
-char	*get_res(char *str, int *i, t_env *e_lst, char *expd_res)
-{
-	char	*val_exp;
-
-	val_exp = NULL;
-	if (str[*i] == '$')
-		(*i)++;
-	val_exp = get_val(str, i, e_lst);
-	// if (val_exp)
-	// 	val_exp = add_d_quote(val_exp);
-	if (!expd_res && val_exp)
-		expd_res = ft_strdup(val_exp);
-	else if (val_exp && expd_res)
-		expd_res = ft_strjoin(expd_res, val_exp);
-	if (val_exp)
-		free(val_exp);
-	return (expd_res);
 }
 
 char	**check_var(char *str, t_env *e_list)
